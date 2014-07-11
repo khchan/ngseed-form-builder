@@ -1,0 +1,38 @@
+<h2>{{ form.form_title }}</h2>
+
+<div ng-show="!form.submitted">
+    <div class="field row">
+        <div class="col-md-2">Form Type:</div>
+        <div class="col-md-4">{{ form.form_type }}</div>
+    </div>
+    <div class="field row">
+        <div class="col-md-2">Form Name:</div>
+        <div class="col-md-4">{{ form.form_name }}</div>
+    </div>
+    <div class="field row">
+        <div class="col-md-2">Form Title:</div>
+        <div class="col-md-4">{{ form.form_title }}</div>
+    </div>
+    <form name="myForm" id="myForm">
+        <div ng-repeat="field in form.form_questions">
+            <field-directive field="field">
+
+            </field-directive>
+        </div>
+    </form>
+
+    <div class="form-actions">
+        <p class="text-center">
+            <button class="btn btn-success right" type="button" ng-disabled="!myForm.$valid" ng-click="submit()">Submit</button>
+            <button class="btn btn-danger right" type="button" ng-click="cancel()">Cancel</button>
+        </p>
+    </div>
+</div>
+
+<div ng-show="form.submitted">
+    <h3>Submitted Data</h3>
+    <div ng-repeat="field in form.form_questions">
+        Field Title: {{ field.field_title }} <br>
+        Field Value: {{ field.field_value }} <br><br>
+    </div>
+</div>
