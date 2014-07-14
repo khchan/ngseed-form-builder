@@ -1,38 +1,43 @@
-<h2>{{ form.form_title }}</h2>
-
-<div ng-show="!form.submitted">
-    <div class="field row">
-        <div class="col-md-2">Form Type:</div>
-        <div class="col-md-4">{{ form.form_type }}</div>
-    </div>
-    <div class="field row">
-        <div class="col-md-2">Form Name:</div>
-        <div class="col-md-4">{{ form.form_name }}</div>
-    </div>
-    <div class="field row">
-        <div class="col-md-2">Form Title:</div>
-        <div class="col-md-4">{{ form.form_title }}</div>
-    </div>
-    <form name="myForm" id="myForm">
-        <div ng-repeat="field in form.form_questions">
-            <field-directive field="field">
-
-            </field-directive>
+<section class="row" ng-show="!form.submitted">
+    <h3 class="col-md-12 text-center">{{ form.form_title }}</h3>
+    <div class="col-sm-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+        <div class="text-center">
+            <dl class="dl-horizontal">
+                <dt>Form Type:</dt><dd>{{ form.form_type }}</dd>
+                <dt>Form Name:</dt><dd>{{ form.form_name }}</dd>
+                <dt>Form Title:</dt><dd>{{ form.form_title }}</dd>
+            </dl>
         </div>
-    </form>
+        <form name="myForm" id="myForm" class="signin form-horizontal" novalidate autocomplete="off">
+            <fieldset>
+                <div ng-repeat="field in form.form_questions">
+                    <field-directive field="field">
 
-    <div class="form-actions">
-        <p class="text-center">
-            <button class="btn btn-success right" type="button" ng-disabled="!myForm.$valid" ng-click="submit()">Submit</button>
-            <button class="btn btn-danger right" type="button" ng-click="cancel()">Cancel</button>
-        </p>
+                    </field-directive>
+                </div>
+                <div data-ng-show="error" class="text-center text-danger">
+                    <strong>{{error}}</strong>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success right" type="button" ng-disabled="!myForm.$valid" ng-click="submit()">Submit</button>
+                    <button class="btn btn-danger right" type="button" ng-click="cancel()">Cancel</button>
+                </div>
+            </fieldset>
+        </form>
     </div>
-</div>
+</section>
 
 <div ng-show="form.submitted">
     <h3>Submitted Data</h3>
-    <div ng-repeat="field in form.form_questions">
-        Field Title: {{ field.field_title }} <br>
-        Field Value: {{ field.field_value }} <br><br>
-    </div>
+    <dl class="dl-horizontal">
+        <dt>Form Type:</dt><dd>{{ form.form_type }}</dd>
+        <dt>Form Name:</dt><dd>{{ form.form_name }}</dd>
+        <dt>Form Title:</dt><dd>{{ form.form_title }}</dd> 
+        <hr/> 
+        <div ng-repeat="field in form.form_questions">
+            <dt>Field Title:</dt><dd>{{ field.field_title }}</dd>
+            <dt>Field Value:</dt><dd>{{ field.field_value }}</dd>
+            <br/>
+        </div>
+    </dl>
 </div>
