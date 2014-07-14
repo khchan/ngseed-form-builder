@@ -19,7 +19,7 @@
                     <strong>{{error}}</strong>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-success right" type="button" ng-disabled="!myForm.$valid" ng-click="submit()">Submit</button>
+                    <button class="btn btn-success right" type="button" ng-disabled="myForm.$invalid" ng-click="submit()">Submit</button>
                     <button class="btn btn-danger right" type="button" ng-click="cancel()">Cancel</button>
                 </div>
             </fieldset>
@@ -35,8 +35,14 @@
         <dt>Form Title:</dt><dd>{{ form.form_title }}</dd> 
         <hr/> 
         <div ng-repeat="field in form.form_questions">
-            <dt>Field Title:</dt><dd>{{ field.field_title }}</dd>
-            <dt>Field Value:</dt><dd>{{ field.field_value }}</dd>
+            <dt>Label:</dt><dd>{{ field.field_title }}</dd>
+            <dt>Name:</dt><dd>{{ field.field_name }}</dd>
+            <dt>Value:</dt><dd>{{ field.field_value }}</dd>
+            <div ng-if="field.field_type == ('textfield' || 'email' || 'password' || 'textarea')">
+                <dt>Placeholder:</dt><dd>{{ field.field_placeholder }}</dd>
+                <dt>Valid Pattern:</dt><dd>{{ field.field_validation_pattern }}</dd>
+                <dt>Helper Text:</dt><dd>{{ field.field_helpertext }}</dd>
+            </div>
             <br/>
         </div>
     </dl>

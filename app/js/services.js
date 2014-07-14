@@ -35,6 +35,10 @@ angular.module('myApp.services', [])
                 value : 'Checkbox'
             },
             {
+                name : 'number',
+                value : 'Number'
+            },
+            {
                 name : 'hidden',
                 value : 'Hidden'
             }

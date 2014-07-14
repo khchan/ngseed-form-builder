@@ -2,9 +2,10 @@
     <label for="field.field_id">
         {{field.field_title}}
     </label>
-    <span class="required-error" ng-show="field.field_required && !field.field_value">* required</span>
+    <span class="required-error" ng-show="field.field_required && !field.field_value">* {{field.field_helpertext}}</span>
 	<input type="date" 
 		id="field.field_id"
+		name="{{field.field_name}}"
 		ng-model="field.field_value"
 		value="field.field_value"
 	    required="field.field_required"

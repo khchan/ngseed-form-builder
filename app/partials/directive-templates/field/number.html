@@ -3,13 +3,15 @@
         {{field.field_title}}
     </label>
     <span class="required-error" ng-show="field.field_required && !field.field_value">* {{field.field_helpertext}}</span>
-	<textarea type="text" 
+	<input type="number" 
+		placeholder="{{field.field_placeholder}}"
 		id="field.field_id"
 		name="{{field.field_name}}" 
+		class="form-control" 
 		ng-model="field.field_value"
 		value="field.field_value"
 	    required="field.field_required"
-	    class="form-control"
-   		placeholder="{{field.field_placeholder}}"
+	    min="{{field.field_min}}"
+	    max="{{field.field_max}}"
 	>
 </div>

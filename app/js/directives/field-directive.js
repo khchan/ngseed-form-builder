@@ -20,6 +20,9 @@ angular.module('directive.field', [])
             case 'checkbox':
                 templateUrl = 'partials/directive-templates/field/checkbox.html';
                 break;
+            case 'number':
+                templateUrl = 'partials/directive-templates/field/number.html';
+                break;
             case 'date':
                 templateUrl = 'partials/directive-templates/field/date.html';
                 break;
