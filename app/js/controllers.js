@@ -35,7 +35,7 @@ angular.module('myApp.controllers', [])
         var newField = {
             "field_id" : $scope.addField.lastAddedID,
             "field_name" : "question_"+$scope.addField.lastAddedID+"_"+$scope.addField.new,
-            "field_title" : "New field - " + ($scope.addField.lastAddedID),
+            "field_title" : "New " + $scope.addField.new + " field",
             "field_type" : $scope.addField.new,
             "field_value" : "",
             "field_placeholder" : "Enter a "+$scope.addField.new+" value",

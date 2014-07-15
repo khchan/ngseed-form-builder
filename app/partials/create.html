@@ -39,7 +39,8 @@
 					<button type="button" class="btn btn-default" ng-click="addField.new = type.name ; addNewField()">{{type.value}}</button>
 				</div>
 			</div>
-			<button type="submit" class="btn" ng-click="addNewField()">Add Question</button>
+			<button type="submit" class="btn" ng-click="addNewField()">
+				<span class="glyphicon glyphicon-plus"></span> Add Question</button>
 		</div>
 		<hr>
 		<p ng-show="form.form_questions.length == 0">No questions added yet.</p>
@@ -48,13 +49,13 @@
 			<div ui-sortable="sortableOptions" ng-model="form.form_questions">
 				<accordion-group ng-repeat="field in form.form_questions">
 					<accordion-heading>
-						<span class="glyphicon glyphicon-list">&nbsp;</span>
-						{{field.field_title}} : [ {{field.field_type}} ]
-						<span class="glyphicon glyphicon-move pull-right"></span>
+						<span class="glyphicon glyphicon-list"></span>
+						<b>{{field.field_id}}) </b>{{field.field_title}}
 					</accordion-heading>
 					
 					<div class="accordion-edit">
-						<button class="btn btn-danger pull-right" type="button" ng-click="deleteField(field.field_id)">Delete</button>
+						<button class="btn btn-danger pull-right" type="button" ng-click="deleteField(field.field_id)">
+							<span class="glyphicon glyphicon-trash"></span> Delete</button>
 						<div class="row">
 							<div class="col-md-4">Question ID: </div>	
 							<div class="col-md-4">{{field.field_id}}</div>
@@ -120,9 +121,9 @@
 								</div>
 							</div>
 							<div ng-if="(field.field_type == 'textfield') ||
-											 		(field.field_type == 'email') ||
-												  	(field.field_type == 'password') ||
-												   	(field.field_type == 'textarea')">
+								 		(field.field_type == 'email') ||
+									  	(field.field_type == 'password') ||
+									   	(field.field_type == 'textarea')">
 								<div class="row">
 									<div class="col-md-4">Question Placeholder:</div>
 									<div class="col-md-8">
@@ -160,8 +161,10 @@
 		</accordion>
 
 		<p class="text-center">
-			<button class="btn btn-primary right" type="button" ng-click="previewOn()">Preview Form</button>
-			<button class="btn btn-danger right" type="button" ng-click="reset()">Reset</button>
+			<button class="btn btn-primary right" type="button" ng-click="previewOn()">
+				<span class="glyphicon glyphicon-eye-open"></span> Preview Form</button>
+			<button class="btn btn-danger right" type="button" ng-click="reset()"> 
+				<span class="glyphicon glyphicon-refresh"></span> Reset</button>
 		</p>
 
 		<br><hr>
