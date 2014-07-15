@@ -43,111 +43,120 @@
 		</div>
 		<hr>
 		<p ng-show="form.form_questions.length == 0">No questions added yet.</p>
-		<accordion ng-model="form.form_questions" close-others="accordion.oneAtATime">
-			<accordion-group heading="{{field.field_title}} : [ {{field.field_type}} ]" ng-repeat="field in form.form_questions">
-				<div class="accordion-edit">
-					<button class="btn btn-danger pull-right" type="button" ng-click="deleteField(field.field_id)">Delete</button>
-					<div class="row">
-						<div class="col-md-4">Question ID: </div>	
-						<div class="col-md-4">{{field.field_id}}</div>
-					</div>
-					<div class="row">
-						<div class="col-md-4">Question Type:</div>
-						<div class="col-md-8">{{field.field_type}}</div>
-					</div>
 
-					<div class="clear"></div> <hr>
+		<accordion ui-sortable ng-model="form.form_questions" close-others="accordion.oneAtATime">
+			<div ui-sortable="sortableOptions" ng-model="form.form_questions">
+				<accordion-group ng-repeat="field in form.form_questions">
+					<accordion-heading>
+						<span class="glyphicon glyphicon-list">&nbsp;</span>
+						{{field.field_title}} : [ {{field.field_type}} ]
+						<span class="glyphicon glyphicon-move pull-right"></span>
+					</accordion-heading>
+					
+					<div class="accordion-edit">
+						<button class="btn btn-danger pull-right" type="button" ng-click="deleteField(field.field_id)">Delete</button>
+						<div class="row">
+							<div class="col-md-4">Question ID: </div>	
+							<div class="col-md-4">{{field.field_id}}</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">Question Type:</div>
+							<div class="col-md-8">{{field.field_type}}</div>
+						</div>
 
-					<div class="row">
-						<div class="col-md-4">Question Label:</div>
-						<div class="col-md-8">
-							<input type="text" ng-model="field.field_title" class="form-control" value="{{field.field_title}}">
+						<div class="clear"></div> <hr>
+
+						<div class="row">
+							<div class="col-md-4">Question Label:</div>
+							<div class="col-md-8">
+								<input type="text" ng-model="field.field_title" class="form-control" value="{{field.field_title}}">
+							</div>
 						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-4">Question Name:</div>
-						<div class="col-md-8">
-							<input type="text" ng-model="field.field_name" class="form-control" value="{{field.field_name}}">
+						<div class="row">
+							<div class="col-md-4">Question Name:</div>
+							<div class="col-md-8">
+								<input type="text" ng-model="field.field_name" class="form-control" value="{{field.field_name}}">
+							</div>
 						</div>
-					</div>
-					<div class="row" ng-show="showAddOptions(field)">
-						<div class="col-md-4">Question Options:</div>
-						<div class="col-md-8">
-							<div ng-repeat="option in field.field_options">
-								<form class="form-inline" role="form">
-									<div class="form-group">
-										<input type="text" class="form-control" placeholder="Enter name" 
-										ng-model="option.option_title" value="{{option.option_title}}">
+						<div class="row" ng-show="showAddOptions(field)">
+							<div class="col-md-4">Question Options:</div>
+							<div class="col-md-8">
+								<div ng-repeat="option in field.field_options">
+									<form class="form-inline" role="form">
+										<div class="form-group">
+											<input type="text" class="form-control" placeholder="Enter name" 
+											ng-model="option.option_title" value="{{option.option_title}}">
+										</div>
+										<div class="form-group">
+											<input type="text" class="form-control" placeholder="Enter value" 
+											ng-model="option.option_value" value="{{option.option_value}}">
+										</div>
+										<button type="button" class="btn btn-danger right" ng-click="deleteOption(field, option)">
+												-
+										</button>
+									</form>
+								</div>
+								<button class="btn btn-primary btn-sm" type="button" ng-click="addOption(field)">Add Option</button>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">Custom Validation</div>
+							<div class="col-md-8">
+								<button type="button" class="btn btn-info btn-xs" ng-click="showValidation = !showValidation">
+									Hide/Show
+								</button>
+							</div>
+						</div>
+						<div ng-init="showValidation = false" ng-show="showValidation">
+							<div ng-if="field.field_type == 'number'">
+								<div class="row">
+									<div class="col-md-4">Minimum / Maximum:</div>
+									<div class="col-md-4">
+										<input type="number" ng-model="field.field_min" class="form-control" value="{{field.field_min}}">
 									</div>
-									<div class="form-group">
-										<input type="text" class="form-control" placeholder="Enter value" 
-										ng-model="option.option_value" value="{{option.option_value}}">
+									<div class="col-md-4">
+										<input type="number" ng-model="field.field_max" class="form-control" value="{{field.field_max}}">
 									</div>
-									<button type="button" class="btn btn-danger right" ng-click="deleteOption(field, option)">
-											-
-									</button>
-								</form>
-							</div>
-							<button class="btn btn-primary btn-sm" type="button" ng-click="addOption(field)">Add Option</button>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-4">Custom Validation</div>
-						<div class="col-md-8">
-							<button type="button" class="btn btn-info btn-xs" ng-click="showValidation = !showValidation">
-								Hide/Show
-							</button>
-						</div>
-					</div>
-					<div ng-init="showValidation = false" ng-show="showValidation">
-						<div ng-if="field.field_type == 'number'">
-							<div class="row">
-								<div class="col-md-4">Minimum / Maximum:</div>
-								<div class="col-md-4">
-									<input type="number" ng-model="field.field_min" class="form-control" value="{{field.field_min}}">
 								</div>
-								<div class="col-md-4">
-									<input type="number" ng-model="field.field_max" class="form-control" value="{{field.field_max}}">
+							</div>
+							<div ng-if="(field.field_type == 'textfield') ||
+											 		(field.field_type == 'email') ||
+												  	(field.field_type == 'password') ||
+												   	(field.field_type == 'textarea')">
+								<div class="row">
+									<div class="col-md-4">Question Placeholder:</div>
+									<div class="col-md-8">
+										<input type="text" ng-model="field.field_placeholder" class="form-control" value="{{field.field_placeholder}}">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-4">Question Validation Pattern:</div>
+									<div class="col-md-8">
+										<input type="text" ng-model="field.field_validation_pattern" class="form-control" value="{{field.field_validation_pattern}}">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-4">Question Helper Text:</div>
+									<div class="col-md-8">
+										<input type="text" ng-model="field.field_helpertext" class="form-control" value="{{field.field_helpertext}}">
+									</div>
 								</div>
 							</div>
 						</div>
-						<div ng-if="(field.field_type == 'textfield') ||
-										 		(field.field_type == 'email') ||
-											  	(field.field_type == 'password') ||
-											   	(field.field_type == 'textarea')">
-							<div class="row">
-								<div class="col-md-4">Question Placeholder:</div>
-								<div class="col-md-8">
-									<input type="text" ng-model="field.field_placeholder" class="form-control" value="{{field.field_placeholder}}">
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-4">Question Validation Pattern:</div>
-								<div class="col-md-8">
-									<input type="text" ng-model="field.field_validation_pattern" class="form-control" value="{{field.field_validation_pattern}}">
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-4">Question Helper Text:</div>
-								<div class="col-md-8">
-									<input type="text" ng-model="field.field_helpertext" class="form-control" value="{{field.field_helpertext}}">
-								</div>
+						<div class="row">
+							<div class="col-md-4">Required:</div>
+							<div class="col-md-4">
+							<label class="radio-inline">
+								<input type="radio" ng-value="true" ng-selected ng-model="field.field_required"> Yes
+							</label>
+							<label class="radio-inline">
+								<input type="radio" ng-value="false" ng-model="field.field_required"> No
+							</label>
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-md-4">Required:</div>
-						<div class="col-md-4">
-						<label class="radio-inline">
-							<input type="radio" ng-value="true" ng-selected ng-model="field.field_required"> Yes
-						</label>
-						<label class="radio-inline">
-							<input type="radio" ng-value="false" ng-model="field.field_required"> No
-						</label>
-						</div>
-					</div>
-				</div>
-			</accordion-group>
+				</accordion-group>
+			</div>
 		</accordion>
 
 		<p class="text-center">

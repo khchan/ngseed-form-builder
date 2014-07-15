@@ -48,6 +48,20 @@ angular.module('myApp.controllers', [])
         $scope.form.form_questions.push(newField);
     }
 
+    $scope.form.form_questions.sort(function (a, b) {
+        return a.field_id > b.field_id
+    });
+
+    $scope.sortableOptions = {
+        cursor: 'move',
+        revert: true,
+        stop: function(e, ui) {
+            for (var idx in $scope.form.form_questions) {
+                $scope.form.form_questions[idx].field_id = ++idx;
+            }
+        }
+    }
+
     // deletes particular field on button click
     $scope.deleteField = function (field_id){
         for(var i = 0; i < $scope.form.form_questions.length; i++){
