@@ -47,10 +47,12 @@
 
 		<accordion ui-sortable ng-model="form.form_questions" close-others="accordion.oneAtATime">
 			<div ui-sortable="sortableOptions" ng-model="form.form_questions">
-				<accordion-group ng-repeat="field in form.form_questions">
+				<accordion-group ng-repeat="field in form.form_questions" is-open="status.open">
 					<accordion-heading>
-						<span class="glyphicon glyphicon-list"></span>
-						<b>{{field.field_id}}) </b>{{field.field_title}}
+						<a class="accordion-toggle">
+							{{field.field_id}}) &nbsp;{{field.field_title}}
+						</a>						
+						<span class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></span>
 					</accordion-heading>
 					
 					<div class="accordion-edit">
@@ -100,50 +102,8 @@
 								<button class="btn btn-primary btn-sm" type="button" ng-click="addOption(field)">Add Option</button>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-md-4">Custom Validation</div>
-							<div class="col-md-8">
-								<button type="button" class="btn btn-info btn-xs" ng-click="showValidation = !showValidation">
-									Hide/Show
-								</button>
-							</div>
-						</div>
-						<div ng-init="showValidation = false" ng-show="showValidation">
-							<div ng-if="field.field_type == 'number'">
-								<div class="row">
-									<div class="col-md-4">Minimum / Maximum:</div>
-									<div class="col-md-4">
-										<input type="number" ng-model="field.field_min" class="form-control" value="{{field.field_min}}">
-									</div>
-									<div class="col-md-4">
-										<input type="number" ng-model="field.field_max" class="form-control" value="{{field.field_max}}">
-									</div>
-								</div>
-							</div>
-							<div ng-if="(field.field_type == 'textfield') ||
-								 		(field.field_type == 'email') ||
-									  	(field.field_type == 'password') ||
-									   	(field.field_type == 'textarea')">
-								<div class="row">
-									<div class="col-md-4">Question Placeholder:</div>
-									<div class="col-md-8">
-										<input type="text" ng-model="field.field_placeholder" class="form-control" value="{{field.field_placeholder}}">
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-4">Question Validation Pattern:</div>
-									<div class="col-md-8">
-										<input type="text" ng-model="field.field_validation_pattern" class="form-control" value="{{field.field_validation_pattern}}">
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-4">Question Helper Text:</div>
-									<div class="col-md-8">
-										<input type="text" ng-model="field.field_helpertext" class="form-control" value="{{field.field_helpertext}}">
-									</div>
-								</div>
-							</div>
-						</div>
+						<validation-directive validate="field">
+						</validation-directive>
 						<div class="row">
 							<div class="col-md-4">Required:</div>
 							<div class="col-md-4">

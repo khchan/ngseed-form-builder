@@ -1,0 +1,22 @@
+<div class="row">
+	<div class="col-md-4">Custom Validation</div>
+	<div class="col-md-8">
+		<button type="button" class="btn btn-info btn-xs" ng-click="showValidation = !showValidation">
+			Hide/Show
+		</button>
+	</div>
+</div>
+<div ng-init="showValidation = false" ng-show="showValidation">
+	<div class="row">
+		<div class="col-md-4">Minimum Value:</div>
+		<div class="col-md-4">
+			<input type="number" ng-model="field.field_min" class="form-control" value="{{field.field_min}}">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">Maximum Value:</div>
+		<div class="col-md-4">
+			<input type="number" ng-model="field.field_max" class="form-control" value="{{field.field_max}}">
+		</div>
+	</div>
+</div>

@@ -5,7 +5,6 @@ angular.module('myApp', [
     'ui.sortable',
 	'ui.bootstrap',
 	'ngRoute',
-	'myApp.filters',
 	'myApp.services',
 	'myApp.directives',
 	'myApp.controllers'

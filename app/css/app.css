@@ -11,6 +11,10 @@ body {
     color: #333;
 }
 
+.accordion-toggle {
+  cursor: pointer;
+}
+
 /* Custom container */
 .container-narrow {
   margin: 0 auto;
