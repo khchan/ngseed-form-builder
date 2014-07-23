@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('directive.validation', [])
-.directive('validationDirective', function ($http, $compile) {
+.directive('validationDirective', function ($http, $compile, $templateCache) {
 
     var getTemplateUrl = function(field) {
         var type = field.field_type;
@@ -23,7 +23,7 @@ angular.module('directive.validation', [])
 
     var linker = function(scope, element) {
         // GET template content from path
-        var templateUrl = getTemplateUrl(scope.validate);
+        var templateUrl = getTemplateUrl(scope.field);
         $http.get(templateUrl).success(function(data) {
             element.html(data);
             $compile(element.contents())(scope);
@@ -31,10 +31,10 @@ angular.module('directive.validation', [])
     }
 
     return {
-        template: '{{validate}}',
+        template: '{{field}}',
         restrict: 'E',
         scope: {
-            validate:'='
+            field:'='
         },
         link: linker
     };

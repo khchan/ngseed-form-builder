@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('directive.field', [])
-.directive('fieldDirective', function ($http, $compile) {
+.directive('fieldDirective', function ($http, $compile, $templateCache) {
 
     var getTemplateUrl = function(field) {
         var type = field.field_type;
@@ -54,6 +54,7 @@ angular.module('directive.field', [])
     return {
         template: '<div>{{field}}</div>',
         restrict: 'E',
+        replace: true,
         scope: {
             field:'='
         },

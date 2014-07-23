@@ -19,4 +19,4 @@ angular.module('directive.form', [])
             form:'='
         }
     };
-  });
+});

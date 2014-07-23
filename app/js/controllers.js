@@ -4,13 +4,20 @@ angular.module('controllers', [])
     // preview form mode
     $scope.previewMode = false;
 
+    var form = angular.copy($scope.form);
+    
     // new form
-    $scope.form = {};
-    $scope.form.form_type = 'system';
-    $scope.form.form_name = 'my_form';
-    $scope.form.form_title = 'My Form';
-
-    $scope.form.form_questions = [];
+    if (_.isEmpty(form)) {
+        $scope.form = angular.copy($scope.form) || {};
+        $scope.form.form_type = 'system';
+        $scope.form.form_name = 'my_form';
+        $scope.form.form_title = 'My Form';
+        $scope.form.form_questions = [];
+        lastAddedID = 0;
+    } else {
+        angular.copy(form, $scope.form);
+        lastAddedID = form.form_questions.length;
+    }
 
     // previewForm - for preview purposes, form will be copied into this
     // otherwise, actual form might get manipulated in preview mode
@@ -20,7 +27,7 @@ angular.module('controllers', [])
     $scope.addField = {};
     $scope.addField.types = FormService.fields;
     $scope.addField.new = $scope.addField.types[0].name;
-    $scope.addField.lastAddedID = 0;
+    $scope.addField.lastAddedID = lastAddedID;
 
     // accordion settings
     $scope.accordion = {}
@@ -52,14 +59,16 @@ angular.module('controllers', [])
         return a.field_id > b.field_id
     });
 
+    var sortQuestions = function() {
+        for (var idx in $scope.form.form_questions) {
+            $scope.form.form_questions[idx].field_id = ++idx;
+        }
+    }
+
     $scope.sortableOptions = {
         cursor: 'move',
         revert: true,
-        stop: function(e, ui) {
-            for (var idx in $scope.form.form_questions) {
-                $scope.form.form_questions[idx].field_id = ++idx;
-            }
-        }
+        stop: sortQuestions
     }
 
     // deletes particular field on button click
@@ -70,6 +79,7 @@ angular.module('controllers', [])
                 break;
             }
         }
+        sortQuestions();
     }
 
     // add new option to the field
