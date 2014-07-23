@@ -1,14 +1,18 @@
 'use strict';
 
-/* jasmine specs for services go here */
+describe('Service: FormService', function () {
 
-describe('service', function() {
-  beforeEach(module('myApp.services'));
+  // load the service's module
+  beforeEach(module('services'));
+  
+  // instantiate service
+  var FormService;
+  beforeEach(inject(function (_FormService_) {
+    FormService = _FormService_;
+  }));
 
-
-  describe('version', function() {
-    it('should return current version', inject(function(version) {
-      expect(version).toEqual('0.1');
-    }));
+  it('should do something', function () {
+    expect(!!FormService).toBe(true);
   });
+
 });

@@ -1,4 +1,4 @@
-angular.module('myApp.controllers', [])
+angular.module('controllers', [])
 .controller('CreateCtrl', function ($scope, FormService) {
 
     // preview form mode

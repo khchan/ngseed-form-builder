@@ -1,20 +1,23 @@
 'use strict';
 
-/* jasmine specs for controllers go here */
+describe('Controller: CreateCtrl', function(){
 
-describe('controllers', function(){
-  beforeEach(module('myApp.controllers'));
+  beforeEach(module('controllers'));  
+  beforeEach(module('services')); 
 
-
-  it('should ....', inject(function($controller) {
-    //spec body
-    var myCtrl1 = $controller('MyCtrl1', { $scope: {} });
-    expect(myCtrl1).toBeDefined();
+  var CreateCtrl, scope;
+  
+  // Initialize the controller and a mock scope
+  beforeEach(inject(function ($controller, $rootScope) {
+    scope = $rootScope.$new();
+    CreateCtrl = $controller('CreateCtrl', {
+      $scope: scope
+    });
   }));
 
   it('should ....', inject(function($controller) {
     //spec body
-    var myCtrl2 = $controller('MyCtrl2', { $scope: {} });
-    expect(myCtrl2).toBeDefined();
+    var myCtrl1 = $controller('CreateCtrl', { $scope: {} });
+    expect(myCtrl1).toBeDefined();
   }));
 });

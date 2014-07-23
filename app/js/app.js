@@ -1,13 +1,13 @@
 'use strict';
 
 // Declare app level module which depends on filters, and services
-angular.module('myApp', [
+angular.module('ngformBuilder', [
     'ui.sortable',
 	'ui.bootstrap',
 	'ngRoute',
-	'myApp.services',
-	'myApp.directives',
-	'myApp.controllers'
+	'services',
+	'directives',
+	'controllers'
 ]).
 config(['$routeProvider', function($routeProvider) {
 	$routeProvider.when('/', {templateUrl: 'partials/create.html', controller: 'CreateCtrl'});
