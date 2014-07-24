@@ -45,7 +45,7 @@ angular.module('directive.field', [])
     var linker = function(scope, element) {
         // GET template content from path
         var templateUrl = getTemplateUrl(scope.field);
-        $http.get(templateUrl).success(function(data) {
+        $http.get(templateUrl, {cache:$templateCache}).success(function(data) {
             element.html(data);
             $compile(element.contents())(scope);
         });
@@ -54,7 +54,6 @@ angular.module('directive.field', [])
     return {
         template: '<div>{{field}}</div>',
         restrict: 'E',
-        replace: true,
         scope: {
             field:'='
         },

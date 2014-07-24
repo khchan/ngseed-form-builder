@@ -79,6 +79,11 @@
           "option_id": 2,
           "option_title": "Option 2",
           "option_value": 2
+        },
+        {
+          "option_id": 3,
+          "option_title": "Option 3",
+          "option_value": 3
         }
       ]
     },
@@ -122,6 +127,17 @@
       "field_type": "number",
       "field_value": "",
       "field_placeholder": "Enter a number value",
+      "field_validation_pattern": "*",
+      "field_helpertext": "missing input or invalid",
+      "field_required": true
+    },
+    {
+      "field_id": 10,
+      "field_name": "question_10_hidden",
+      "field_title": "New hidden field 10",
+      "field_type": "hidden",
+      "field_value": "",
+      "field_placeholder": "Enter a hidden value",
       "field_validation_pattern": "*",
       "field_helpertext": "missing input or invalid",
       "field_required": true

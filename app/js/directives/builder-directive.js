@@ -5,9 +5,9 @@ angular.module('directive.builder', [])
     return {
         restrict: 'E',
         replace: true,
-        // scope: {
-        // 	form: '='
-        // },
+        scope: {
+        	form: '='
+        },
         templateUrl: 'partials/create.html',
         controller: 'CreateCtrl'
     };

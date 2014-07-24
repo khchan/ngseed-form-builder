@@ -1,20 +1,18 @@
 {
-  "name": "angular-seed",
-  "description": "A starter project for AngularJS",
+  "name": "ngform-builder",
+  "description": "Angular Seed version of selmanh's fantastic form-builder",
   "version": "0.0.0",
-  "homepage": "https://github.com/angular/angular-seed",
+  "homepage": "https://github.com/khchan/ngseed-form-builder",
   "license": "MIT",
   "private": true,
   "dependencies": {
     "angular": "1.2.x",
-    "angular-route": "1.2.x",
-    "angular-loader": "1.2.x",
-    "angular-mocks": "~1.2.x",
-    "html5-boilerplate": "~4.3.0"
+    "angular-mocks": "~1.2.x"
   },
   "devDependencies": {
     "angular-bootstrap": "~0.11.0",
-    "bootstrap": "~3.2.0",
-    "angular-ui-sortable": "~0.12.8"
+    "angular-ui-sortable": "~0.12.8",
+    "bootstrap-css": "~3.2.0",
+    "jquery": "~2.1.1"
   }
 }

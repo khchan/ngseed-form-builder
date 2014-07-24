@@ -115,15 +115,10 @@ angular.module('controllers', [])
         }
     }
 
-
     // preview form
     $scope.previewOn = function(){
         if($scope.form.form_questions == null || $scope.form.form_questions.length == 0) {
-            var title = 'Error';
-            var msg = 'No fields added yet, please add fields to the form before preview.';
-            var btns = [{result:'ok', label: 'OK', cssClass: 'btn-primary'}];
-
-            // $dialog.messageBox(title, msg, btns).open();
+            alert('No fields added yet, please add fields to the form before preview.');
         }
         else {
             $scope.previewMode = !$scope.previewMode;
@@ -140,10 +135,7 @@ angular.module('controllers', [])
 
     // decides whether field options block will be shown (true for dropdown and radio fields)
     $scope.showAddOptions = function (field){
-        if(field.field_type == "radio" || field.field_type == "dropdown")
-            return true;
-        else
-            return false;
+        return (field.field_type == "radio" || field.field_type == "dropdown");
     }
 
     // deletes all the fields

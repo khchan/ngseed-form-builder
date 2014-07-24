@@ -1,17 +1,7 @@
 'use strict';
 
-// Declare app level module which depends on filters, and services
-angular.module('ngformBuilder', [
-    'ui.sortable',
-	'ui.bootstrap',
-	'services',
-	'directives',
-	'controllers'
-])
-
-.controller(DemoCtrl);
-
-function DemoCtrl($scope) {
+angular.module('main', ['ngform-builder'])
+.controller('MainCtrl', function($scope) {
 	$scope.testForm = {
 		"form_type": "system",
 		"form_name": "my_form",
@@ -31,4 +21,4 @@ function DemoCtrl($scope) {
 		],
 		"submitted": false
 	};
-}
+});	

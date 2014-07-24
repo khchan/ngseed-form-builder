@@ -35,13 +35,9 @@
 			<div class="add-field form-inline">
 				<select ng-model="addField.new" class="form-control" ng-options="type.name as type.value for type in addField.types">
 				</select>
-				<div class="btn-group">
-					<div class="btn-group" ng-repeat="type in addField.types">
-						<button type="button" class="btn btn-default" ng-click="addField.new = type.name ; addNewField()">{{type.value}}</button>
-					</div>
-				</div>
 				<button type="submit" class="btn" ng-click="addNewField()">
-					<span class="glyphicon glyphicon-plus"></span> Add Question</button>
+					<span class="glyphicon glyphicon-plus"></span> Add Question
+				</button>
 			</div>
 			<hr>
 			<p ng-show="form.form_questions.length == 0">No questions added yet.</p>
@@ -138,7 +134,7 @@
 		</div>
 
 		<div class="form-fields-preview" ng-show="previewMode">
-			<form-directive form="previewForm"></form-directive>
+			<form-directive showForm="previewForm"></form-directive>
 
 			<p class="text-center">
 				<button class="btn btn-primary btn-large right" type="button" ng-click="previewOff()">Back to Create Mode</button>

@@ -1,58 +1,45 @@
 'use strict';
 
-/* jasmine specs for directives go here */
+describe('Directive Tests', function() {	
 
-describe('directives', function() {
+	var element, $compile, scope, testJSON;
 
-	beforeEach(module('services', 'controllers', 'directives'));
-
-	var element, $compile, $scope, isoScope;
-
-	// Load the templates module
+	beforeEach(module('ngform-builder'));
+	// Load the templateCache
 	beforeEach(module('templates'));
 
 	// Angular strips the underscores when injecting
-	beforeEach(inject(function (_$compile_, _$rootScope_) {
+	beforeEach(inject(function (_$compile_, _$rootScope_, $templateCache) {
 		$compile = _$compile_;
-		$scope = _$rootScope_;
+		scope = _$rootScope_.$new();
 
-		$scope.testField = {
-			"field_id": 1,
-			"field_name": "question_1_textfield",
-			"field_title": "New textfield field 1",
-			"field_type": "textfield",
-			"field_value": "",
-			"field_placeholder": "Enter a textfield value",
-			"field_validation_pattern": "*",
-			"field_helpertext": "missing input or invalid",
-			"field_required": true
-		};
-
-		$scope.testForm = {
-			"form_type": "system",
-			"form_name": "my_form",
-			"form_title": "My Form",
-			"form_questions": [
-				$scope.testField
-			],
-			"submitted": false
-		};
+		testJSON = angular.fromJson($templateCache.get('test/static-data/testForm.json'));
+		scope.testField = testJSON.form_questions[0];
+		scope.testForm = testJSON;
 	}));
 
-	describe('Tests for form-builder directive', function() {
+	describe('Sanity tests for form-builder directive and its children', function() {
 
-		beforeEach(function () {
-			var builder = angular.element('<form-builder></form-builder>');
-			var form = angular.element('<form-directive form="testForm"></form-directive>');
-			var field = angular.element('<field-directive field="testField"></field-directive>');
-			element = $compile(builder)($scope);
-			// Now run a $digest cycle to update your template with new data
-			$scope.$apply();
-		});
+		it('should compile the field-directive', inject(function () {
+			element = angular.element('<field-directive field="testField"></field-directive>');
+			element = $compile(element)(scope);
+			scope.$apply();
+			expect(element.text()).toNotEqual('');
+		}));
+
+		it('should compile the form-directive', inject(function () {
+			element = angular.element('<form-directive showForm="testForm"></form-directive>');
+			element = $compile(element)(scope);
+			scope.$apply();
+			expect(element.text()).toNotEqual('');
+		}));
 
 		it("should correctly render out the form-builder directive", function() {    
-			// console.log(element.html()) 	
-			return true;
+			element = angular.element('<form-builder form="testForm"></form-builder>');
+			element = $compile(element)(scope);
+			scope.$apply();
+			expect(element.text()).toNotEqual('');
 		});
+
 	});	
 });

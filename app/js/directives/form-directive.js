@@ -16,7 +16,7 @@ angular.module('directive.form', [])
         templateUrl: 'partials/directive-templates/form/form.html',
         restrict: 'E',
         scope: {
-            form:'='
+            showForm:'='
         }
     };
 });

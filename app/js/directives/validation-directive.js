@@ -24,7 +24,7 @@ angular.module('directive.validation', [])
     var linker = function(scope, element) {
         // GET template content from path
         var templateUrl = getTemplateUrl(scope.field);
-        $http.get(templateUrl).success(function(data) {
+        $http.get(templateUrl, {cache:$templateCache}).success(function(data) {
             element.html(data);
             $compile(element.contents())(scope);
         });
