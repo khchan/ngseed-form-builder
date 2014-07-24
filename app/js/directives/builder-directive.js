@@ -4,7 +4,6 @@ angular.module('directive.builder', [])
 .directive('formBuilder', function() {
     return {
         restrict: 'E',
-        replace: true,
         scope: {
         	form: '='
         },

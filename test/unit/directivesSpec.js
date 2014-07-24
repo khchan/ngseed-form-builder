@@ -28,7 +28,7 @@ describe('Directive Tests', function() {
 		}));
 
 		it('should compile the form-directive', inject(function () {
-			element = angular.element('<form-directive showForm="testForm"></form-directive>');
+			element = angular.element('<form-directive></form-directive>');
 			element = $compile(element)(scope);
 			scope.$apply();
 			expect(element.text()).toNotEqual('');
