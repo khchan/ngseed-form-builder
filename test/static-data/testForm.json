@@ -10,8 +10,12 @@
       "field_type": "textfield",
       "field_value": "",
       "field_placeholder": "Enter a textfield value",
-      "field_validation_pattern": "*",
+      "field_validation": {
+        "rule": "none",
+        "expression": ""
+      },
       "field_helpertext": "missing input or invalid",
+      "field_hasOptions": false,
       "field_required": true
     },
     {
@@ -21,8 +25,12 @@
       "field_type": "email",
       "field_value": "",
       "field_placeholder": "Enter a email value",
-      "field_validation_pattern": "*",
+      "field_validation": {
+        "rule": "none",
+        "expression": ""
+      },
       "field_helpertext": "missing input or invalid",
+      "field_hasOptions": false,
       "field_required": true
     },
     {
@@ -32,8 +40,12 @@
       "field_type": "password",
       "field_value": "",
       "field_placeholder": "Enter a password value",
-      "field_validation_pattern": "*",
+      "field_validation": {
+        "rule": "none",
+        "expression": ""
+      },
       "field_helpertext": "missing input or invalid",
+      "field_hasOptions": false,
       "field_required": true
     },
     {
@@ -43,19 +55,23 @@
       "field_type": "radio",
       "field_value": "",
       "field_placeholder": "Enter a radio value",
-      "field_validation_pattern": "*",
+      "field_validation": {
+        "rule": "none",
+        "expression": ""
+      },
       "field_helpertext": "missing input or invalid",
+      "field_hasOptions": true,
       "field_required": true,
       "field_options": [
         {
           "option_id": 1,
           "option_title": "Option 1",
-          "option_value": 1
+          "option_value": "value_1"
         },
         {
           "option_id": 2,
           "option_title": "Option 2",
-          "option_value": 2
+          "option_value": "value_2"
         }
       ]
     },
@@ -66,24 +82,28 @@
       "field_type": "dropdown",
       "field_value": "",
       "field_placeholder": "Enter a dropdown value",
-      "field_validation_pattern": "*",
+      "field_validation": {
+        "rule": "none",
+        "expression": ""
+      },
       "field_helpertext": "missing input or invalid",
+      "field_hasOptions": true,
       "field_required": true,
       "field_options": [
         {
           "option_id": 1,
           "option_title": "Option 1",
-          "option_value": 1
+          "option_value": "value_1"
         },
         {
           "option_id": 2,
           "option_title": "Option 2",
-          "option_value": 2
+          "option_value": "value_2"
         },
         {
           "option_id": 3,
           "option_title": "Option 3",
-          "option_value": 3
+          "option_value": "value_3"
         }
       ]
     },
@@ -94,8 +114,12 @@
       "field_type": "date",
       "field_value": "",
       "field_placeholder": "Enter a date value",
-      "field_validation_pattern": "*",
+      "field_validation": {
+        "rule": "none",
+        "expression": ""
+      },
       "field_helpertext": "missing input or invalid",
+      "field_hasOptions": false,
       "field_required": true
     },
     {
@@ -105,8 +129,12 @@
       "field_type": "textarea",
       "field_value": "",
       "field_placeholder": "Enter a textarea value",
-      "field_validation_pattern": "*",
+      "field_validation": {
+        "rule": "none",
+        "expression": ""
+      },
       "field_helpertext": "missing input or invalid",
+      "field_hasOptions": false,
       "field_required": true
     },
     {
@@ -116,30 +144,74 @@
       "field_type": "checkbox",
       "field_value": "",
       "field_placeholder": "Enter a checkbox value",
-      "field_validation_pattern": "*",
+      "field_validation": {
+        "rule": "none",
+        "expression": ""
+      },
       "field_helpertext": "missing input or invalid",
+      "field_hasOptions": false,
       "field_required": true
     },
     {
       "field_id": 9,
-      "field_name": "question_9_number",
-      "field_title": "New number field 9",
-      "field_type": "number",
-      "field_value": "",
-      "field_placeholder": "Enter a number value",
-      "field_validation_pattern": "*",
+      "field_name": "question_9_checkbox-group",
+      "field_title": "New checkbox-group field 9",
+      "field_type": "checkbox-group",
+      "field_value": {},
+      "field_placeholder": "Enter a checkbox-group value",
+      "field_validation": {
+        "rule": "none",
+        "expression": ""
+      },
       "field_helpertext": "missing input or invalid",
-      "field_required": true
+      "field_hasOptions": true,
+      "field_required": true,
+      "field_options": [
+        {
+          "option_id": 1,
+          "option_title": "Option 1",
+          "option_value": "value_1"
+        },
+        {
+          "option_id": 2,
+          "option_title": "Option 2",
+          "option_value": "value_2"
+        },
+        {
+          "option_id": 3,
+          "option_title": "Option 3",
+          "option_value": "value_3"
+        }
+      ]
     },
     {
       "field_id": 10,
-      "field_name": "question_10_hidden",
-      "field_title": "New hidden field 10",
+      "field_name": "question_10_number",
+      "field_title": "New number field 10",
+      "field_type": "number",
+      "field_value": "",
+      "field_placeholder": "Enter a number value",
+      "field_validation": {
+        "rule": "none",
+        "expression": ""
+      },
+      "field_helpertext": "missing input or invalid",
+      "field_hasOptions": false,
+      "field_required": true
+    },
+    {
+      "field_id": 11,
+      "field_name": "question_11_hidden",
+      "field_title": "New hidden field 11",
       "field_type": "hidden",
       "field_value": "",
       "field_placeholder": "Enter a hidden value",
-      "field_validation_pattern": "*",
+      "field_validation": {
+        "rule": "none",
+        "expression": ""
+      },
       "field_helpertext": "missing input or invalid",
+      "field_hasOptions": false,
       "field_required": true
     }
   ],

@@ -20,6 +20,9 @@ angular.module('directive.field', [])
             case 'checkbox':
                 templateUrl = 'partials/directive-templates/field/checkbox.html';
                 break;
+            case 'checkbox-group':
+                templateUrl = 'partials/directive-templates/field/checkbox-group.html';
+                break;
             case 'number':
                 templateUrl = 'partials/directive-templates/field/number.html';
                 break;
@@ -53,6 +56,7 @@ angular.module('directive.field', [])
 
     return {
         template: '<div>{{field}}</div>',
+        controller: 'FieldCtrl',
         restrict: 'E',
         scope: {
             field:'='
@@ -60,3 +64,47 @@ angular.module('directive.field', [])
         link: linker
     };
 });
+
+function FieldCtrl($scope) {
+    $scope.clearExpr = function(field) {
+        field.field_min = '';
+        field.field_max = '';
+        field.field_validation.expression = '';
+    }
+
+    $scope.validateText = function(value, field) {
+        var expr = field.field_validation.expression;
+        var res = true;
+        if (value && value.length >= 0) {
+            switch (field.field_validation.rule) {
+                case 'none':         $scope.showValidateError = false; return true;
+                case 'contains':     res = value.indexOf(expr) > -1; break;
+                case 'not_contains': res = value.indexOf(expr) <= -1; break;
+                default: break;
+            }                
+        }
+        $scope.showValidateError = !res;
+        return res;
+    }
+
+    $scope.validateNumber = function(value, field) {
+        var expr = field.field_validation.expression;
+        var res = true;
+        if (value && value.length >= 0) {
+            switch (field.field_validation.rule) {
+                case 'none':        $scope.showValidateError = false; return true;
+                case 'gt':          res = value > expr; break;
+                case 'geq':         res = value >= expr; break;
+                case 'lt':          res = value < expr; break;
+                case 'leq':         res = value <= expr; break;
+                case 'eq':          res = value == expr; break;
+                case 'neq':         res = value != expr; break;
+                case 'between':     res = value >= expr.min && value <= expr.max; break;
+                case 'not_between': res = value < expr.min || value > expr.max; break;
+                default: break;
+            }
+        }
+        $scope.showValidateError = !res;
+        return res;
+    }
+}

@@ -8,6 +8,7 @@ module.exports = function(config){
       'app/bower_components/jquery/dist/jquery.min.js',
       'app/bower_components/jquery-ui/jquery-ui.min.js',
       'app/bower_components/angular/angular.js',
+      'app/bower_components/angular-ui-utils/validate.min.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
       'app/bower_components/angular-ui-sortable/sortable.min.js',
       'app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',  

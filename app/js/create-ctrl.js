@@ -4,50 +4,48 @@ angular.module('controllers', [])
     // preview form mode
     $scope.previewMode = false;
 
-    var form = angular.copy($scope.form);
-    
     // new form
-    if (_.isEmpty(form)) {
+    if (_.isEmpty($scope.form)) {
         $scope.form = angular.copy($scope.form) || {};
         $scope.form.form_type = 'system';
         $scope.form.form_name = 'my_form';
         $scope.form.form_title = 'My Form';
         $scope.form.form_questions = [];
-        lastAddedID = 0;
-    } else {
-        angular.copy(form, $scope.form);
-        lastAddedID = form.form_questions.length;
     }
-
+    
     // previewForm - for preview purposes, form will be copied into this
     // otherwise, actual form might get manipulated in preview mode
     $scope.previewForm = {};
 
     // add new field drop-down:
     $scope.addField = {};
+
     $scope.addField.types = FormService.fields;
-    $scope.addField.new = $scope.addField.types[0].name;
-    $scope.addField.lastAddedID = lastAddedID;
+    $scope.addField.new = $scope.addField.types[0];
+    $scope.addField.value_type = $scope.addField.types[0].value_type;
+    $scope.addField.hasOptions = $scope.addField.types[0].hasOptions;
+    $scope.addField.lastAddedID = $scope.form.form_questions.length;
 
     // accordion settings
     $scope.accordion = {}
     $scope.accordion.oneAtATime = true;
 
     // create new field button click
-    $scope.addNewField = function(){
-
+    $scope.addNewField = function() {
+        $scope.addField.lastAddedID = $scope.form.form_questions.length;
         // incr field_id counter
         $scope.addField.lastAddedID++;
 
         var newField = {
             "field_id" : $scope.addField.lastAddedID,
-            "field_name" : "question_"+$scope.addField.lastAddedID+"_"+$scope.addField.new,
-            "field_title" : "New " + $scope.addField.new + " field " + $scope.addField.lastAddedID,
-            "field_type" : $scope.addField.new,
-            "field_value" : "",
-            "field_placeholder" : "Enter a "+$scope.addField.new+" value",
-            "field_validation_pattern" : "*",
+            "field_name" : "question_"+$scope.addField.lastAddedID+"_"+$scope.addField.new.name,
+            "field_title" : "New " + $scope.addField.new.name + " field " + $scope.addField.lastAddedID,
+            "field_type" : $scope.addField.new.name,
+            "field_value" : $scope.addField.new.value_type,
+            "field_placeholder" : "Enter a "+$scope.addField.new.name+" value",
+            "field_validation" : {rule:'none', expression: ''},
             "field_helpertext" : "missing input or invalid",
+            "field_hasOptions": $scope.addField.new.hasOptions,
             "field_required" : true
         };
 
@@ -98,7 +96,7 @@ angular.module('controllers', [])
         var newOption = {
             "option_id" : option_id,
             "option_title" : "Option " + option_id,
-            "option_value" : option_id
+            "option_value" : "value_" + option_id
         };
 
         // put new option into field_options array
@@ -131,11 +129,6 @@ angular.module('controllers', [])
     $scope.previewOff = function(){
         $scope.previewMode = !$scope.previewMode;
         $scope.form.submitted = false;
-    }
-
-    // decides whether field options block will be shown (true for dropdown and radio fields)
-    $scope.showAddOptions = function (field){
-        return (field.field_type == "radio" || field.field_type == "dropdown");
     }
 
     // deletes all the fields

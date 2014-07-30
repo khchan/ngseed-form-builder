@@ -8,15 +8,33 @@
 </div>
 <div ng-init="showValidation = false" ng-show="showValidation">
 	<div class="row">
-		<div class="col-md-4">Minimum Value:</div>
+		<div class="col-md-4">Number Validation:</div>
 		<div class="col-md-4">
-			<input type="number" ng-model="field.field_min" class="form-control" value="{{field.field_min}}">
+			<select class="form-control" ng-model="field.field_validation.rule" ng-change="clearExpr(field)">
+				<option value="" disabled>Select a rule</option>
+				<option ng-repeat="rule in numberValidationRules" value="{{rule.value}}">{{rule.name}}</option>
+			</select>
 		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-4">Maximum Value:</div>
-		<div class="col-md-4">
-			<input type="number" ng-model="field.field_max" class="form-control" value="{{field.field_max}}">
+		<div ng-switch="field.field_validation.rule">
+			<div ng-switch-when="between">
+				<div class="col-md-2">
+					<input type="number" placeholder="Min" ng-model="field.field_validation.expression.min" class="form-control">
+				</div>
+				<div class="col-md-2">
+					<input type="number" placeholder="Max" ng-model="field.field_validation.expression.max" class="form-control">
+				</div>
+			</div>
+			<div ng-switch-when="not_between">
+				<div class="col-md-2">
+					<input type="number" required placeholder="Min" ng-model="field.field_validation.expression.min" class="form-control">
+				</div>
+				<div class="col-md-2">
+					<input type="number" required placeholder="Max" ng-model="field.field_validation.expression.max" class="form-control">
+				</div>
+			</div>
+			<div class="col-md-4" ng-switch-default>
+				<input type="number" ng-disabled="field.field_validation.rule == 'none'" ng-model="field.field_validation.expression" class="form-control"/>
+			</div>
 		</div>
 	</div>
 </div>

@@ -14,15 +14,21 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-4">Question Validation Pattern:</div>
-		<div class="col-md-8">
-			<input type="text" ng-model="field.field_validation_pattern" class="form-control" value="field.field_validation_pattern">
-		</div>
-	</div>
-	<div class="row">
 		<div class="col-md-4">Question Helper Text:</div>
 		<div class="col-md-8">
 			<input type="text" ng-model="field.field_helpertext" class="form-control" value="field.field_helpertext">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">Validation Expression:</div>
+		<div class="col-md-4">
+			<select class="form-control" ng-change="field.field_validation.expression = ''" ng-model="field.field_validation.rule">
+				<option value="" disabled>Select a rule</option>
+				<option ng-repeat="rule in textValidationRules" value="{{rule.value}}">{{rule.name}}</option>
+			</select>
+		</div>
+		<div class="col-md-4">
+			<input type="text" ng-disabled="field.field_validation.rule == 'none'" ng-model="field.field_validation.expression" class="form-control"/>
 		</div>
 	</div>
 </div>

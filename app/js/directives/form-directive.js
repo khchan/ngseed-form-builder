@@ -8,7 +8,6 @@ angular.module('directive.form', [])
                 alert('Form submitted..');
                 $scope.form.submitted = true;
             }
-
             $scope.cancel = function(){
                 alert('Form canceled..');
             }

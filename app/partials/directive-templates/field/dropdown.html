@@ -3,10 +3,12 @@
 		{{field.field_title}}
 	</label>
 	<span class="required-error" ng-show="field.field_required && !field.field_value">* {{field.field_helpertext}}</span>
-	<select class="form-control"
-		ng-model="field.field_value"
-		ng-options="option.option_id as option.option_title for option in field.field_options"
-		required="field.field_required">
-		<option value="" disabled>Select an option</option>
-	</select>	
+	<div class="row-fluid">
+		<select class="form-control"
+			ng-model="field.field_value"
+			ng-options="option.option_value as option.option_title for option in field.field_options"
+			required="field.field_required">
+			<option value="textfield" disabled>Select an option</option>
+		</select>	
+	</div>
 </div>

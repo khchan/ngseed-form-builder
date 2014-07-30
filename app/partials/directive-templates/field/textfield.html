@@ -2,13 +2,15 @@
 	<label for="{field.field_name}">
 		{{field.field_title}}
 	</label>
-	<span class="required-error" ng-show="field.field_required && !field.field_value">* {{field.field_helpertext}}</span>
-	<span ng-show="myForm.{{field.field_name}}.$error.pattern">{{field.field_helpertext}}</span>
+	<span class="required-error" ng-show="field.field_required && !field.field_value">* required</span>
+	<span class="required-error" ng-show="showValidateError"> {{field.field_helpertext}}</span>
+	<span class="glyphicon glyphicon-ok" ng-show="field.field_value && !showValidateError"></span>
 	<input type="text" 
 		id="{{field.field_id}}" 
 		name="{{field.field_name}}" 
 		class="form-control" 
 		data-ng-model="field.field_value" 
+		ui-validate=" 'validateText($value, field)' "
 		value="field.field_value" 
 		required="field.field_required"
 		placeholder="{{field.field_placeholder}}"

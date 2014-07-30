@@ -32,10 +32,31 @@ angular.module('directive.validation', [])
 
     return {
         template: '{{field}}',
+        controller: 'ValidationCtrl',
         restrict: 'E',
         scope: {
             field:'='
         },
         link: linker
     };
+})
+
+.controller('ValidationCtrl', function($scope) {
+    $scope.textValidationRules = [
+        {name:'None', value:'none'},
+        {name:'Contains', value:'contains'},
+        {name:'Does not contain', value:'not_contains'}
+    ];
+
+    $scope.numberValidationRules = [
+        {name:'None', value:'none'},
+        {name:'Greater than', value:'gt'},
+        {name:'Greater than or equal', value:'geq'},
+        {name:'Less than', value:'lt'},
+        {name:'Less than or equal', value:'leq'},
+        {name:'Equal', value:'eq'},
+        {name:'Not Equal', value:'neq'},
+        {name:'Between', value:'between'},
+        {name:'Not Between', value:'not_between'}
+    ];
 });

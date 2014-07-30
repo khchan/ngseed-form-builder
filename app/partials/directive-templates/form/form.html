@@ -8,22 +8,21 @@
                 <dt>Form Title:</dt><dd>{{ form.form_title }}</dd>
             </dl>
         </div>
-        <form name="myForm" id="myForm" class="signin form-horizontal" novalidate autocomplete="off">
+        <button type="button" class="btn btn-primary" ng-click="debug(my_form)">Debug</button>
+        <ng-form name="my_form" class="signin form-horizontal" novalidate autocomplete="off">
             <fieldset>
                 <div ng-repeat="field in form.form_questions">
-                    <field-directive field="field">
-
-                    </field-directive>
+                    <field-directive field="field"></field-directive>
                 </div>
                 <div data-ng-show="error" class="text-center text-danger">
                     <strong>{{error}}</strong>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-success right" type="button" ng-disabled="myForm.$invalid" ng-click="submit()">Submit</button>
+                    <button class="btn btn-success right" type="button" ng-disabled="my_form.$invalid" ng-click="submit()">Submit</button>
                     <button class="btn btn-danger right" type="button" ng-click="cancel()">Cancel</button>
                 </div>
             </fieldset>
-        </form>
+        </ng-form>
     </div>
 </section>
 
@@ -39,7 +38,7 @@
             <dt>Name:</dt><dd>{{ field.field_name }}</dd>
             <dt>Value:</dt><dd>{{ field.field_value }}</dd>
             <dt>Placeholder:</dt><dd>{{ field.field_placeholder }}</dd>
-            <dt>Valid Pattern:</dt><dd>{{ field.field_validation_pattern }}</dd>
+            <dt>Validation:</dt><dd>{{ field.field_validation | json}}</dd>
             <dt>Helper Text:</dt><dd>{{ field.field_helpertext }}</dd>
             <br/>
         </div>

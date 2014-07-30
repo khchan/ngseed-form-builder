@@ -1,7 +1,8 @@
 'use strict'
 
 angular.module('ngform-builder', [
-    'ui.sortable',
+	'ui.sortable',
+	'ui.validate',
 	'ui.bootstrap',
 	/*<% ngform-builder %>*/
 	'controllers',

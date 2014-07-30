@@ -33,7 +33,7 @@
 
 			<h3>Questions</h3>
 			<div class="add-field form-inline">
-				<select ng-model="addField.new" class="form-control" ng-options="type.name as type.value for type in addField.types">
+				<select ng-model="addField.new" class="form-control" ng-options="type as type.value for type in addField.types">
 				</select>
 				<button type="submit" class="btn" ng-click="addNewField()">
 					<span class="glyphicon glyphicon-plus"></span> Add Question
@@ -78,7 +78,7 @@
 									<input type="text" ng-model="field.field_name" class="form-control" value="{{field.field_name}}">
 								</div>
 							</div>
-							<div class="row" ng-show="showAddOptions(field)">
+							<div class="row" ng-show="field.field_hasOptions">
 								<div class="col-md-4">Question Options:</div>
 								<div class="col-md-8">
 									<div ng-repeat="option in field.field_options">

@@ -16,17 +16,28 @@
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
   <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-ui-utils/validate.min.js"></script>
   <script src="bower_components/angular-ui-sortable/sortable.min.js"></script>
   <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>  
   <!--<script src="../dist/ngform-builder.min.js"></script>-->
-  <script src="js/app.js"></script>
+  <script  type="text/javascript">
+    angular.module('main', ['ngform-builder'])
+    .controller('MainCtrl', function($scope, $http) {
+      $scope.testForm = {};
+      // $http.get('../test/static-data/testForm.json').success(function (data) {
+      //   angular.copy(data, $scope.testForm);          
+      // });
+    }); 
+  </script>
 </head>
 <body ng-controller="MainCtrl">
+  
   <form-builder form="testForm"></form-builder>
-  <form-directive form="testForm"></form-directive>
+  <!-- <form-directive form="testForm"></form-directive> -->
+  
   <script src="js/ngform-builder.js"></script>
-  <script src="js/controllers.js"></script>
-  <script src="js/services.js"></script>
+  <script src="js/create-ctrl.js"></script>
+  <script src="js/form-service.js"></script>
 
   <script src="js/directives/index.js"></script>
   <script src="js/directives/builder-directive.js"></script>
