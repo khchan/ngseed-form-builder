@@ -2,7 +2,7 @@
 
 describe('Directive Tests', function() {
 
-	var element, CreateCtrl, $compile, scope, testJSON;
+	var element, CreateCtrl, FieldCtrl, $compile, scope, testJSON;
 
 	beforeEach(module('ngform-builder'));
 	// Load the templateCache
@@ -17,6 +17,10 @@ describe('Directive Tests', function() {
 		scope.testField = testJSON.form_questions[0];
 		scope.testForm = testJSON;
 		CreateCtrl = $controller('CreateCtrl', {
+			$scope: scope
+		});
+
+		FieldCtrl = $controller('FieldCtrl', {
 			$scope: scope
 		});
 	}));
@@ -78,6 +82,10 @@ describe('Directive Tests', function() {
 
 	describe('Unit tests for text validation', function() {
 		beforeEach(function() {
+			element = angular.element('<form-directive form="testForm"></form-directive>');
+			element = $compile(element)(scope);
+			scope.$apply();
+
 			scope.reset();
 			scope.addField.new = {
                 name : 'textfield',
@@ -93,19 +101,42 @@ describe('Directive Tests', function() {
 		});
 
 		it('should behave the same way if selected validation "none"', function() {
-			scope.form.form_questions[0].field_validation.rule = 'none';
-			scope.form.form_questions[0].field_validation.expression = '';
-			scope.$digest();
-			var result = element[0].querySelectorAll('ng-form');
-			console.log(angular.element(result));
+			var field = scope.form.form_questions[0];
+			field.field_validation.rule = 'none';
+			field.field_validation.expression = '';	
+			scope.$apply();
+			expect(scope.validateText(field.field_value, field)).toBe(true);
+
+			field.field_value = 'test';
+			scope.$apply();
+			expect(scope.validateText(field.field_value, field)).toBe(true);
 		});
 
 		it('should contain the text "test"', function() {
+			var field = scope.form.form_questions[0];
+			field.field_validation.rule = 'contains';
+			field.field_validation.expression = 'test';	
+			field.field_value = 'wowe, such fail';
+			scope.$apply();
+			console.log(field.field_value);
+			expect(scope.validateText(field.field_value, field)).toBe(false);
 
+			field.field_value = 'wowe, such test';
+			scope.$apply();
+			expect(scope.validateText(field.field_value, field)).toBe(true);
 		});
 
 		it('should not contain the text "test"', function() {
+			var field = scope.form.form_questions[0];
+			field.field_validation.rule = 'not_contains';
+			field.field_validation.expression = 'test';	
+			field.field_value = 'wowe, such test, much coverage';
+			scope.$apply();
+			expect(scope.validateText(field.field_value, field)).toBe(false);
 
+			field.field_value = 'wowe, such unit, much coverage';
+			scope.$apply();
+			expect(scope.validateText(field.field_value, field)).toBe(true);
 		});
 
 	});
