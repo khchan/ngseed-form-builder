@@ -118,7 +118,6 @@ describe('Directive Tests', function() {
 			field.field_validation.expression = 'test';	
 			field.field_value = 'wowe, such fail';
 			scope.$apply();
-			console.log(field.field_value);
 			expect(scope.validateText(field.field_value, field)).toBe(false);
 
 			field.field_value = 'wowe, such test';
@@ -143,41 +142,143 @@ describe('Directive Tests', function() {
 
 	describe('Unit tests for number validation', function() {
 
-		it('should behave the same way if selected validation "none"', function() {
+		beforeEach(function() {
+			element = angular.element('<form-directive form="testForm"></form-directive>');
+			element = $compile(element)(scope);
+			scope.$apply();
 
+			scope.reset();
+			scope.addField.new = {
+                name : 'number',
+                value : 'Number',
+                value_type: '',
+                hasOptions: false
+            };
+            scope.addNewField();
+		});
+
+		afterEach(function() {
+			scope.reset();
+		});
+
+		it('should behave the same way if selected validation "none"', function() {
+			var field = scope.form.form_questions[0];
+			field.field_validation.rule = 'none';
+			field.field_validation.expression = '';	
+			scope.$apply();
+			expect(scope.validateNumber(field.field_value, field)).toBe(true);
+
+			field.field_value = 10;
+			scope.$apply();
+			expect(scope.validateNumber(field.field_value, field)).toBe(true);
 		});
 
 		it('should be valid for strictly greater than', function() {
+			var field = scope.form.form_questions[0];
+			field.field_validation.rule = 'gt';
+			field.field_validation.expression = 5;	
+			field.field_value = 4;
+			scope.$apply();
+			expect(scope.validateNumber(field.field_value, field)).toBe(false);
 
+			field.field_value = 6;
+			scope.$apply();
+			expect(scope.validateNumber(field.field_value, field)).toBe(true);			
 		});
 
 		it('should be valid for inclusive greater than', function() {
+			var field = scope.form.form_questions[0];
+			field.field_validation.rule = 'geq';
+			field.field_validation.expression = 5;	
+			field.field_value = 4;
+			scope.$apply();
+			expect(scope.validateNumber(field.field_value, field)).toBe(false);
 
+			field.field_value = 5;
+			scope.$apply();
+			expect(scope.validateNumber(field.field_value, field)).toBe(true);
 		});
 
 		it('should be valid for strictly less than', function() {
+			var field = scope.form.form_questions[0];
+			field.field_validation.rule = 'lt';
+			field.field_validation.expression = 5;	
+			field.field_value = 6;
+			scope.$apply();
+			expect(scope.validateNumber(field.field_value, field)).toBe(false);
 
+			field.field_value = 4;
+			scope.$apply();
+			expect(scope.validateNumber(field.field_value, field)).toBe(true);				
 		});
 
 		it('should be valid for inclusive less than', function() {
+			var field = scope.form.form_questions[0];
+			field.field_validation.rule = 'leq';
+			field.field_validation.expression = 5;	
+			field.field_value = 6;
+			scope.$apply();
+			expect(scope.validateNumber(field.field_value, field)).toBe(false);
 
+			field.field_value = 5;
+			scope.$apply();
+			expect(scope.validateNumber(field.field_value, field)).toBe(true);
 		});
 
 		it('should be valid for equality', function() {
+			var field = scope.form.form_questions[0];
+			field.field_validation.rule = 'eq';
+			field.field_validation.expression = 5;	
+			field.field_value = 4;
+			scope.$apply();
+			expect(scope.validateNumber(field.field_value, field)).toBe(false);
 
+			field.field_value = 5;
+			scope.$apply();
+			expect(scope.validateNumber(field.field_value, field)).toBe(true);
 		});
 
 		it('should be valid for inequality', function() {
+			var field = scope.form.form_questions[0];
+			field.field_validation.rule = 'neq';
+			field.field_validation.expression = 5;	
+			field.field_value = 5;
+			scope.$apply();
+			expect(scope.validateNumber(field.field_value, field)).toBe(false);
 
+			field.field_value = 4;
+			scope.$apply();
+			expect(scope.validateNumber(field.field_value, field)).toBe(true);
 		});
 
 		it('should be valid for between a range', function() {
+			var field = scope.form.form_questions[0];
+			field.field_validation.rule = 'between';
+			field.field_validation.expression = {};
+			field.field_validation.expression.min = 5;	
+			field.field_validation.expression.max = 10;	
+			field.field_value = 11;
+			scope.$apply();
+			expect(scope.validateNumber(field.field_value, field)).toBe(false);
 
+			field.field_value = 7;
+			scope.$apply();
+			expect(scope.validateNumber(field.field_value, field)).toBe(true);
 		});
 
 		it('should be valid for not between a range', function() {
+			var field = scope.form.form_questions[0];
+			field.field_validation.rule = 'not_between';
+			field.field_validation.expression = {};
+			field.field_validation.expression.min = 5;	
+			field.field_validation.expression.max = 10;	
+			field.field_value = 7;
+			scope.$apply();
+			expect(scope.validateNumber(field.field_value, field)).toBe(false);
 
-		});				
-
+			field.field_value = 11;
+			scope.$apply();
+			expect(scope.validateNumber(field.field_value, field)).toBe(true);
+		});
 	});
 });

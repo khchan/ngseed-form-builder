@@ -90,7 +90,7 @@ function FieldCtrl($scope) {
     $scope.validateNumber = function(value, field) {
         var expr = field.field_validation.expression;
         var res = true;
-        if (value && value.length >= 0) {
+        if (value) {
             switch (field.field_validation.rule) {
                 case 'none':        $scope.showValidateError = false; return true;
                 case 'gt':          res = value > expr; break;
