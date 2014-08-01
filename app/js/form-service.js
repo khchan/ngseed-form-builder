@@ -1,4 +1,4 @@
-angular.module('services', [])
+angular.module('ngform-builder.services', [])
 .service('FormService', function FormService() {
     return {
         fields:[

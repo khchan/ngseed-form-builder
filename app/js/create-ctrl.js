@@ -1,5 +1,5 @@
-angular.module('controllers', [])
-.controller('CreateCtrl', function ($scope, FormService) {
+angular.module('ngform-builder.controllers', [])
+.controller('CreateCtrl', ['$scope', 'FormService', function ($scope, FormService) {
 
     // preview form mode
     $scope.previewMode = false;
@@ -136,4 +136,4 @@ angular.module('controllers', [])
         $scope.form.form_questions.splice(0, $scope.form.form_questions.length);
         $scope.addField.lastAddedID = 0;
     }
-});
+}]);

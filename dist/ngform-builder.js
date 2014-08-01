@@ -80,8 +80,8 @@ angular.module("partials/directive-templates/validation/textfield.html", []).run
   $templateCache.put("partials/directive-templates/validation/textfield.html",
     "<div class=row><div class=col-md-4>Custom Validation</div><div class=col-md-8><button type=button class=\"btn btn-info btn-xs\" ng-click=\"showValidation = !showValidation\">Hide/Show</button></div></div><div ng-init=\"showValidation = false\" ng-show=showValidation><div class=row><div class=col-md-4>Question Placeholder:</div><div class=col-md-8><input ng-model=field.field_placeholder class=form-control value=field.field_placeholder></div></div><div class=row><div class=col-md-4>Question Helper Text:</div><div class=col-md-8><input ng-model=field.field_helpertext class=form-control value=field.field_helpertext></div></div><div class=row><div class=col-md-4>Validation Expression:</div><div class=col-md-4><select class=form-control ng-change=\"field.field_validation.expression = ''\" ng-model=field.field_validation.rule><option value=\"\" disabled>Select a rule</option><option ng-repeat=\"rule in textValidationRules\" value={{rule.value}}>{{rule.name}}</option></select></div><div class=col-md-4><input ng-disabled=\"field.field_validation.rule == 'none'\" ng-model=field.field_validation.expression class=form-control></div></div></div>");
 }]);
-;angular.module('controllers', [])
-.controller('CreateCtrl', function ($scope, FormService) {
+;angular.module('ngform-builder.controllers', [])
+.controller('CreateCtrl', ['$scope', 'FormService', function ($scope, FormService) {
 
     // preview form mode
     $scope.previewMode = false;
@@ -218,7 +218,7 @@ angular.module("partials/directive-templates/validation/textfield.html", []).run
         $scope.form.form_questions.splice(0, $scope.form.form_questions.length);
         $scope.addField.lastAddedID = 0;
     }
-});;'use strict';
+}]);;'use strict';
 
 angular.module('directive.builder', [])
 .directive('formBuilder', function() {
@@ -361,7 +361,7 @@ angular.module('directive.form', [])
         }
     };
 });
-;angular.module('directives', [
+;angular.module('ngform-builder.directives', [
 	'directive.builder',
     'directive.field',
     'directive.form',
@@ -428,7 +428,7 @@ angular.module('directive.validation', [])
         {name:'Not Between', value:'not_between'}
     ];
 });
-;angular.module('services', [])
+;angular.module('ngform-builder.services', [])
 .service('FormService', function FormService() {
     return {
         fields:[
@@ -508,7 +508,7 @@ angular.module('ngform-builder', [
 	'ui.validate',
 	'ui.bootstrap',
 	"ngform-templates",
-	'controllers',
-	'services',
-	'directives'
+	'ngform-builder.controllers',
+	'ngform-builder.services',
+	'ngform-builder.directives'
 ]);

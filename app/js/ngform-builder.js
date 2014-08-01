@@ -5,7 +5,7 @@ angular.module('ngform-builder', [
 	'ui.validate',
 	'ui.bootstrap',
 	/*<% ngform-builder %>*/
-	'controllers',
-	'services',
-	'directives'
+	'ngform-builder.controllers',
+	'ngform-builder.services',
+	'ngform-builder.directives'
 ]);
