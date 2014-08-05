@@ -48,8 +48,7 @@ angular.module('directive.validation', [])
         {name:'Does not contain', value:'not_contains'},
         {name:'Min Length', value:'min_length'},
         {name:'Max Length', value:'max_length'},
-        {name:'Between', value:'between'},
-        {name:'Regular Expression', value:'regex'}
+        {name:'Between', value:'between'}
     ];
 
     $scope.numberValidationRules = [
