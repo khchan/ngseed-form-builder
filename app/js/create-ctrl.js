@@ -1,5 +1,5 @@
 angular.module('ngform-builder.controllers', [])
-.controller('CreateCtrl', ['$scope', 'FormService', function ($scope, FormService) {
+.controller('CreateCtrl', ['$scope', '$http', 'FormService', function ($scope, $http, FormService) {
 
     // preview form mode
     $scope.previewMode = false;

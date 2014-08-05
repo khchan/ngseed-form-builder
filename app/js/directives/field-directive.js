@@ -16,6 +16,9 @@ angular.module('directive.field', [])
                 case 'none':         $scope.showValidateError = false; return true;
                 case 'contains':     res = value.indexOf(expr) > -1; break;
                 case 'not_contains': res = value.indexOf(expr) <= -1; break;
+                case 'min_length':   res = value.length >= expr; break;
+                case 'max_length':   res = value.length <= expr; break;
+                case 'between':      res = value.length >= expr.min && value.length <= expr.max; break;
                 default: break;
             }                
         }

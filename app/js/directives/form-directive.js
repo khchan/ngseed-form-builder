@@ -7,6 +7,7 @@ angular.module('directive.form', [])
             $scope.submit = function(){
                 alert('Form submitted..');
                 $scope.form.submitted = true;
+                console.log($scope.form);
             }
             $scope.cancel = function(){
                 alert('Form canceled..');

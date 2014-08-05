@@ -138,6 +138,47 @@ describe('Directive Tests', function() {
 			expect(scope.validateText(field.field_value, field)).toBe(true);
 		});
 
+		it('should be at least 5 characters long', function() {
+			var field = scope.form.form_questions[0];
+			field.field_validation.rule = 'min_length';
+			field.field_validation.expression = 5;	
+			field.field_value = 'wowe';
+			scope.$apply();
+			expect(scope.validateText(field.field_value, field)).toBe(false);
+
+			field.field_value = 'wowe, such pass';
+			scope.$apply();
+			expect(scope.validateText(field.field_value, field)).toBe(true);
+		});
+
+		it('should be at most 5 characters long', function() {
+			var field = scope.form.form_questions[0];
+			field.field_validation.rule = 'max_length';
+			field.field_validation.expression = 5;	
+			field.field_value = 'wowe, such fail';
+			scope.$apply();
+			expect(scope.validateText(field.field_value, field)).toBe(false);
+
+			field.field_value = 'wowe';
+			scope.$apply();
+			expect(scope.validateText(field.field_value, field)).toBe(true);
+		});			
+
+		it('should be between 1 and 5 characters long', function() {
+			var field = scope.form.form_questions[0];
+			field.field_validation.rule = 'between';
+			field.field_validation.expression = {};
+			field.field_validation.expression.min = 1;	
+			field.field_validation.expression.max = 5;	
+			field.field_value = 'wowe such fail';
+			scope.$apply();
+			expect(scope.validateText(field.field_value, field)).toBe(false);
+
+			field.field_value = 'wowe';
+			scope.$apply();
+			expect(scope.validateText(field.field_value, field)).toBe(true);
+		});		
+
 	});
 
 	describe('Unit tests for number validation', function() {

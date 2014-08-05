@@ -42,7 +42,7 @@ angular.module("partials/directive-templates/field/number.html", []).run(["$temp
 
 angular.module("partials/directive-templates/field/password.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/directive-templates/field/password.html",
-    "<div class=form-group><label for=field.field_id>{{field.field_title}}</label><span class=required-error ng-show=\"field.field_required && !field.field_value\">* required</span> <span class=required-error ng-show=showValidateError>{{field.field_helpertext}}</span> <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span> <input type=password id=field.field_id class=form-control name={{field.field_name}} ng-model=field.field_value value=field.field_value required placeholder={{field.field_placeholder}}></div>");
+    "<div class=form-group><label for=field.field_id>{{field.field_title}}</label><span class=required-error ng-show=\"field.field_required && !field.field_value\">* required</span> <span class=required-error ng-show=showValidateError>{{field.field_helpertext}}</span> <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span> <input type=password id=field.field_id class=form-control name={{field.field_name}} ng-model=field.field_value value=field.field_value ng-minlength=8 ng-pattern=\"/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/\" required placeholder={{field.field_placeholder}}></div>");
 }]);
 
 angular.module("partials/directive-templates/field/radio.html", []).run(["$templateCache", function($templateCache) {
@@ -78,10 +78,10 @@ angular.module("partials/directive-templates/validation/number.html", []).run(["
 
 angular.module("partials/directive-templates/validation/textfield.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/directive-templates/validation/textfield.html",
-    "<div class=row><div class=col-md-4>Custom Validation</div><div class=col-md-8><button type=button class=\"btn btn-info btn-xs\" ng-click=\"showValidation = !showValidation\">Hide/Show</button></div></div><div ng-init=\"showValidation = false\" ng-show=showValidation><div class=row><div class=col-md-4>Question Placeholder:</div><div class=col-md-8><input ng-model=field.field_placeholder class=form-control value=field.field_placeholder></div></div><div class=row><div class=col-md-4>Question Helper Text:</div><div class=col-md-8><input ng-model=field.field_helpertext class=form-control value=field.field_helpertext></div></div><div class=row><div class=col-md-4>Validation Expression:</div><div class=col-md-4><select class=form-control ng-change=\"field.field_validation.expression = ''\" ng-model=field.field_validation.rule><option value=\"\" disabled>Select a rule</option><option ng-repeat=\"rule in textValidationRules\" value={{rule.value}}>{{rule.name}}</option></select></div><div class=col-md-4><input ng-disabled=\"field.field_validation.rule == 'none'\" ng-model=field.field_validation.expression class=form-control></div></div></div>");
+    "<div class=row><div class=col-md-4>Custom Validation</div><div class=col-md-8><button type=button class=\"btn btn-info btn-xs\" ng-click=\"showValidation = !showValidation\">Hide/Show</button></div></div><div ng-init=\"showValidation = false\" ng-show=showValidation><div class=row><div class=col-md-4>Question Placeholder:</div><div class=col-md-8><input ng-model=field.field_placeholder class=form-control value=field.field_placeholder></div></div><div class=row><div class=col-md-4>Question Helper Text:</div><div class=col-md-8><input ng-model=field.field_helpertext class=form-control value=field.field_helpertext></div></div><div class=row><div class=col-md-4>Validation Expression:</div><div class=col-md-4><select class=form-control ng-change=\"field.field_validation.expression = ''\" ng-model=field.field_validation.rule><option value=\"\" disabled>Select a rule</option><option ng-repeat=\"rule in textValidationRules\" value={{rule.value}}>{{rule.name}}</option></select></div><div ng-switch=field.field_validation.rule><div ng-switch-when=min_length><div class=col-md-4><input type=number placeholder=Min ng-model=field.field_validation.expression class=form-control></div></div><div ng-switch-when=max_length><div class=col-md-4><input type=number placeholder=Max ng-model=field.field_validation.expression class=form-control></div></div><div ng-switch-when=between><div class=col-md-2><input type=number placeholder=Min ng-model=field.field_validation.expression.min class=form-control></div><div class=col-md-2><input type=number placeholder=Max ng-model=field.field_validation.expression.max class=form-control></div></div><div class=col-md-4 ng-switch-default><input ng-disabled=\"field.field_validation.rule == 'none'\" ng-model=field.field_validation.expression class=form-control></div></div></div></div>");
 }]);
 ;angular.module('ngform-builder.controllers', [])
-.controller('CreateCtrl', ['$scope', 'FormService', function ($scope, FormService) {
+.controller('CreateCtrl', ['$scope', '$http', 'FormService', function ($scope, $http, FormService) {
 
     // preview form mode
     $scope.previewMode = false;
@@ -248,6 +248,9 @@ angular.module('directive.field', [])
                 case 'none':         $scope.showValidateError = false; return true;
                 case 'contains':     res = value.indexOf(expr) > -1; break;
                 case 'not_contains': res = value.indexOf(expr) <= -1; break;
+                case 'min_length':   res = value.length >= expr; break;
+                case 'max_length':   res = value.length <= expr; break;
+                case 'between':      res = value.length >= expr.min && value.length <= expr.max; break;
                 default: break;
             }                
         }
@@ -348,6 +351,7 @@ angular.module('directive.form', [])
             $scope.submit = function(){
                 alert('Form submitted..');
                 $scope.form.submitted = true;
+                console.log($scope.form);
             }
             $scope.cancel = function(){
                 alert('Form canceled..');
@@ -412,7 +416,11 @@ angular.module('directive.validation', [])
     $scope.textValidationRules = [
         {name:'None', value:'none'},
         {name:'Contains', value:'contains'},
-        {name:'Does not contain', value:'not_contains'}
+        {name:'Does not contain', value:'not_contains'},
+        {name:'Min Length', value:'min_length'},
+        {name:'Max Length', value:'max_length'},
+        {name:'Between', value:'between'},
+        {name:'Regular Expression', value:'regex'}
     ];
 
     $scope.numberValidationRules = [

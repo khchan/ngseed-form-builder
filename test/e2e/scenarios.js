@@ -99,6 +99,36 @@ describe('E2E Testing for Form Builder Module', function() {
 			expect(ok.isDisplayed()).toBe(true);
 			element(by.css('p.text-center button[ng-click="previewOff()"]')).click();
 		});
+
+		it('should enforce validation rules for "min_length"', function() {
+			rule.$('[value="min_length"]').click();
+			expect(expression.isEnabled()).toBe(true);
+			expression.sendKeys(5);
+
+			element(by.css('p.text-center button[ng-click="previewOn()"]')).click();
+			input.clear();
+			input.sendKeys("doge");
+			expect(ok.isDisplayed()).toBe(false);
+			input.clear();
+			input.sendKeys("doge, such pass");
+			expect(ok.isDisplayed()).toBe(true);
+			element(by.css('p.text-center button[ng-click="previewOff()"]')).click();
+		});
+
+		it('should enforce validation rules for "max_length"', function() {
+			rule.$('[value="not_contains"]').click();
+			expect(expression.isEnabled()).toBe(true);
+			expression.sendKeys(5);
+
+			element(by.css('p.text-center button[ng-click="previewOn()"]')).click();
+			input.clear();
+			input.sendKeys("doge, such fail");
+			expect(ok.isDisplayed()).toBe(false);
+			input.clear();
+			input.sendKeys("wowe");
+			expect(ok.isDisplayed()).toBe(true);
+			element(by.css('p.text-center button[ng-click="previewOff()"]')).click();
+		});			
 	});
 /*
 	describe('Configuring email questions', function() {
