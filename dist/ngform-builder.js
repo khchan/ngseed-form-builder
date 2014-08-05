@@ -233,6 +233,50 @@ angular.module('directive.builder', [])
 });;'use strict';
 
 angular.module('directive.field', [])
+.controller('FieldCtrl', ['$scope', function ($scope) {
+    $scope.clearExpr = function(field) {
+        field.field_min = '';
+        field.field_max = '';
+        field.field_validation.expression = '';
+    }
+
+    $scope.validateText = function(value, field) {
+        var expr = field.field_validation.expression;
+        var res = true;
+        if (value && value.length >= 0) {
+            switch (field.field_validation.rule) {
+                case 'none':         $scope.showValidateError = false; return true;
+                case 'contains':     res = value.indexOf(expr) > -1; break;
+                case 'not_contains': res = value.indexOf(expr) <= -1; break;
+                default: break;
+            }                
+        }
+        $scope.showValidateError = !res;
+        return res;
+    }
+
+    $scope.validateNumber = function(value, field) {
+        var expr = field.field_validation.expression;
+        var res = true;
+        if (value) {
+            switch (field.field_validation.rule) {
+                case 'none':        $scope.showValidateError = false; return true;
+                case 'gt':          res = value > expr; break;
+                case 'geq':         res = value >= expr; break;
+                case 'lt':          res = value < expr; break;
+                case 'leq':         res = value <= expr; break;
+                case 'eq':          res = value == expr; break;
+                case 'neq':         res = value != expr; break;
+                case 'between':     res = value >= expr.min && value <= expr.max; break;
+                case 'not_between': res = value < expr.min || value > expr.max; break;
+                default: break;
+            }
+        }
+        $scope.showValidateError = !res;
+        return res;
+    }
+}])
+
 .directive('fieldDirective', function ($http, $compile, $templateCache) {
 
     var getTemplateUrl = function(field) {
@@ -295,52 +339,7 @@ angular.module('directive.field', [])
         },
         link: linker
     };
-});
-
-function FieldCtrl($scope) {
-    $scope.clearExpr = function(field) {
-        field.field_min = '';
-        field.field_max = '';
-        field.field_validation.expression = '';
-    }
-
-    $scope.validateText = function(value, field) {
-        var expr = field.field_validation.expression;
-        var res = true;
-        if (value && value.length >= 0) {
-            switch (field.field_validation.rule) {
-                case 'none':         $scope.showValidateError = false; return true;
-                case 'contains':     res = value.indexOf(expr) > -1; break;
-                case 'not_contains': res = value.indexOf(expr) <= -1; break;
-                default: break;
-            }                
-        }
-        $scope.showValidateError = !res;
-        return res;
-    }
-
-    $scope.validateNumber = function(value, field) {
-        var expr = field.field_validation.expression;
-        var res = true;
-        if (value) {
-            switch (field.field_validation.rule) {
-                case 'none':        $scope.showValidateError = false; return true;
-                case 'gt':          res = value > expr; break;
-                case 'geq':         res = value >= expr; break;
-                case 'lt':          res = value < expr; break;
-                case 'leq':         res = value <= expr; break;
-                case 'eq':          res = value == expr; break;
-                case 'neq':         res = value != expr; break;
-                case 'between':     res = value >= expr.min && value <= expr.max; break;
-                case 'not_between': res = value < expr.min || value > expr.max; break;
-                default: break;
-            }
-        }
-        $scope.showValidateError = !res;
-        return res;
-    }
-}
-;'use strict';
+});;'use strict';
 
 angular.module('directive.form', [])
 .directive('formDirective', function () {
