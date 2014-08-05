@@ -116,7 +116,7 @@ describe('E2E Testing for Form Builder Module', function() {
 		});
 
 		it('should enforce validation rules for "max_length"', function() {
-			rule.$('[value="not_contains"]').click();
+			rule.$('[value="max_length"]').click();
 			expect(expression.isEnabled()).toBe(true);
 			expression.sendKeys(5);
 
@@ -130,31 +130,65 @@ describe('E2E Testing for Form Builder Module', function() {
 			element(by.css('p.text-center button[ng-click="previewOff()"]')).click();
 		});			
 	});
-/*
-	describe('Configuring email questions', function() {
+
+	describe('Regular textfield validation testing', function() {
+		beforeEach(function() {
+			element(by.css('p.text-center button[ng-click="reset()"')).click();
+		});
+
 		it('should be able to customize email options', function() {
 			element(by.model('addField.new')).$('[value="1"]').click();
 			element(by.css("div.add-field button")).click();
+			element(by.css('a.accordion-toggle')).click();
+
+			// edit label and name fields
+			var label = element(by.model("field.field_title"));
+			var name = element(by.model("field.field_name"));
+			label.clear();
+			label.sendKeys("Wowe such email, much validate!");
+			name.clear();
+			name.sendKeys("unique_email_doge");
+
+			element(by.css('p.text-center button[ng-click="previewOn()"]')).click();
+			var input = element(by.css('field-directive input'));
+			var ok = element(by.css('field-directive span.glyphicon-ok'));
+			input.sendKeys('wowe');
+			expect(ok.isDisplayed()).toBe(false);
+			input.clear();
+			input.sendKeys('wowe@doge.com');
+			expect(ok.isDisplayed()).toBe(true);
+			element(by.css('p.text-center button[ng-click="previewOff()"]')).click();
 		});
 
-		it('should be able to customize email validation', function() {
-
-		});
-	});
-
-	describe('Configuring password questions', function() {
 		it('should be able to customize password options', function() {
 			element(by.model('addField.new')).$('[value="2"]').click();
 			element(by.css("div.add-field button")).click();
+			element(by.css('a.accordion-toggle')).click();
+
+			// edit label and name fields
+			var label = element(by.model("field.field_title"));
+			var name = element(by.model("field.field_name"));
+			label.clear();
+			label.sendKeys("Wowe such password, much validate!");
+			name.clear();
+			name.sendKeys("unique_password_doge");
+
+			element(by.css('p.text-center button[ng-click="previewOn()"]')).click();
+			var input = element(by.css('field-directive input'));
+			var ok = element(by.css('field-directive span.glyphicon-ok'));
+			input.sendKeys('wowepassword');
+			expect(ok.isDisplayed()).toBe(false);
+			input.clear();
+			input.sendKeys('WoweSuchPassword123');
+			expect(ok.isDisplayed()).toBe(true);
+			element(by.css('p.text-center button[ng-click="previewOff()"]')).click();
 		});
 
-		it('should be able to customize password validation', function() {
-
-		});
 	});
-
+/*
 	describe('Configuring radio button questions', function() {
 		it('should be able to customize radio options', function() {
+			element(by.css('p.text-center button[ng-click="reset()"')).click();
 			element(by.model('addField.new')).$('[value="3"]').click();
 			element(by.css("div.add-field button")).click();
 		});
