@@ -42,13 +42,14 @@ module.exports = function (grunt) {
             }
         },
 
-        cssmin: {
-            minify: {
+        copy: {
+            main: {
                 expand: true,
-                cwd: 'app/',
-                src: ['css/*.css'],
-                dest: 'dist/',
-                ext: '.min.css'
+                cwd: 'app/less/',
+                src: '*.less',
+                dest: 'dist/less/',
+                flatten: true,
+                filter: 'isFile'
             }
         },
 
@@ -84,13 +85,13 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-html2js');
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-concat');    
     grunt.loadNpmTasks('grunt-contrib-uglify');
  
     // Tell Grunt what to do when we type "grunt" into the terminal
     grunt.registerTask('build', [
-        'clean:all', 'html2js', 'concat', 'cssmin', 'uglify', 'clean:tmp'
+        'clean:all', 'html2js', 'concat', 'copy', 'uglify', 'clean:tmp'
     ]);
 
     grunt.registerTask('default', [
