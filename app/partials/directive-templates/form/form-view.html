@@ -1,0 +1,37 @@
+<h1 class="text-center">{{ form.form_title }}</h1>
+<section class="row" ng-show="!form.submitted">
+    <ng-form name="my_form" class="form-horizontal" novalidate autocomplete="off">
+        <carousel>
+            <slide ng-repeat="field in form.form_questions" active="field.active">
+                <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <field-directive field="field" style="font-size: 150%"></field-directive>
+                    </div>
+                <div class="col-md-2"></div>
+            </slide>
+        </carousel>
+    </ng-form>
+    <div class="modal-footer">
+        <button class="btn btn-success right" type="button" ng-disabled="my_form.$invalid" ng-click="submit()">Submit</button>
+        <button class="btn btn-danger right" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</section>
+
+<div ng-show="form.submitted">
+    <h3>Submitted Data</h3>
+    <dl class="dl-horizontal">
+        <dt>Form Type:</dt><dd>{{ form.form_type }}</dd>
+        <dt>Form Name:</dt><dd>{{ form.form_name }}</dd>
+        <dt>Form Title:</dt><dd>{{ form.form_title }}</dd> 
+        <hr/> 
+        <div ng-repeat="field in form.form_questions">
+            <dt>Label:</dt><dd>{{ field.field_title }}</dd>
+            <dt>Name:</dt><dd>{{ field.field_name }}</dd>
+            <dt>Value:</dt><dd>{{ field.field_value }}</dd>
+            <dt>Placeholder:</dt><dd>{{ field.field_placeholder }}</dd>
+            <dt>Validation:</dt><dd>{{ field.field_validation | json}}</dd>
+            <dt>Helper Text:</dt><dd>{{ field.field_helpertext }}</dd>
+            <br/>
+        </div>
+    </dl>
+</div>

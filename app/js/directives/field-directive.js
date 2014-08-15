@@ -2,6 +2,7 @@
 
 angular.module('directive.field', [])
 .controller('FieldCtrl', ['$scope', function ($scope) {
+    
     $scope.clearExpr = function(field) {
         field.field_min = '';
         field.field_max = '';
@@ -50,51 +51,9 @@ angular.module('directive.field', [])
 
 .directive('fieldDirective', function ($http, $compile, $templateCache) {
 
-    var getTemplateUrl = function(field) {
-        var type = field.field_type;
-        var templateUrl = '';
-
-        switch(type) {
-            case 'textfield':
-                templateUrl = 'partials/directive-templates/field/textfield.html';
-                break;
-            case 'email':
-                templateUrl = 'partials/directive-templates/field/email.html';
-                break;
-            case 'textarea':
-                templateUrl = 'partials/directive-templates/field/textarea.html';
-                break;
-            case 'checkbox':
-                templateUrl = 'partials/directive-templates/field/checkbox.html';
-                break;
-            case 'checkbox-group':
-                templateUrl = 'partials/directive-templates/field/checkbox-group.html';
-                break;
-            case 'number':
-                templateUrl = 'partials/directive-templates/field/number.html';
-                break;
-            case 'date':
-                templateUrl = 'partials/directive-templates/field/date.html';
-                break;
-            case 'dropdown':
-                templateUrl = 'partials/directive-templates/field/dropdown.html';
-                break;
-            case 'hidden':
-                templateUrl = 'partials/directive-templates/field/hidden.html';
-                break;
-            case 'password':
-                templateUrl = 'partials/directive-templates/field/password.html';
-                break;
-            case 'radio':
-                templateUrl = 'partials/directive-templates/field/radio.html';
-                break;
-        }
-        return templateUrl;
-    }
-
     var linker = function(scope, element) {
         // GET template content from path
-        var templateUrl = getTemplateUrl(scope.field);
+        var templateUrl = 'partials/directive-templates/field/' + scope.field.field_type + '.html';
         $http.get(templateUrl, {cache:$templateCache}).success(function(data) {
             element.html(data);
             $compile(element.contents())(scope);

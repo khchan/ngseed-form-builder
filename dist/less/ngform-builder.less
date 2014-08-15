@@ -7,7 +7,18 @@ body {
     color: #333;
 }
 .accordion-toggle {
-    cursor: pointer;
+  cursor: pointer;
+  -moz-user-select: none; /* mozilla browsers */
+  -khtml-user-select: none; /* webkit browsers */
+}
+.carousel-indicators {
+  bottom: -50px;
+  li {
+    border: 1px solid #C0C0C0;
+  }
+}
+.carousel-inner {
+   margin-bottom: 50px;
 }
 .container-narrow {
     margin: 0 auto;

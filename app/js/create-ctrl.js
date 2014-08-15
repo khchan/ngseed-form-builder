@@ -1,5 +1,6 @@
 angular.module('ngform-builder.controllers', [])
-.controller('CreateCtrl', ['$scope', '$http', 'FormService', function ($scope, $http, FormService) {
+.controller('CreateCtrl', ['$scope', '$http', 'FormService', 
+function ($scope, $http, FormService) {
 
     // preview form mode
     $scope.previewMode = false;
@@ -11,6 +12,8 @@ angular.module('ngform-builder.controllers', [])
         $scope.form.form_name = 'my_form';
         $scope.form.form_title = 'My Form';
         $scope.form.form_questions = [];
+    } else {
+
     }
     
     // previewForm - for preview purposes, form will be copied into this
