@@ -79,6 +79,14 @@ module.exports = function (grunt) {
                    'dist/ngform-builder.min.js': ['dist/ngform-builder.js']
                 }
             }
+        },
+
+        less: {
+            development: {
+                files: {
+                    "dist/css/ngform-builder.css": "app/less/ngform-builder.less"
+                }
+            }
         }
     });
     
@@ -88,10 +96,11 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-concat');    
     grunt.loadNpmTasks('grunt-contrib-uglify');
- 
+    grunt.loadNpmTasks('grunt-contrib-less');
+
     // Tell Grunt what to do when we type "grunt" into the terminal
     grunt.registerTask('build', [
-        'clean:all', 'html2js', 'concat', 'copy', 'uglify', 'clean:tmp'
+        'clean:all', 'html2js', 'less', 'concat', 'copy', 'uglify', 'clean:tmp'
     ]);
 
     grunt.registerTask('default', [

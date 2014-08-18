@@ -1,29 +1,54 @@
-<section class="row" ng-show="!form.submitted">
-    <h3 class="col-md-12 text-center">{{ form.form_title }}</h3>
-    <div class="col-sm-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-        <div class="text-center">
-            <dl class="dl-horizontal">
-                <dt>Form Type:</dt><dd>{{ form.form_type }}</dd>
-                <dt>Form Name:</dt><dd>{{ form.form_name }}</dd>
-                <dt>Form Title:</dt><dd>{{ form.form_title }}</dd>
-            </dl>
+<div ng-if="formPreview">
+    <section class="row" ng-show="!form.submitted">
+        <h3 class="col-md-12 text-center">{{ form.form_title }}</h3>
+        <div class="col-sm-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+            <div class="text-center">
+                <dl class="dl-horizontal">
+                    <dt>Form Type:</dt><dd>{{ form.form_type }}</dd>
+                    <dt>Form Name:</dt><dd>{{ form.form_name }}</dd>
+                    <dt>Form Title:</dt><dd>{{ form.form_title }}</dd>
+                </dl>
+            </div>
+            <ng-form name="my_form" class="signin form-horizontal" novalidate autocomplete="off">
+                <fieldset>
+                    <div ng-repeat="field in form.form_questions">
+                        <field-directive field="field"></field-directive>
+                    </div>
+                    <div data-ng-show="error" class="text-center text-danger">
+                        <strong>{{error}}</strong>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-info right" type="button" ng-click="togglePreview()">Toggle View</button>
+                        <button class="btn btn-success right" type="button" ng-disabled="my_form.$invalid" ng-click="submit()">Submit</button>
+                        <button class="btn btn-danger right" type="button" ng-click="cancel()">Cancel</button>
+                    </div>
+                </fieldset>
+            </ng-form>
         </div>
-        <ng-form name="my_form" class="signin form-horizontal" novalidate autocomplete="off">
-            <fieldset>
-                <div ng-repeat="field in form.form_questions">
-                    <field-directive field="field"></field-directive>
-                </div>
-                <div data-ng-show="error" class="text-center text-danger">
-                    <strong>{{error}}</strong>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-success right" type="button" ng-disabled="my_form.$invalid" ng-click="submit()">Submit</button>
-                    <button class="btn btn-danger right" type="button" ng-click="cancel()">Cancel</button>
-                </div>
-            </fieldset>
+    </section>
+</div>
+
+<div ng-if="!formPreview">
+    <h1 class="text-center">{{ form.form_title }}</h1>
+    <section class="row" ng-show="!form.submitted">
+        <ng-form name="my_form" novalidate autocomplete="off">
+            <carousel>
+                <slide ng-repeat="field in form.form_questions" active="field.active">
+                    <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <field-directive field="field" style="font-size: 150%"></field-directive>
+                        </div>
+                    <div class="col-md-2"></div>
+                </slide>
+            </carousel>
         </ng-form>
-    </div>
-</section>
+        <div class="modal-footer">
+            <button class="btn btn-info right" type="button" ng-click="togglePreview()">Preview Form</button>
+            <button class="btn btn-success right" type="button" ng-disabled="my_form.$invalid" ng-click="submit()">Submit</button>
+            <button class="btn btn-danger right" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </section>
+</div>
 
 <div ng-show="form.submitted">
     <h3>Submitted Data</h3>

@@ -1,4 +1,4 @@
-angular.module('ngform-templates', ['partials/create.html', 'partials/directive-templates/field/checkbox-group.html', 'partials/directive-templates/field/checkbox.html', 'partials/directive-templates/field/date.html', 'partials/directive-templates/field/dropdown.html', 'partials/directive-templates/field/email.html', 'partials/directive-templates/field/hidden.html', 'partials/directive-templates/field/number.html', 'partials/directive-templates/field/password.html', 'partials/directive-templates/field/radio.html', 'partials/directive-templates/field/textarea.html', 'partials/directive-templates/field/textfield.html', 'partials/directive-templates/form/form-view.html', 'partials/directive-templates/form/form.html', 'partials/directive-templates/validation/default.html', 'partials/directive-templates/validation/number.html', 'partials/directive-templates/validation/textfield.html']);
+angular.module('ngform-templates', ['partials/create.html', 'partials/directive-templates/field/checkbox-group.html', 'partials/directive-templates/field/checkbox.html', 'partials/directive-templates/field/date.html', 'partials/directive-templates/field/dropdown.html', 'partials/directive-templates/field/email.html', 'partials/directive-templates/field/hidden.html', 'partials/directive-templates/field/number.html', 'partials/directive-templates/field/password.html', 'partials/directive-templates/field/radio.html', 'partials/directive-templates/field/textarea.html', 'partials/directive-templates/field/textfield.html', 'partials/directive-templates/form/form.html', 'partials/directive-templates/validation/default.html', 'partials/directive-templates/validation/number.html', 'partials/directive-templates/validation/textfield.html']);
 
 angular.module("partials/create.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/create.html",
@@ -61,14 +61,9 @@ angular.module("partials/directive-templates/field/textfield.html", []).run(["$t
     "<div class=form-group><label for={field.field_name}>{{field.field_title}}</label><span class=required-error ng-show=\"field.field_required && !field.field_value\">* required</span> <span class=required-error ng-show=showValidateError>{{field.field_helpertext}}</span> <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span> <input id={{field.field_id}} name={{field.field_name}} class=form-control data-ng-model=field.field_value ui-validate=\" 'validateText($value, field)' \" value=field.field_value required placeholder={{field.field_placeholder}}></div>");
 }]);
 
-angular.module("partials/directive-templates/form/form-view.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("partials/directive-templates/form/form-view.html",
-    "<h1 class=text-center>{{ form.form_title }}</h1><carousel><slide ng-repeat=\"field in form.form_questions\" active=field.active><div class=col-md-2></div><div class=col-md-8><field-directive field=field style=\"font-size: 150%\"></field-directive></div><div class=col-md-2></div></slide></carousel><div ng-show=form.submitted><h3>Submitted Data</h3><dl class=dl-horizontal><dt>Form Type:</dt><dd>{{ form.form_type }}</dd><dt>Form Name:</dt><dd>{{ form.form_name }}</dd><dt>Form Title:</dt><dd>{{ form.form_title }}</dd><hr><div ng-repeat=\"field in form.form_questions\"><dt>Label:</dt><dd>{{ field.field_title }}</dd><dt>Name:</dt><dd>{{ field.field_name }}</dd><dt>Value:</dt><dd>{{ field.field_value }}</dd><dt>Placeholder:</dt><dd>{{ field.field_placeholder }}</dd><dt>Validation:</dt><dd>{{ field.field_validation | json}}</dd><dt>Helper Text:</dt><dd>{{ field.field_helpertext }}</dd><br></div></dl></div>");
-}]);
-
 angular.module("partials/directive-templates/form/form.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/directive-templates/form/form.html",
-    "<section class=row ng-show=!form.submitted><h3 class=\"col-md-12 text-center\">{{ form.form_title }}</h3><div class=\"col-sm-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3\"><div class=text-center><dl class=dl-horizontal><dt>Form Type:</dt><dd>{{ form.form_type }}</dd><dt>Form Name:</dt><dd>{{ form.form_name }}</dd><dt>Form Title:</dt><dd>{{ form.form_title }}</dd></dl></div><ng-form name=my_form class=\"signin form-horizontal\" novalidate autocomplete=off><fieldset><div ng-repeat=\"field in form.form_questions\"><field-directive field=field></field-directive></div><div data-ng-show=error class=\"text-center text-danger\"><strong>{{error}}</strong></div><div class=modal-footer><button class=\"btn btn-success right\" type=button ng-disabled=my_form.$invalid ng-click=submit()>Submit</button> <button class=\"btn btn-danger right\" type=button ng-click=cancel()>Cancel</button></div></fieldset></ng-form></div></section><div ng-show=form.submitted><h3>Submitted Data</h3><dl class=dl-horizontal><dt>Form Type:</dt><dd>{{ form.form_type }}</dd><dt>Form Name:</dt><dd>{{ form.form_name }}</dd><dt>Form Title:</dt><dd>{{ form.form_title }}</dd><hr><div ng-repeat=\"field in form.form_questions\"><dt>Label:</dt><dd>{{ field.field_title }}</dd><dt>Name:</dt><dd>{{ field.field_name }}</dd><dt>Value:</dt><dd>{{ field.field_value }}</dd><dt>Placeholder:</dt><dd>{{ field.field_placeholder }}</dd><dt>Validation:</dt><dd>{{ field.field_validation | json}}</dd><dt>Helper Text:</dt><dd>{{ field.field_helpertext }}</dd><br></div></dl></div>");
+    "<div ng-if=formPreview><section class=row ng-show=!form.submitted><h3 class=\"col-md-12 text-center\">{{ form.form_title }}</h3><div class=\"col-sm-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3\"><div class=text-center><dl class=dl-horizontal><dt>Form Type:</dt><dd>{{ form.form_type }}</dd><dt>Form Name:</dt><dd>{{ form.form_name }}</dd><dt>Form Title:</dt><dd>{{ form.form_title }}</dd></dl></div><ng-form name=my_form class=\"signin form-horizontal\" novalidate autocomplete=off><fieldset><div ng-repeat=\"field in form.form_questions\"><field-directive field=field></field-directive></div><div data-ng-show=error class=\"text-center text-danger\"><strong>{{error}}</strong></div><div class=modal-footer><button class=\"btn btn-info right\" type=button ng-click=togglePreview()>Toggle View</button> <button class=\"btn btn-success right\" type=button ng-disabled=my_form.$invalid ng-click=submit()>Submit</button> <button class=\"btn btn-danger right\" type=button ng-click=cancel()>Cancel</button></div></fieldset></ng-form></div></section></div><div ng-if=!formPreview><h1 class=text-center>{{ form.form_title }}</h1><section class=row ng-show=!form.submitted><ng-form name=my_form novalidate autocomplete=off><carousel><slide ng-repeat=\"field in form.form_questions\" active=field.active><div class=col-md-2></div><div class=col-md-8><field-directive field=field style=\"font-size: 150%\"></field-directive></div><div class=col-md-2></div></slide></carousel></ng-form><div class=modal-footer><button class=\"btn btn-info right\" type=button ng-click=togglePreview()>Preview Form</button> <button class=\"btn btn-success right\" type=button ng-disabled=my_form.$invalid ng-click=submit()>Submit</button> <button class=\"btn btn-danger right\" type=button ng-click=cancel()>Cancel</button></div></section></div><div ng-show=form.submitted><h3>Submitted Data</h3><dl class=dl-horizontal><dt>Form Type:</dt><dd>{{ form.form_type }}</dd><dt>Form Name:</dt><dd>{{ form.form_name }}</dd><dt>Form Title:</dt><dd>{{ form.form_title }}</dd><hr><div ng-repeat=\"field in form.form_questions\"><dt>Label:</dt><dd>{{ field.field_title }}</dd><dt>Name:</dt><dd>{{ field.field_name }}</dd><dt>Value:</dt><dd>{{ field.field_value }}</dd><dt>Placeholder:</dt><dd>{{ field.field_placeholder }}</dd><dt>Validation:</dt><dd>{{ field.field_validation | json}}</dd><dt>Helper Text:</dt><dd>{{ field.field_helpertext }}</dd><br></div></dl></div>");
 }]);
 
 angular.module("partials/directive-templates/validation/default.html", []).run(["$templateCache", function($templateCache) {
@@ -326,7 +321,7 @@ angular.module('directive.form', [])
 
     var linker = function(scope, element) {
         // GET template content from path
-        var templateUrl = 'partials/directive-templates/form/' + scope.view + '.html';
+        var templateUrl = 'partials/directive-templates/form/form.html';
         $http.get(templateUrl, {cache:$templateCache}).success(function(data) {
             element.html(data);
             $compile(element.contents())(scope);
@@ -335,12 +330,17 @@ angular.module('directive.form', [])
 
     return {
         controller: function($scope){
-            $scope.submit = function(){
+            $scope.formPreview = false;
+            
+            $scope.togglePreview = function() {
+                $scope.formPreview = !$scope.formPreview;
+            };
+            $scope.submit = function() {
                 alert('Form submitted..');
                 $scope.form.submitted = true;
                 console.log($scope.form);
             };
-            $scope.cancel = function(){
+            $scope.cancel = function() {
                 alert('Form canceled..');
             };
         },
