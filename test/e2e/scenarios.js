@@ -59,6 +59,7 @@ describe('E2E Testing for Form Builder Module', function() {
 			expect(expression.isEnabled()).toBe(false);
 
 			element(by.css('p.text-center button[ng-click="previewOn()"]')).click();
+			browser.sleep(1500)
 			input.clear();
 			expect(ok.isDisplayed()).toBe(false);
 			input.sendKeys("doge");
@@ -74,6 +75,7 @@ describe('E2E Testing for Form Builder Module', function() {
 			expect(expression.getAttribute("value")).toBe("doge");
 
 			element(by.css('p.text-center button[ng-click="previewOn()"]')).click();
+			browser.sleep(1500)
 			input.clear();
 			input.sendKeys("wowe");
 			expect(ok.isDisplayed()).toBe(false);
@@ -91,6 +93,7 @@ describe('E2E Testing for Form Builder Module', function() {
 			expect(expression.getAttribute("value")).toBe("doge");
 
 			element(by.css('p.text-center button[ng-click="previewOn()"]')).click();
+			browser.sleep(1500)
 			input.clear();
 			input.sendKeys("doge");
 			expect(ok.isDisplayed()).toBe(false);
@@ -106,6 +109,7 @@ describe('E2E Testing for Form Builder Module', function() {
 			expression.sendKeys(5);
 
 			element(by.css('p.text-center button[ng-click="previewOn()"]')).click();
+			browser.sleep(1500)
 			input.clear();
 			input.sendKeys("doge");
 			expect(ok.isDisplayed()).toBe(false);
@@ -121,6 +125,7 @@ describe('E2E Testing for Form Builder Module', function() {
 			expression.sendKeys(5);
 
 			element(by.css('p.text-center button[ng-click="previewOn()"]')).click();
+			browser.sleep(1500)
 			input.clear();
 			input.sendKeys("doge, such fail");
 			expect(ok.isDisplayed()).toBe(false);
@@ -150,6 +155,7 @@ describe('E2E Testing for Form Builder Module', function() {
 			name.sendKeys("unique_email_doge");
 
 			element(by.css('p.text-center button[ng-click="previewOn()"]')).click();
+			browser.sleep(1500);
 			var input = element(by.css('field-directive input'));
 			var ok = element(by.css('field-directive span.glyphicon-ok'));
 			input.sendKeys('wowe');
@@ -174,6 +180,7 @@ describe('E2E Testing for Form Builder Module', function() {
 			name.sendKeys("unique_password_doge");
 
 			element(by.css('p.text-center button[ng-click="previewOn()"]')).click();
+			browser.sleep(1500);
 			var input = element(by.css('field-directive input'));
 			var ok = element(by.css('field-directive span.glyphicon-ok'));
 			input.sendKeys('wowepassword');
