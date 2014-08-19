@@ -30,6 +30,8 @@ angular.module('main', ['ngform-builder'])
     "form_type": "system",
     "form_name": "my_form",
     "form_title": "My Form",
+    "form_submitText": "Submit Me",
+    "form_cancelText": "Cancel Me",
     "form_questions": [
       {
         "field_id": 1,
@@ -38,12 +40,15 @@ angular.module('main', ['ngform-builder'])
         "field_type": "textfield",
         "field_value": "",
         "field_placeholder": "Enter a textfield value",
-        "field_validation_pattern": "*",
+        "field_validation": {
+          "rule": "none",
+          "expression": ""
+        },
         "field_helpertext": "missing input or invalid",
+        "field_hasOptions": false,
         "field_required": true
       }
-    ],
-    "submitted": false
+    ]
   };
 });
 ```
@@ -56,6 +61,8 @@ In your html:
 Testing
 -------
 To run unit tests: ```npm test```
+
+To run e2e tests: run ```grunt``` to start server then run ```npm run protractor```
 
 Distribution
 ------------

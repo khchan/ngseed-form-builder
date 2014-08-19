@@ -12,8 +12,8 @@
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-default right" type="button" ng-click="togglePreview()">User View</button>
-                        <button class="btn btn-primary right" type="button" ng-disabled="my_form.$invalid" ng-click="onSubmit()">Submit</button>
-                        <button class="btn btn-warning right" type="button" ng-click="onCancel()">Cancel</button>
+                        <button class="btn btn-primary right" type="button" ng-disabled="my_form.$invalid" ng-click="onSubmit()">{{form.form_submitText}}</button>
+                        <button class="btn btn-warning right" type="button" ng-click="onCancel()">{{form.form_cancelText}}</button>
                     </div>
                 </fieldset>
             </ng-form>
@@ -39,8 +39,8 @@
         </ng-form>
         <div class="modal-footer">
             <button class="btn btn-default right" type="button" ng-click="togglePreview()">Review Form</button>
-            <button class="btn btn-primary right" type="button" ng-disabled="my_form.$invalid" ng-click="onSubmit()">Submit</button>
-            <button class="btn btn-warning right" type="button" ng-click="onCancel()">Cancel</button>
+            <button class="btn btn-primary right" type="button" ng-disabled="my_form.$invalid" ng-click="onSubmit()">{{form.form_submitText}}</button>
+            <button class="btn btn-warning right" type="button" ng-click="onCancel()">{{form.form_cancelText}}</button>
         </div>
     </section>
 </div>

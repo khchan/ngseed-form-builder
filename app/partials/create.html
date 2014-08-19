@@ -6,24 +6,38 @@
 		<div class="form-fields" ng-hide="previewMode">
 			<div class="form-properties">
 				<h3>Form Properties</h3>
-				<div class="row">
-					<div class="col-md-2">Form Type</div>
-					<div class="col-md-6">
-						<input type="text" name="form-type" class="form-control" ng-model="form.form_type">
+				<form class="form-horizontal" role="form">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Form Type: </label>
+						<div class="col-sm-10">
+							<input type="text" name="form-type" class="form-control" ng-model="form.form_type">
+						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-2">Form Name</div>
-					<div class="col-md-6">
-						<input type="text" name="form-name" class="form-control" ng-model="form.form_name">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Form Name: </label>
+						<div class="col-sm-10">
+							<input type="text" name="form-name" class="form-control" ng-model="form.form_name">
+						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-2">Form Title</div>
-					<div class="col-md-6">
-						<input type="text" name="form-title" class="form-control" ng-model="form.form_title">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Form Name: </label>
+						<div class="col-sm-10">
+							<input type="text" name="form-name" class="form-control" ng-model="form.form_name">
+						</div>
 					</div>
-				</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Text on Submit: </label>
+						<div class="col-sm-10">
+							<input type="text" name="form-submit-btn" class="form-control" ng-model="form.form_submitText">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Text on Cancel: </label>
+						<div class="col-sm-10">
+							<input type="text" name="form-cancel-btn" class="form-control" ng-model="form.form_cancelText">
+						</div>
+					</div>
+				</form>
 			</div>
 
 			<hr>
@@ -132,7 +146,11 @@
 		</div>
 
 		<div class="form-fields-preview" ng-show="previewMode">
-			<form-directive form="previewForm" on-submit="submit()" on-cancel="cancel()"></form-directive>
+			<form-directive 
+				form="previewForm" 
+				on-submit="submit()" 
+				on-cancel="cancel()">
+			</form-directive>
 			<hr/>
 			<p class="text-center">
 				<button class="btn btn-primary btn-large right" type="button" ng-click="previewOff()">Back to Create Mode</button>

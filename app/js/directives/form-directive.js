@@ -10,7 +10,7 @@
 angular.module('directive.form', [])
 .directive('formDirective', function ($http, $compile, $templateCache) {
 
-    var linker = function(scope, element) {
+    var linker = function(scope, element, attrs) {
         // GET template content from path
         var templateUrl = 'partials/directive-templates/form/form.html';
         $http.get(templateUrl, {cache:$templateCache}).success(function(data) {

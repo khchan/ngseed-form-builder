@@ -2,6 +2,8 @@
   "form_type": "system",
   "form_name": "my_form",
   "form_title": "My Form",
+  "form_submitText": "Get To",
+  "form_cancelText": "Da Choppa",
   "form_questions": [
     {
       "field_id": 1,
