@@ -3,6 +3,7 @@
         {{field.field_title}}
     </label>
     <span class="required-error" ng-show="field.field_required && !field.field_value">* {{field.field_helpertext}}</span>
+    <span class="glyphicon glyphicon-ok" ng-show="field.field_value"></span>
 	<input type="date" 
 		id="field.field_id"
 		name="{{field.field_name}}"

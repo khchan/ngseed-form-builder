@@ -7,27 +7,27 @@ angular.module("partials/create.html", []).run(["$templateCache", function($temp
 
 angular.module("partials/directive-templates/field/checkbox-group.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/directive-templates/field/checkbox-group.html",
-    "<div class=form-group><label for=field.field_id>{{field.field_title}}</label><span class=required-error ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span><div class=row-fluid class=checkbox-inline><label ng-repeat=\"option in field.field_options\"><input type=checkbox ng-true-value=true ng-false-value=false ng-model=field.field_value[option.option_value]> {{option.option_title}}&nbsp;</label></div></div>");
+    "<div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label><span class=required-error ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span><div class=row-fluid class=checkbox-inline><label ng-repeat=\"option in field.field_options\"><input type=checkbox ng-true-value=true ng-false-value=false ng-model=field.field_value[option.option_value]> {{option.option_title}}&nbsp;</label></div></div>");
 }]);
 
 angular.module("partials/directive-templates/field/checkbox.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/directive-templates/field/checkbox.html",
-    "<div class=form-group><input type=checkbox id=field.field_id ng-model=field.field_value ng-true-value=true ng-false-value=false><label class=form-field-label for=field.field_id>{{field.field_title}}</label></div>");
+    "<div class=form-group><label class=form-field-label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label><input type=checkbox id=field.field_id ng-model=field.field_value ng-true-value=true ng-false-value=false></div>");
 }]);
 
 angular.module("partials/directive-templates/field/date.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/directive-templates/field/date.html",
-    "<div class=form-group><label for=field.field_id>{{field.field_title}}</label><span class=required-error ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span> <input type=date id=field.field_id name={{field.field_name}} ng-model=field.field_value value=field.field_value required class=form-control></div>");
+    "<div class=form-group><label for=field.field_id>{{field.field_title}}</label><span class=required-error ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span> <span class=\"glyphicon glyphicon-ok\" ng-show=field.field_value></span> <input type=date id=field.field_id name={{field.field_name}} ng-model=field.field_value value=field.field_value required class=form-control></div>");
 }]);
 
 angular.module("partials/directive-templates/field/dropdown.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/directive-templates/field/dropdown.html",
-    "<div class=form-group><label for=field.field_id>{{field.field_title}}</label><span class=required-error ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span><div class=row-fluid><select class=form-control ng-model=field.field_value ng-options=\"option.option_value as option.option_title for option in field.field_options\" required><option value=textfield disabled>Select an option</option></select></div></div>");
+    "<div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label><span class=required-error ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span> <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span><div class=row-fluid><select class=form-control ng-model=field.field_value ng-options=\"option.option_value as option.option_title for option in field.field_options\" required><option value=textfield disabled>Select an option</option></select></div></div>");
 }]);
 
 angular.module("partials/directive-templates/field/email.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/directive-templates/field/email.html",
-    "<div class=form-group><label for=field.field_id>{{field.field_title}}</label><span class=required-error ng-show=\"field.field_required && !field.field_value\">* required</span> <span class=required-error ng-show=showValidateError>{{field.field_helpertext}}</span> <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span> <input type=email placeholder={{field.field_placeholder}} id=field.field_id name={{field.field_name}} class=form-control ng-model=field.field_value value=field.field_value required></div>");
+    "<div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label><span class=required-error ng-show=\"(field.field_required && !field.field_value) || showValidateError\">* {{field.field_helpertext}}</span> <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span> <input type=email placeholder={{field.field_placeholder}} id=field.field_id name={{field.field_name}} class=form-control ng-model=field.field_value value=field.field_value required></div>");
 }]);
 
 angular.module("partials/directive-templates/field/hidden.html", []).run(["$templateCache", function($templateCache) {
@@ -37,28 +37,28 @@ angular.module("partials/directive-templates/field/hidden.html", []).run(["$temp
 
 angular.module("partials/directive-templates/field/number.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/directive-templates/field/number.html",
-    "<div class=form-group><label for=field.field_id>{{field.field_title}}</label><span class=required-error ng-show=showValidateError>{{field.field_helpertext}}</span> <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span> <input type=number placeholder={{field.field_placeholder}} id=field.field_id name={{field.field_name}} class=form-control ng-model=field.field_value value=field.field_value required ui-validate=\" 'validateNumber($value, field)' \"></div>");
+    "<div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label><span class=required-error ng-show=showValidateError>{{field.field_helpertext}}</span> <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span> <input type=number placeholder={{field.field_placeholder}} id=field.field_id name={{field.field_name}} class=form-control ng-model=field.field_value value=field.field_value required ui-validate=\" 'validateNumber($value, field)' \"></div>");
 }]);
 
 angular.module("partials/directive-templates/field/password.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/directive-templates/field/password.html",
-    "<div class=form-group><label for=field.field_id>{{field.field_title}}</label><span class=required-error ng-show=\"field.field_required && !field.field_value\">* required</span> <span class=required-error ng-show=showValidateError>{{field.field_helpertext}}</span> <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span> <input type=password id=field.field_id class=form-control name={{field.field_name}} ng-model=field.field_value value=field.field_value ng-minlength=8 ng-pattern=\"/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/\" required placeholder={{field.field_placeholder}}></div>");
+    "<div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label><span class=required-error ng-show=\"(field.field_required && !field.field_value) || showValidateError\">* {{field.field_helpertext}}</span> <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span> <input type=password id=field.field_id class=form-control name={{field.field_name}} ng-model=field.field_value value=field.field_value ng-minlength=8 ng-pattern=\"/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/\" required placeholder={{field.field_placeholder}}></div>");
 }]);
 
 angular.module("partials/directive-templates/field/radio.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/directive-templates/field/radio.html",
-    "<div class=form-group><label for=field.field_id>{{field.field_title}}</label><span class=required-error ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span><div ng-repeat=\"option in field.field_options\" class=row-fluid><label><input type=radio value={{option.option_value}} ng-model=field.field_value ng-required=field.field_required> &nbsp; <span ng-bind=option.option_title></span></label></div></div>");
+    "<div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label><span class=required-error ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span><div ng-repeat=\"option in field.field_options\" class=row-fluid><label><input type=radio value={{option.option_value}} ng-model=field.field_value ng-required=field.field_required> &nbsp; <span ng-bind=option.option_title></span></label></div></div>");
 }]);
 
 angular.module("partials/directive-templates/field/textarea.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/directive-templates/field/textarea.html",
-    "<div class=form-group><label for=field.field_id>{{field.field_title}}</label><span class=required-error ng-show=\"field.field_required && !field.field_value\">* required</span> <span class=required-error ng-show=showValidateError>{{field.field_helpertext}}</span> <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span><textarea type=text id=field.field_id name={{field.field_name}} ng-model=field.field_value value=field.field_value required class=form-control placeholder={{field.field_placeholder}}>\n" +
+    "<div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label><span class=required-error ng-show=\"(field.field_required && !field.field_value) || showValidateError\">{{field.field_helpertext}}</span> <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span><textarea type=text id=field.field_id name={{field.field_name}} ng-model=field.field_value value=field.field_value required class=form-control placeholder={{field.field_placeholder}}>\n" +
     "</textarea></div>");
 }]);
 
 angular.module("partials/directive-templates/field/textfield.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/directive-templates/field/textfield.html",
-    "<div class=form-group><label for={field.field_name}>{{field.field_title}}</label><span class=required-error ng-show=\"field.field_required && !field.field_value\">* required</span> <span class=required-error ng-show=showValidateError>{{field.field_helpertext}}</span> <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span> <input id={{field.field_id}} name={{field.field_name}} class=form-control data-ng-model=field.field_value ui-validate=\" 'validateText($value, field)' \" value=field.field_value required placeholder={{field.field_placeholder}}></div>");
+    "<div class=form-group><label for={field.field_name}>{{field.field_id}}) {{field.field_title}}</label><span class=required-error ng-show=\"(field.field_required && !field.field_value) || showValidateError\">* {{field.field_helpertext}}</span> <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span> <input id={{field.field_id}} name={{field.field_name}} class=form-control data-ng-model=field.field_value ui-validate=\" 'validateText($value, field)' \" value=field.field_value required placeholder={{field.field_placeholder}}></div>");
 }]);
 
 angular.module("partials/directive-templates/form/form.html", []).run(["$templateCache", function($templateCache) {

@@ -1,11 +1,11 @@
 <div class="form-group">
+	<label class="form-field-label" for="field.field_id">
+        {{field.field_id}}) {{field.field_title}}
+    </label>
 	<input type="checkbox" 
 		id="field.field_id"
 		ng-model="field.field_value"
 		ng-true-value="true"
 		ng-false-value="false"
-	>	
-	<label class="form-field-label" for="field.field_id">
-        {{field.field_title}}
-    </label>
+	>
 </div>
