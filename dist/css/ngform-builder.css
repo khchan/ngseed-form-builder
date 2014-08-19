@@ -36,6 +36,9 @@
 .form-fields .accordion-heading {
   background-color: #E2E2E2;
 }
+.form-group {
+  margin-bottom: 5px;
+}
 .accordion-edit div,
 .field div {
   line-height: 35px;

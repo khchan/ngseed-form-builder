@@ -14,6 +14,8 @@ function ($scope, $http, FormService) {
         $scope.form.form_type = 'system';
         $scope.form.form_name = 'my_form';
         $scope.form.form_title = 'My Form';
+        $scope.form.form_submitText = 'Submit Form';
+        $scope.form.form_cancelText = 'Cancel Form';
         $scope.form.form_questions = [];
     }
     
