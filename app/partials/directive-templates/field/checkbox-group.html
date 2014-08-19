@@ -2,7 +2,6 @@
     <label for="field.field_id">
         {{field.field_id}}) {{field.field_title}}
     </label>
-	<span class="required-error" ng-show="field.field_required && !field.field_value">* {{field.field_helpertext}}</span>
     <div class="row-fluid" class="checkbox-inline">
 		<label ng-repeat="option in field.field_options">
 			<input type="checkbox"
@@ -12,4 +11,5 @@
 			> {{option.option_title}}&nbsp;
 		</label>
 	</div>
+	<span class="pull-right required-error" ng-show="field.field_required && !field.field_value">* {{field.field_helpertext}}</span>
 </div>

@@ -2,7 +2,6 @@
     <label for="field.field_id">
         {{field.field_id}}) {{field.field_title}}
     </label>
-    <span class="required-error" ng-show="field.field_required && !field.field_value">* {{field.field_helpertext}}</span>
     <div ng-repeat="option in field.field_options" class="row-fluid">
         <label>
             <input type="radio" 
@@ -13,4 +12,5 @@
             <span ng-bind="option.option_title"></span>
         </label>
     </div>
+    <span class="required-error" ng-show="field.field_required && !field.field_value">* {{field.field_helpertext}}</span>
 </div>

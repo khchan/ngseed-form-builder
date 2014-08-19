@@ -2,15 +2,16 @@
     <label for="field.field_id">
         {{field.field_id}}) {{field.field_title}}
     </label>
-	<span class="required-error" ng-show="(field.field_required && !field.field_value) || showValidateError"> {{field.field_helpertext}}</span>
 	<span class="glyphicon glyphicon-ok" ng-show="field.field_value && !showValidateError"></span>
 	<textarea type="text" 
 		id="field.field_id"
 		name="{{field.field_name}}" 
-		ng-model="field.field_value"
+		data-ng-model="field.field_value"
+		ui-validate=" 'validateText($value, field)' "
 		value="field.field_value"
 	    required="field.field_required"
 	    class="form-control"
    		placeholder="{{field.field_placeholder}}"
-	>
+	></textarea>
+	<span class="pull-right required-error" ng-show="(field.field_required && !field.field_value) || showValidateError">* {{field.field_helpertext}}</span>
 </div>

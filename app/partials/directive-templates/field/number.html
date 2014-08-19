@@ -2,7 +2,6 @@
     <label for="field.field_id">
         {{field.field_id}}) {{field.field_title}}
     </label>
-	<span class="required-error" ng-show="showValidateError"> {{field.field_helpertext}} </span>
 	<span class="glyphicon glyphicon-ok" ng-show="field.field_value && !showValidateError"></span>
 	<input type="number" 
 		placeholder="{{field.field_placeholder}}"
@@ -14,4 +13,5 @@
 	    required="field.field_required"
 	    ui-validate=" 'validateNumber($value, field)' "
 	>
+	<span class="pull-right required-error" ng-show="(field.field_required && !field.field_value) || showValidateError"> {{field.field_helpertext}} </span>
 </div>

@@ -2,9 +2,6 @@
     <label for="field.field_id">
         {{field.field_id}}) {{field.field_title}}
     </label>
-   	<span class="required-error" ng-show="(field.field_required && !field.field_value) || showValidateError">
-   		* {{field.field_helpertext}}
-   	</span>
 	<span class="glyphicon glyphicon-ok" ng-show="field.field_value && !showValidateError"></span>
 	<input type="email" 
 		placeholder="{{field.field_placeholder}}"
@@ -15,4 +12,7 @@
 		value="field.field_value"
 	    required="field.field_required"	    
 	>
+	<span class="pull-right required-error" ng-show="(field.field_required && !field.field_value) || showValidateError">
+   		* {{field.field_helpertext}}
+   	</span>
 </div>
