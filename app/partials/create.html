@@ -132,7 +132,7 @@
 		</div>
 
 		<div class="form-fields-preview" ng-show="previewMode">
-			<form-directive form="previewForm" view="form-view"></form-directive>
+			<form-directive form="previewForm" on-submit="submit()" on-cancel="cancel()"></form-directive>
 			<hr/>
 			<p class="text-center">
 				<button class="btn btn-primary btn-large right" type="button" ng-click="previewOff()">Back to Create Mode</button>

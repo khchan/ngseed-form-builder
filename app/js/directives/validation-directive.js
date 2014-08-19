@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * Directive handling additional validation options within form-builder
+ * This directive is inserted wherever a field may have specific validation options
+ */
 angular.module('directive.validation', [])
 .directive('validationDirective', function ($http, $compile, $templateCache) {
 

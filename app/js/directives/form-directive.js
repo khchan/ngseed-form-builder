@@ -1,5 +1,12 @@
 'use strict';
 
+/**
+ * Directive for rendering forms - can be viewed as single question carousel
+ * or full page form.  Accepts two callback functions to be used for form
+ * submission and cancellation.
+ *
+ * usage: <form-directive form="scopeForm" onSubmit="submitFn()" onCancel="cancelFn()"></form-directive>
+ */
 angular.module('directive.form', [])
 .directive('formDirective', function ($http, $compile, $templateCache) {
 
@@ -14,25 +21,16 @@ angular.module('directive.form', [])
 
     return {
         controller: function($scope){
-            $scope.formPreview = false;
-            
             $scope.togglePreview = function() {
                 $scope.formPreview = !$scope.formPreview;
-            };
-            $scope.submit = function() {
-                alert('Form submitted..');
-                $scope.form.submitted = true;
-                console.log($scope.form);
-            };
-            $scope.cancel = function() {
-                alert('Form canceled..');
             };
         },
         restrict: 'E',
         link: linker,
         scope: {
-            view: '@',
-            form:'='
+            form:'=',
+            onSubmit:'&',
+            onCancel:'&'
         }
     };
 });

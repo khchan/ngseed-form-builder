@@ -1,3 +1,6 @@
+/**
+ * Controller for handling form builder interaction and functionality
+ */
 angular.module('ngform-builder.controllers', [])
 .controller('CreateCtrl', ['$scope', '$http', 'FormService', 
 function ($scope, $http, FormService) {
@@ -12,8 +15,6 @@ function ($scope, $http, FormService) {
         $scope.form.form_name = 'my_form';
         $scope.form.form_title = 'My Form';
         $scope.form.form_questions = [];
-    } else {
-
     }
     
     // previewForm - for preview purposes, form will be copied into this
@@ -40,16 +41,16 @@ function ($scope, $http, FormService) {
         $scope.addField.lastAddedID++;
 
         var newField = {
-            "field_id" : $scope.addField.lastAddedID,
-            "field_name" : "question_"+$scope.addField.lastAddedID+"_"+$scope.addField.new.name,
-            "field_title" : "New " + $scope.addField.new.name + " field " + $scope.addField.lastAddedID,
-            "field_type" : $scope.addField.new.name,
-            "field_value" : $scope.addField.new.value_type,
+            "field_id"          : $scope.addField.lastAddedID,
+            "field_name"        : "question_"+$scope.addField.lastAddedID+"_"+$scope.addField.new.name,
+            "field_title"       : "New " + $scope.addField.new.name + " field " + $scope.addField.lastAddedID,
+            "field_type"        : $scope.addField.new.name,
+            "field_value"       : $scope.addField.new.value_type,
             "field_placeholder" : "Enter a "+$scope.addField.new.name+" value",
-            "field_validation" : {rule:'none', expression: ''},
-            "field_helpertext" : "missing input or invalid",
-            "field_hasOptions": $scope.addField.new.hasOptions,
-            "field_required" : true
+            "field_validation"  : {rule:'none', expression: ''},
+            "field_helpertext"  : "missing input or invalid",
+            "field_hasOptions"  : $scope.addField.new.hasOptions,
+            "field_required"    : true
         };
 
         // put newField into fields array

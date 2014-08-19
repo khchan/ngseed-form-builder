@@ -1,5 +1,11 @@
 'use strict';
 
+/** 
+ * Directive for rendering different field types in forms
+ * Accepts a field object and parses its values to load appropriate templates.
+ *
+ * usage: <field-directive field="someField"></field-directive>
+ */
 angular.module('directive.field', [])
 .controller('FieldCtrl', ['$scope', function ($scope) {
     

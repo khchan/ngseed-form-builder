@@ -20,21 +20,23 @@
   <script src="bower_components/angular-ui-sortable/sortable.min.js"></script>
   <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>  
   <!--<script src="../dist/ngform-builder.min.js"></script>-->
-  <script  type="text/javascript">
+  <script type="text/javascript">
     angular.module('main', ['ngform-builder'])
     .controller('MainCtrl', function($scope, $http) {
       $scope.form = {};
-      // $http.get('../test/static-data/testForm.json').success(function (data) {
-      //   angular.copy(data, $scope.form);          
-      // });
+      $scope.submit = function() { console.log('sample submit callback'); };
+      $scope.cancel = function() { console.log('sample cancel callback'); };
+
+      $http.get('../test/static-data/testForm.json').success(function (data) {
+        angular.copy(data, $scope.form); 
+      });
     }); 
   </script>
 </head>
 <body ng-controller="MainCtrl">
-  
   <form-builder form="form"></form-builder>
-  <!-- <form-directive form="form"></form-directive> -->
-  
+  <!-- <form-directive form="form" on-submit="submit()" on-cancel="cancel()"></form-directive> -->
+
   <script src="js/ngform-builder.js"></script>
   <script src="js/create-ctrl.js"></script>
   <script src="js/form-service.js"></script>
