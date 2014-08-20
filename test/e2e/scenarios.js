@@ -48,7 +48,7 @@ describe('E2E Testing for Form Builder Module', function() {
 
 		it('should render field correctly', function() {
 			element(by.css('p.text-center button[ng-click="previewOn()"]')).click();
-			expect(element(by.css('field-directive label')).getText()).toBe("Wowe such question, very ask");
+			expect(element(by.css('field-directive label')).getText()).toBe("1) Wowe such question, very ask");
 			expect(input.getAttribute("name")).toBe("unique_textfield_doge");
 			expect(input.getAttribute("placeholder")).toBe("Much placehold");
 			element(by.css('p.text-center button[ng-click="previewOff()"]')).click();
