@@ -44,7 +44,7 @@ function ($scope, $http, FormService) {
 
         var newField = {
             "field_id"          : $scope.addField.lastAddedID,
-            "field_name"        : "question_"+$scope.addField.lastAddedID+"_"+$scope.addField.new.name,
+            "field_name"        : $scope.form.form_name+"."+$scope.addField.new.name+"_"+$scope.addField.lastAddedID,
             "field_title"       : "New " + $scope.addField.new.name + " field " + $scope.addField.lastAddedID,
             "field_type"        : $scope.addField.new.name,
             "field_value"       : $scope.addField.new.value_type,
@@ -126,7 +126,6 @@ function ($scope, $http, FormService) {
         }
         else {
             $scope.previewMode = !$scope.previewMode;
-            $scope.form.submitted = false;
             angular.copy($scope.form, $scope.previewForm);
         }
     }
@@ -134,7 +133,6 @@ function ($scope, $http, FormService) {
     // hide preview form, go back to create mode
     $scope.previewOff = function(){
         $scope.previewMode = !$scope.previewMode;
-        $scope.form.submitted = false;
     }
 
     // deletes all the fields

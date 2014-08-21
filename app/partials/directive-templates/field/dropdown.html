@@ -8,7 +8,7 @@
 			ng-model="field.field_value"
 			ng-options="option.option_value as option.option_title for option in field.field_options"
 			required="field.field_required">
-			<option value="textfield" disabled>Select an option</option>
+			<option value="" disabled>Select an option</option>
 		</select>	
 	</div>
 	<span class="pull-right required-error" ng-show="field.field_required && !field.field_value">* {{field.field_helpertext}}</span>

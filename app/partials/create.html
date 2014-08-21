@@ -67,31 +67,26 @@
 							<button class="btn btn-danger pull-right" type="button" ng-click="deleteField(field.field_id)">
 								<span class="glyphicon glyphicon-trash"></span> Delete
 							</button>
-							<div class="row">
-								<div class="col-md-4">Question ID: </div>	
-								<div class="col-md-4">{{field.field_id}}</div>
-							</div>
-							<div class="row">
-								<div class="col-md-4">Question Type:</div>
-								<div class="col-md-8">{{field.field_type}}</div>
-							</div>
-
-							<div class="clear"></div> <hr>
 
 							<div class="row">
-								<div class="col-md-4">Question Label:</div>
+								<div class="col-md-4"><b>Question Type: </b></div>
+								<div class="col-md-4">{{field.field_type}}</div>
+							</div>
+							<hr/>
+							<div class="row">
+								<div class="col-md-4"><b>Question Label: </b></div>
 								<div class="col-md-8">
 									<input type="text" ng-model="field.field_title" class="form-control" value="{{field.field_title}}">
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-4">Question Name:</div>
+								<div class="col-md-4"><b>Question Name: </b></div>
 								<div class="col-md-8">
 									<input type="text" ng-model="field.field_name" class="form-control" value="{{field.field_name}}">
 								</div>
 							</div>
 							<div class="row" ng-show="field.field_hasOptions">
-								<div class="col-md-4">Question Options:</div>
+								<div class="col-md-4"><b>Question Options: </b></div>
 								<div class="col-md-8">
 									<div ng-repeat="option in field.field_options">
 										<form class="form-inline" role="form">
@@ -111,10 +106,9 @@
 									<button class="btn btn-primary btn-sm" type="button" ng-click="addOption(field)">Add Option</button>
 								</div>
 							</div>
-							<validation-directive field="field">
-							</validation-directive>
+							<validation-directive field="field"></validation-directive>
 							<div class="row">
-								<div class="col-md-4">Required:</div>
+								<div class="col-md-4"><b>Required: </b></div>
 								<div class="col-md-4">
 								<label class="radio-inline">
 									<input type="radio" ng-value="true" ng-selected ng-model="field.field_required"> Yes
@@ -122,6 +116,14 @@
 								<label class="radio-inline">
 									<input type="radio" ng-value="false" ng-model="field.field_required"> No
 								</label>
+								</div>
+							</div>
+							<div class="panel panel-info">
+								<div class="panel-heading">
+									<h3 class="panel-title">Preview</h3>
+								</div>
+								<div class="panel-body">
+									<field-directive field="field"></field-directive>
 								</div>
 							</div>
 						</div>

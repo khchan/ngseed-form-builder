@@ -7,7 +7,7 @@
   "form_questions": [
     {
       "field_id": 1,
-      "field_name": "question_1_textfield",
+      "field_name": "my_form.textfield_1",
       "field_title": "New textfield field 1",
       "field_type": "textfield",
       "field_value": "",
@@ -22,7 +22,7 @@
     },
     {
       "field_id": 2,
-      "field_name": "question_2_email",
+      "field_name": "my_form.email_2",
       "field_title": "New email field 2",
       "field_type": "email",
       "field_value": "",
@@ -37,7 +37,7 @@
     },
     {
       "field_id": 3,
-      "field_name": "question_3_password",
+      "field_name": "my_form.password_3",
       "field_title": "New password field 3",
       "field_type": "password",
       "field_value": "",
@@ -52,7 +52,7 @@
     },
     {
       "field_id": 4,
-      "field_name": "question_4_radio",
+      "field_name": "my_form.radio_4",
       "field_title": "New radio field 4",
       "field_type": "radio",
       "field_value": "",
@@ -79,7 +79,7 @@
     },
     {
       "field_id": 5,
-      "field_name": "question_5_dropdown",
+      "field_name": "my_form.dropdown_5",
       "field_title": "New dropdown field 5",
       "field_type": "dropdown",
       "field_value": "",
@@ -111,7 +111,7 @@
     },
     {
       "field_id": 6,
-      "field_name": "question_6_date",
+      "field_name": "my_form.date_6",
       "field_title": "New date field 6",
       "field_type": "date",
       "field_value": "",
@@ -126,7 +126,7 @@
     },
     {
       "field_id": 7,
-      "field_name": "question_7_textarea",
+      "field_name": "my_form.textarea_7",
       "field_title": "New textarea field 7",
       "field_type": "textarea",
       "field_value": "",
@@ -141,7 +141,7 @@
     },
     {
       "field_id": 8,
-      "field_name": "question_8_checkbox",
+      "field_name": "my_form.checkbox_8",
       "field_title": "New checkbox field 8",
       "field_type": "checkbox",
       "field_value": "",
@@ -156,7 +156,7 @@
     },
     {
       "field_id": 9,
-      "field_name": "question_9_checkbox-group",
+      "field_name": "my_form.checkbox-group_9",
       "field_title": "New checkbox-group field 9",
       "field_type": "checkbox-group",
       "field_value": {},
@@ -188,7 +188,7 @@
     },
     {
       "field_id": 10,
-      "field_name": "question_10_number",
+      "field_name": "my_form.number_10",
       "field_title": "New number field 10",
       "field_type": "number",
       "field_value": "",
@@ -203,7 +203,7 @@
     },
     {
       "field_id": 11,
-      "field_name": "question_11_hidden",
+      "field_name": "my_form.hidden_11",
       "field_title": "New hidden field 11",
       "field_type": "hidden",
       "field_value": "",
