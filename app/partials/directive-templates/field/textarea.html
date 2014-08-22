@@ -13,5 +13,8 @@
 	    class="form-control"
    		placeholder="{{field.field_placeholder}}"
 	></textarea>
-	<span class="pull-right required-error" ng-show="(field.field_required && !field.field_value) || showValidateError">* {{field.field_helpertext}}</span>
+	<span class="pull-right required-error"
+		  ng-show="(field.field_required && !field.field_value) || showValidateError">
+		* {{field.field_helpertext}}
+	</span>
 </div>
