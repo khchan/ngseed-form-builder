@@ -85,7 +85,25 @@
 									<input type="text" ng-model="field.field_name" class="form-control" value="{{field.field_name}}">
 								</div>
 							</div>
-							<div class="row" ng-show="field.field_hasOptions">
+							<div class="row">
+								<div class="col-md-4"><b>Question Placeholder: </b></div>
+								<div class="col-md-8">
+									<input type="text" ng-model="field.field_placeholder" class="form-control" value="field.field_placeholder">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4"><b>Question Helper Text: </b></div>
+								<div class="col-md-8">
+									<input type="text" ng-model="field.field_helpertext" class="form-control" value="field.field_helpertext">
+								</div>
+							</div>
+							<div class="row" ng-if="!field.field_hasOptions">
+								<div class="col-md-4"><b>Default Value: </b></div>
+								<div class="col-md-8">
+									<input type="text" ng-model="field.field_value" class="form-control" value="{{field.field_value}}">
+								</div>
+							</div>
+							<div class="row" ng-if="field.field_hasOptions">
 								<div class="col-md-4"><b>Question Options: </b></div>
 								<div class="col-md-8">
 									<div ng-repeat="option in field.field_options">

@@ -8,18 +8,6 @@
 </div>
 <div ng-init="showValidation = false" ng-show="showValidation">
 	<div class="row">
-		<div class="col-md-4">Question Placeholder:</div>
-		<div class="col-md-8">
-			<input type="text" ng-model="field.field_placeholder" class="form-control" value="field.field_placeholder">
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-4">Question Helper Text:</div>
-		<div class="col-md-8">
-			<input type="text" ng-model="field.field_helpertext" class="form-control" value="field.field_helpertext">
-		</div>
-	</div>
-	<div class="row">
 		<div class="col-md-4">Validation Expression:</div>
 		<div class="col-md-4">
 			<select class="form-control" ng-change="field.field_validation.expression = ''" ng-model="field.field_validation.rule">

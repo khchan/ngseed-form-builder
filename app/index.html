@@ -27,9 +27,9 @@
       $scope.submit = function() { console.log('sample submit callback'); };
       $scope.cancel = function() { console.log('sample cancel callback'); };
 
-      // $http.get('../test/static-data/testForm.json').success(function (data) {
-      //   angular.copy(data, $scope.form); 
-      // });
+      $http.get('../test/static-data/testForm.json').success(function (data) {
+        angular.copy(data, $scope.form); 
+      });
     }); 
   </script>
 </head>
