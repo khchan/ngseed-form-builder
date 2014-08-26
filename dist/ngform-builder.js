@@ -17,7 +17,7 @@ angular.module("partials/directive-templates/field/checkbox.html", []).run(["$te
 
 angular.module("partials/directive-templates/field/date.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/directive-templates/field/date.html",
-    "<div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=field.field_value></span> <input type=date id=field.field_id name={{field.field_name}} ng-model=field.field_value value=field.field_value required class=form-control> <span class=\"pull-right required-error\" ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span></div>");
+    "<div class=form-group ng-controller=DateFieldCtrl ng-init=dateInit()><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=field.field_value></span> <input type=date id=field.field_id name={{field.field_name}} ng-model=field.field_value value=field.field_value required class=form-control> <span class=\"pull-right required-error\" ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span></div>");
 }]);
 
 angular.module("partials/directive-templates/field/dropdown.html", []).run(["$templateCache", function($templateCache) {
@@ -257,6 +257,11 @@ angular.module('directive.builder', [])
  * usage: <field-directive field="someField"></field-directive>
  */
 angular.module('directive.field', [])
+.controller('DateFieldCtrl', ['$scope', '$filter', function ($scope, $filter) {
+    $scope.dateInit = function() {
+        $scope.field.field_value = $filter("date")($scope.field.field_value, 'yyyy-MM-dd');
+    };    
+}])
 .controller('FieldCtrl', ['$scope', function ($scope) {
     
     $scope.clearExpr = function(field) {

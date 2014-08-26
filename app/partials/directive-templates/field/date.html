@@ -1,16 +1,16 @@
-<div class="form-group">
-    <label for="field.field_id">
-        {{field.field_id}}) {{field.field_title}}
-    </label>&nbsp;
-    <span class="glyphicon glyphicon-ok" ng-show="field.field_value"></span>
+<div class="form-group" ng-controller='DateFieldCtrl' ng-init="dateInit()">
+  <label for="field.field_id">
+    {{field.field_id}}) {{field.field_title}}
+  </label>&nbsp;
+  <span class="glyphicon glyphicon-ok" ng-show="field.field_value"></span>
 	<input type="date" 
 		id="field.field_id"
 		name="{{field.field_name}}"
 		ng-model="field.field_value"
 		value="field.field_value"
-	    required="field.field_required"
-	    class="form-control"
+    required="field.field_required"
+    class="form-control"
 	>
-    <span class="pull-right required-error" ng-show="field.field_required && !field.field_value">* {{field.field_helpertext}}</span>
+  <span class="pull-right required-error" ng-show="field.field_required && !field.field_value">* {{field.field_helpertext}}</span>
 
 </div>
