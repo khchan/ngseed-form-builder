@@ -3,14 +3,24 @@
     {{field.field_id}}) {{field.field_title}}
   </label>&nbsp;
   <span class="glyphicon glyphicon-ok" ng-show="field.field_value"></span>
-  <input type="text" 
-    id="field.field_id" 
-    name="{{field.field_name}}" 
-    ng-model="field.field_value"
-    ng-required="field.field_required"
-    class="form-control"
-    disabled/>
-  <datepicker ng-model="field.field_value" show-weeks="true"></datepicker>
+ 
+  <p class="input-group">
+    <input type="text" 
+      id="field.field_id" 
+      name="{{field.field_name}}" 
+      value="{{ field.field_value | date:'fullDate' }}"
+      ng-required="field.field_required"
+      class="form-control"
+      disabled/>
+    <!-- <input class="form-control"><em>{{ field.field_value | date:'fullDate' }}</em></pre> -->
+    <span class="input-group-btn">
+      <button type="button" class="btn btn-default" ng-click="openCal = !openCal"><i class="glyphicon glyphicon-calendar"></i></button>
+    </span>
+    <div ng-init="openCal = false" ng-show="openCal">
+      <datepicker ng-model="field.field_value" is-open="openCal" show-weeks="true"></datepicker>
+    </div>
+  </p>
+
   <span class="pull-right required-error" ng-show="field.field_required && !field.field_value">* {{field.field_helpertext}}</span>
 
 </div>
