@@ -125,7 +125,7 @@ function ($scope, $http, FormService) {
 
         var newField = {
             "field_id"          : $scope.addField.lastAddedID,
-            "field_name"        : $scope.form.form_name+"."+$scope.addField.new.name+"_"+$scope.addField.lastAddedID,
+            "field_name"        : $scope.form.form_name+"_"+$scope.addField.new.name+"_"+$scope.addField.lastAddedID,
             "field_title"       : "New " + $scope.addField.new.name + " field " + $scope.addField.lastAddedID,
             "field_type"        : $scope.addField.new.name,
             "field_value"       : $scope.addField.new.value_type,
