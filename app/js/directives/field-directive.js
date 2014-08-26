@@ -7,21 +7,7 @@
  * usage: <field-directive field="someField"></field-directive>
  */
 angular.module('directive.field', [])
-.controller('DateFieldCtrl', ['$scope', '$filter', function ($scope, $filter) {    
-    $scope.dateInit = function() {
-        $scope.field.field_value = $filter("date")($scope.field.field_value, 'yyyy-MM-dd');
-    };
 
-    $scope.clear = function () {
-        $scope.value = null;
-    };
-    
-    $scope.open = function($event) {
-        $event.preventDefault();
-        $event.stopPropagation();
-        $scope.opened = true;
-    };    
-}])
 .controller('FieldCtrl', ['$scope', function ($scope) {
     
     $scope.clearExpr = function(field) {
