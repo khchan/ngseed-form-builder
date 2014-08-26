@@ -3,14 +3,27 @@
     {{field.field_id}}) {{field.field_title}}
   </label>&nbsp;
   <span class="glyphicon glyphicon-ok" ng-show="field.field_value"></span>
-	<input type="date" 
+<!-- 	<input type="date" 
 		id="field.field_id"
 		name="{{field.field_name}}"
 		ng-model="field.field_value"
 		value="field.field_value"
     required="field.field_required"
     class="form-control"
-	>
+	> -->
+  <p class="input-group">
+    <input type="text" 
+      id="field.field_id" 
+      name="{{field.field_name}}" 
+      ng-model="field.field_value" 
+      value="field.field_value" 
+      ng-required="field.field_required"
+      class="form-control"
+      datepicker-popup="yyyy-MM-dd" is-open="opened" close-text="Close" />
+    <span class="input-group-btn">
+      <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+    </span>
+  </p>
   <span class="pull-right required-error" ng-show="field.field_required && !field.field_value">* {{field.field_helpertext}}</span>
 
 </div>
