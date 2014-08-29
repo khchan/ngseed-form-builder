@@ -1,15 +1,19 @@
-<div class="form-group">
-	<label for="field.field_id">
-		{{field.field_id}}) {{field.field_title}}
-	</label>&nbsp;
-	<span class="glyphicon glyphicon-ok" ng-show="field.field_value && !showValidateError"></span>
-	<div class="row-fluid">
-		<select class="form-control"
-			ng-model="field.field_value"
-			ng-options="option.option_value as option.option_title for option in field.field_options"
-			required="field.field_required">
-			<option value="" disabled>{{field.field_placeholder}}</option>
-		</select>	
+<ng-form name="sub_form">
+	<div class="form-group">
+		<label for="field.field_id">
+			{{field.field_id}}) {{field.field_title}}
+		</label>&nbsp;
+		<span class="glyphicon glyphicon-ok" ng-show="field.field_value && !showValidateError"></span>
+		<div class="row-fluid">
+			<select class="form-control"
+				ng-model="field.field_value"
+				ng-options="option.option_value as option.option_title for option in field.field_options"
+				required="field.field_required">
+				<option value="" disabled>{{field.field_placeholder}}</option>
+			</select>	
+		</div>
+		<div ng-show="!sub_form.$pristine">
+			<span class="pull-right required-error" ng-show="field.field_required && !field.field_value">* {{field.field_helpertext}}</span>
+		</div>
 	</div>
-	<span class="pull-right required-error" ng-show="field.field_required && !field.field_value">* {{field.field_helpertext}}</span>
-</div>
+</ng-form>

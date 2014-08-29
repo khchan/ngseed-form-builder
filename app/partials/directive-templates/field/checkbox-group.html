@@ -1,15 +1,19 @@
-<div class="form-group">
+<ng-form name="sub_form">
+  <div class="form-group">
     <label for="field.field_id">
         {{field.field_id}}) {{field.field_title}}
     </label>
     <div class="row-fluid" class="checkbox-inline">
-		<label ng-repeat="option in field.field_options">
-			<input type="checkbox"
-				ng-true-value="true"
-				ng-false-value="false"
-				ng-model="field.field_value[option.option_value]"
-			> {{option.option_title}}&nbsp;
-		</label>
-	</div>
-	<span class="pull-right required-error" ng-show="field.field_required && !field.field_value">* {{field.field_helpertext}}</span>
-</div>
+    	<label ng-repeat="option in field.field_options">
+    		<input type="checkbox"
+    			ng-true-value="true"
+    			ng-false-value="false"
+    			ng-model="field.field_value[option.option_value]"
+    		> {{option.option_title}}&nbsp;
+    	</label>
+  	</div>
+    <div ng-show="!sub_form.$pristine">
+      <span class="pull-right required-error" ng-show="field.field_required && !field.field_value">* {{field.field_helpertext}}</span>
+    </div>
+  </div>
+</ng-form>

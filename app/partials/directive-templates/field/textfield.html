@@ -1,20 +1,24 @@
-<div class="form-group">
-	<label for="{field.field_name}">
-		{{field.field_id}}) {{field.field_title}}
-	</label>&nbsp;
-	<span class="glyphicon glyphicon-ok" ng-show="field.field_value && !showValidateError"></span>
-	<input type="text" 
-		id="{{field.field_id}}" 
-		name="{{field.field_name}}" 
-		class="form-control" 
-		data-ng-model="field.field_value" 
-		ui-validate=" 'validateText($value, field)' "
-		value="field.field_value" 
-		required="field.field_required"
-		placeholder="{{field.field_placeholder}}"
-	>
-	<span class="pull-right required-error"
-	      ng-show="(field.field_required && !field.field_value) || showValidateError">
-	    * {{field.field_helpertext}}
-	</span>
-</div>
+<ng-form name="sub_form">
+	<div class="form-group">
+		<label for="{field.field_name}">
+			{{field.field_id}}) {{field.field_title}}
+		</label>&nbsp;
+		<span class="glyphicon glyphicon-ok" ng-show="field.field_value && !showValidateError"></span>
+		<input type="text" 
+			id="{{field.field_id}}" 
+			dynamic-name="field.field_name" 
+			class="form-control" 
+			data-ng-model="field.field_value" 
+			ui-validate=" 'validateText($value, field)' "
+			value="field.field_value" 
+			required="field.field_required"
+			placeholder="{{field.field_placeholder}}"
+		>
+		<div ng-show="!sub_form.$pristine">
+			<span class="pull-right required-error"
+			      ng-show="(field.field_required && !field.field_value) || showValidateError">
+			    * {{field.field_helpertext}}
+			</span>
+		</div>
+	</div>
+</ng-form>
