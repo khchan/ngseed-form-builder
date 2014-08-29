@@ -7,27 +7,27 @@ angular.module("partials/create.html", []).run(["$templateCache", function($temp
 
 angular.module("partials/directive-templates/field/checkbox-group.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/directive-templates/field/checkbox-group.html",
-    "<div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label><div class=row-fluid class=checkbox-inline><label ng-repeat=\"option in field.field_options\"><input type=checkbox ng-true-value=true ng-false-value=false ng-model=field.field_value[option.option_value]> {{option.option_title}}&nbsp;</label></div><span class=\"pull-right required-error\" ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span></div>");
+    "<ng-form name=sub_form><div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label><div class=row-fluid class=checkbox-inline><label ng-repeat=\"option in field.field_options\"><input type=checkbox ng-true-value=true ng-false-value=false ng-model=field.field_value[option.option_value]> {{option.option_title}}&nbsp;</label></div><div ng-show=!sub_form.$pristine><span class=\"pull-right required-error\" ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span></div></div></ng-form>");
 }]);
 
 angular.module("partials/directive-templates/field/checkbox.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/directive-templates/field/checkbox.html",
-    "<div class=form-group><label class=form-field-label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label><input type=checkbox id=field.field_id ng-model=field.field_value ng-true-value=true ng-false-value=false></div>");
+    "<ng-form name=sub_form><div class=form-group><label class=form-field-label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label><input type=checkbox id=field.field_id ng-model=field.field_value ng-true-value=true ng-false-value=false></div></ng-form>");
 }]);
 
 angular.module("partials/directive-templates/field/date.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/directive-templates/field/date.html",
-    "<div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=field.field_value></span><p class=input-group><input id=field.field_id name={{field.field_name}} value=\"{{ field.field_value | date:'fullDate' }}\" ng-required=field.field_required class=form-control disabled>  <span class=input-group-btn><button type=button class=\"btn btn-default\" ng-click=\"openCal = !openCal\"><i class=\"glyphicon glyphicon-calendar\"></i></button></span><div ng-init=\"openCal = false\" ng-show=openCal><datepicker ng-model=field.field_value is-open=openCal show-weeks=true></datepicker></div></p><span class=\"pull-right required-error\" ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span></div>");
+    "<ng-form name=sub_form><div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=field.field_value></span><p class=input-group><input id=field.field_id name={{field.field_name}} value=\"{{ field.field_value | date:'fullDate' }}\" ng-required=field.field_required class=form-control disabled> <span class=input-group-btn><button type=button class=\"btn btn-default\" ng-click=\"openCal = !openCal\"><i class=\"glyphicon glyphicon-calendar\"></i></button></span><div ng-init=\"openCal = false\" ng-show=openCal><datepicker ng-model=field.field_value is-open=openCal show-weeks=true></datepicker></div></p><div ng-show=!sub_form.$pristine><span class=\"pull-right required-error\" ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span></div></div></ng-form>");
 }]);
 
 angular.module("partials/directive-templates/field/dropdown.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/directive-templates/field/dropdown.html",
-    "<div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span><div class=row-fluid><select class=form-control ng-model=field.field_value ng-options=\"option.option_value as option.option_title for option in field.field_options\" required><option value=\"\" disabled>{{field.field_placeholder}}</option></select></div><span class=\"pull-right required-error\" ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span></div>");
+    "<ng-form name=sub_form><div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span><div class=row-fluid><select class=form-control ng-model=field.field_value ng-options=\"option.option_value as option.option_title for option in field.field_options\" required><option value=\"\" disabled>{{field.field_placeholder}}</option></select></div><div ng-show=!sub_form.$pristine><span class=\"pull-right required-error\" ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span></div></div></ng-form>");
 }]);
 
 angular.module("partials/directive-templates/field/email.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/directive-templates/field/email.html",
-    "<div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span> <input type=email placeholder={{field.field_placeholder}} id=field.field_id name={{field.field_name}} class=form-control ng-model=field.field_value value=field.field_value required> <span class=\"pull-right required-error\" ng-show=\"(field.field_required && !field.field_value) || showValidateError\">* {{field.field_helpertext}}</span></div>");
+    "<ng-form name=sub_form><div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span> <input type=email placeholder={{field.field_placeholder}} id=field.field_id name={{field.field_name}} class=form-control ng-model=field.field_value value=field.field_value required><div ng-show=!sub_form.$pristine><span class=\"pull-right required-error\" ng-show=\"(field.field_required && !field.field_value) || showValidateError\">* {{field.field_helpertext}}</span></div></div></ng-form>");
 }]);
 
 angular.module("partials/directive-templates/field/hidden.html", []).run(["$templateCache", function($templateCache) {
@@ -37,32 +37,32 @@ angular.module("partials/directive-templates/field/hidden.html", []).run(["$temp
 
 angular.module("partials/directive-templates/field/number.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/directive-templates/field/number.html",
-    "<div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span> <input type=number placeholder={{field.field_placeholder}} id=field.field_id name={{field.field_name}} class=form-control ng-model=field.field_value value=field.field_value required ui-validate=\" 'validateNumber($value, field)' \"> <span class=\"pull-right required-error\" ng-show=\"(field.field_required && !field.field_value) || showValidateError\">* {{field.field_helpertext}}</span></div>");
+    "<ng-form name=sub_form><div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span> <input type=number placeholder={{field.field_placeholder}} id=field.field_id name={{field.field_name}} class=form-control ng-model=field.field_value value=field.field_value required ui-validate=\" 'validateNumber($value, field)' \"><div ng-show=!sub_form.$pristine><span class=\"pull-right required-error\" ng-show=\"(field.field_required && !field.field_value) || showValidateError\">* {{field.field_helpertext}}</span></div></div></ng-form>");
 }]);
 
 angular.module("partials/directive-templates/field/password.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/directive-templates/field/password.html",
-    "<div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span> <input type=password id=field.field_id class=form-control name={{field.field_name}} ng-model=field.field_value value=field.field_value ng-minlength=8 ng-pattern=\"/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/\" required placeholder={{field.field_placeholder}}> <span class=\"pull-right required-error\" ng-show=\"(field.field_required && !field.field_value) || showValidateError\">* {{field.field_helpertext}}</span></div>");
+    "<ng-form name=sub_form><div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span> <input type=password id=field.field_id class=form-control name={{field.field_name}} ng-model=field.field_value value=field.field_value ng-minlength=8 ng-pattern=\"/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/\" required placeholder={{field.field_placeholder}}><div ng-show=!sub_form.$pristine><span class=\"pull-right required-error\" ng-show=\"(field.field_required && !field.field_value) || showValidateError\">* {{field.field_helpertext}}</span></div></div></ng-form>");
 }]);
 
 angular.module("partials/directive-templates/field/radio.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/directive-templates/field/radio.html",
-    "<div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp;<div ng-repeat=\"option in field.field_options\" class=row-fluid><label><input type=radio value={{option.option_value}} ng-model=field.field_value ng-required=field.field_required> &nbsp; <span ng-bind=option.option_title></span></label></div><span class=required-error ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span></div>");
+    "<ng-form name=sub_form><div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp;<div ng-repeat=\"option in field.field_options\" class=row-fluid><label><input type=radio value={{option.option_value}} ng-model=field.field_value ng-required=field.field_required> &nbsp; <span ng-bind=option.option_title></span></label></div><div ng-show=!sub_form.$pristine><span class=required-error ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span></div></div></ng-form>");
 }]);
 
 angular.module("partials/directive-templates/field/textarea.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/directive-templates/field/textarea.html",
-    "<div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span><textarea type=text id=field.field_id name={{field.field_name}} data-ng-model=field.field_value ui-validate=\" 'validateText($value, field)' \" value=field.field_value required class=form-control placeholder={{field.field_placeholder}}></textarea><span class=\"pull-right required-error\" ng-show=\"(field.field_required && !field.field_value) || showValidateError\">* {{field.field_helpertext}}</span></div>");
+    "<ng-form name=sub_form><div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span><textarea type=text id=field.field_id name={{field.field_name}} data-ng-model=field.field_value ui-validate=\" 'validateText($value, field)' \" value=field.field_value required class=form-control placeholder={{field.field_placeholder}}></textarea><div ng-show=!sub_form.$pristine><span class=\"pull-right required-error\" ng-show=\"(field.field_required && !field.field_value) || showValidateError\">* {{field.field_helpertext}}</span></div></div></ng-form>");
 }]);
 
 angular.module("partials/directive-templates/field/textfield.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/directive-templates/field/textfield.html",
-    "<div class=form-group><label for={field.field_name}>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span> <input id={{field.field_id}} name={{field.field_name}} class=form-control data-ng-model=field.field_value ui-validate=\" 'validateText($value, field)' \" value=field.field_value required placeholder={{field.field_placeholder}}> <span class=\"pull-right required-error\" ng-show=\"(field.field_required && !field.field_value) || showValidateError\">* {{field.field_helpertext}}</span></div>");
+    "<ng-form name=sub_form><div class=form-group><label for={field.field_name}>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span> <input id={{field.field_id}} dynamic-name=field.field_name class=form-control data-ng-model=field.field_value ui-validate=\" 'validateText($value, field)' \" value=field.field_value required placeholder={{field.field_placeholder}}><div ng-show=!sub_form.$pristine><span class=\"pull-right required-error\" ng-show=\"(field.field_required && !field.field_value) || showValidateError\">* {{field.field_helpertext}}</span></div></div></ng-form>");
 }]);
 
 angular.module("partials/directive-templates/form/form.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/directive-templates/form/form.html",
-    "<div ng-if=formPreview><h1 class=text-center>{{ form.form_title }}</h1><section class=row><div class=\"col-sm-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3\"><ng-form name=my_form class=form-horizontal novalidate autocomplete=off><fieldset><div ng-repeat=\"field in form.form_questions\"><field-directive field=field></field-directive></div><div data-ng-show=error class=\"text-center text-danger\"><strong>{{error}}</strong></div><div class=modal-footer><button class=\"btn btn-default right\" type=button ng-click=togglePreview()>User View</button> <button class=\"btn btn-primary right\" type=button ng-disabled=my_form.$invalid ng-click=onSubmit()>{{form.form_submitText}}</button> <button class=\"btn btn-warning right\" type=button ng-click=onCancel()>{{form.form_cancelText}}</button></div></fieldset></ng-form></div></section></div><div ng-if=!formPreview><h1 class=text-center>{{ form.form_title }}</h1><section class=row><ng-form name=my_form novalidate autocomplete=off><carousel><slide ng-repeat=\"field in form.form_questions\" active=field.active><div class=row><div class=col-md-2></div><div class=col-md-8><field-directive field=field style=\"font-size: 150%\"></field-directive></div><div class=col-md-2></div></div></slide></carousel></ng-form><div class=modal-footer><button class=\"btn btn-default right\" type=button ng-click=togglePreview()>Review Form</button> <button class=\"btn btn-primary right\" type=button ng-disabled=my_form.$invalid ng-click=onSubmit()>{{form.form_submitText}}</button> <button class=\"btn btn-warning right\" type=button ng-click=onCancel()>{{form.form_cancelText}}</button></div></section></div>");
+    "<div ng-if=formPreview><h1 class=text-center>{{ form.form_title }}</h1><section class=row><div class=\"col-sm-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3\"><ng-form dynamic-name=form.form_name class=form-horizontal novalidate autocomplete=off><fieldset><div ng-repeat=\"field in form.form_questions\"><field-directive field=field></field-directive></div><div data-ng-show=error class=\"text-center text-danger\"><strong>{{error}}</strong></div><div class=modal-footer><button class=\"btn btn-default right\" type=button ng-click=togglePreview()>User View</button> <button class=\"btn btn-primary right\" type=button ng-disabled=my_form.$invalid ng-click=onSubmit()>{{form.form_submitText}}</button> <button class=\"btn btn-warning right\" type=button ng-click=onCancel()>{{form.form_cancelText}}</button></div></fieldset></ng-form></div></section></div><div ng-if=!formPreview><h1 class=text-center>{{ form.form_title }}</h1><section class=row><ng-form dynamic-name=form.form_name novalidate autocomplete=off><carousel><slide ng-repeat=\"field in form.form_questions\" active=field.active><div class=row><div class=col-md-2></div><div class=col-md-8><field-directive field=field style=\"font-size: 150%\"></field-directive></div><div class=col-md-2></div></div></slide></carousel></ng-form><div class=modal-footer><button class=\"btn btn-default right\" type=button ng-click=togglePreview()>Review Form</button> <button class=\"btn btn-primary right\" type=button ng-disabled=my_form.$invalid ng-click=onSubmit()>{{form.form_submitText}}</button> <button class=\"btn btn-warning right\" type=button ng-click=onCancel()>{{form.form_cancelText}}</button></div></section></div>");
 }]);
 
 angular.module("partials/directive-templates/validation/default.html", []).run(["$templateCache", function($templateCache) {
@@ -86,141 +86,141 @@ angular.module('ngform-builder.controllers', [])
 .controller('CreateCtrl', ['$scope', '$http', 'FormService', 
 function ($scope, $http, FormService) {
 
-    // preview form mode
-    $scope.previewMode = false;
+  // preview form mode
+  $scope.previewMode = false;
 
-    // new form
-    if (_.isEmpty($scope.form)) {
-        $scope.form = angular.copy($scope.form) || {};
-        $scope.form.form_type = 'system';
-        $scope.form.form_name = 'my_form';
-        $scope.form.form_title = 'My Form';
-        $scope.form.form_submitText = 'Submit Form';
-        $scope.form.form_cancelText = 'Cancel Form';
-        $scope.form.form_questions = [];
-    }
-    
-    // previewForm - for preview purposes, form will be copied into this
-    // otherwise, actual form might get manipulated in preview mode
-    $scope.previewForm = {};
+  // new form
+  if (_.isEmpty($scope.form)) {
+    $scope.form = angular.copy($scope.form) || {};
+    $scope.form.form_type = 'system';
+    $scope.form.form_name = 'my_form';
+    $scope.form.form_title = 'My Form';
+    $scope.form.form_submitText = 'Submit';
+    $scope.form.form_cancelText = 'Cancel';
+    $scope.form.form_questions = [];
+  }
+  
+  // previewForm - for preview purposes, form will be copied into this
+  // otherwise, actual form might get manipulated in preview mode
+  $scope.previewForm = {};
 
-    // add new field drop-down:
-    $scope.addField = {};
+  // add new field drop-down:
+  $scope.addField = {};
 
-    $scope.addField.types = FormService.fields;
-    $scope.addField.new = $scope.addField.types[0];
-    $scope.addField.value_type = $scope.addField.types[0].value_type;
-    $scope.addField.hasOptions = $scope.addField.types[0].hasOptions;
+  $scope.addField.types = FormService.fields;
+  $scope.addField.new = $scope.addField.types[0];
+  $scope.addField.value_type = $scope.addField.types[0].value_type;
+  $scope.addField.hasOptions = $scope.addField.types[0].hasOptions;
+  $scope.addField.lastAddedID = $scope.form.form_questions.length;
+
+  // accordion settings
+  $scope.accordion = {}
+  $scope.accordion.oneAtATime = true;
+
+  // create new field button click
+  $scope.addNewField = function() {
     $scope.addField.lastAddedID = $scope.form.form_questions.length;
+    // incr field_id counter
+    $scope.addField.lastAddedID++;
 
-    // accordion settings
-    $scope.accordion = {}
-    $scope.accordion.oneAtATime = true;
+    var newField = {
+      "field_id"          : $scope.addField.lastAddedID,
+      "field_name"        : $scope.form.form_name+"_"+$scope.addField.new.name+"_"+$scope.addField.lastAddedID,
+      "field_title"       : "New " + $scope.addField.new.name + " field " + $scope.addField.lastAddedID,
+      "field_type"        : $scope.addField.new.name,
+      "field_value"       : $scope.addField.new.value_type,
+      "field_placeholder" : "Enter a "+$scope.addField.new.name+" value",
+      "field_validation"  : {rule:'none', expression: ''},
+      "field_helpertext"  : "missing input or invalid",
+      "field_hasOptions"  : $scope.addField.new.hasOptions,
+      "field_required"    : true
+    };
 
-    // create new field button click
-    $scope.addNewField = function() {
-        $scope.addField.lastAddedID = $scope.form.form_questions.length;
-        // incr field_id counter
-        $scope.addField.lastAddedID++;
+    // put newField into fields array
+    $scope.form.form_questions.push(newField);
+  }
 
-        var newField = {
-            "field_id"          : $scope.addField.lastAddedID,
-            "field_name"        : $scope.form.form_name+"_"+$scope.addField.new.name+"_"+$scope.addField.lastAddedID,
-            "field_title"       : "New " + $scope.addField.new.name + " field " + $scope.addField.lastAddedID,
-            "field_type"        : $scope.addField.new.name,
-            "field_value"       : $scope.addField.new.value_type,
-            "field_placeholder" : "Enter a "+$scope.addField.new.name+" value",
-            "field_validation"  : {rule:'none', expression: ''},
-            "field_helpertext"  : "missing input or invalid",
-            "field_hasOptions"  : $scope.addField.new.hasOptions,
-            "field_required"    : true
-        };
+  $scope.form.form_questions.sort(function (a, b) {
+    return a.field_id > b.field_id
+  });
 
-        // put newField into fields array
-        $scope.form.form_questions.push(newField);
+  var sortQuestions = function() {
+    for (var idx in $scope.form.form_questions) {
+      $scope.form.form_questions[idx].field_id = ++idx;
     }
+  }
 
-    $scope.form.form_questions.sort(function (a, b) {
-        return a.field_id > b.field_id
-    });
+  $scope.sortableOptions = {
+    cursor: 'move',
+    revert: true,
+    stop: sortQuestions
+  }
 
-    var sortQuestions = function() {
-        for (var idx in $scope.form.form_questions) {
-            $scope.form.form_questions[idx].field_id = ++idx;
-        }
+  // deletes particular field on button click
+  $scope.deleteField = function (field_id){
+    for(var i = 0; i < $scope.form.form_questions.length; i++){
+      if($scope.form.form_questions[i].field_id == field_id){
+        $scope.form.form_questions.splice(i, 1);
+        break;
+      }
     }
+    sortQuestions();
+  }
 
-    $scope.sortableOptions = {
-        cursor: 'move',
-        revert: true,
-        stop: sortQuestions
+  // add new option to the field
+  $scope.addOption = function (field){
+    if(!field.field_options)
+      field.field_options = new Array();
+
+    var lastOptionID = 0;
+
+    if(field.field_options[field.field_options.length-1])
+      lastOptionID = field.field_options[field.field_options.length-1].option_id;
+
+    // new option's id
+    var option_id = lastOptionID + 1;
+
+    var newOption = {
+      "option_id" : option_id,
+      "option_title" : "Option " + option_id,
+      "option_value" : "value_" + option_id
+    };
+
+    // put new option into field_options array
+    field.field_options.push(newOption);
+  }
+
+  // delete particular option
+  $scope.deleteOption = function (field, option){
+    for(var i = 0; i < field.field_options.length; i++){
+      if(field.field_options[i].option_id == option.option_id){
+        field.field_options.splice(i, 1);
+        break;
+      }
     }
+  }
 
-    // deletes particular field on button click
-    $scope.deleteField = function (field_id){
-        for(var i = 0; i < $scope.form.form_questions.length; i++){
-            if($scope.form.form_questions[i].field_id == field_id){
-                $scope.form.form_questions.splice(i, 1);
-                break;
-            }
-        }
-        sortQuestions();
+  // preview form
+  $scope.previewOn = function(){
+    if($scope.form.form_questions == null || $scope.form.form_questions.length == 0) {
+      alert('No fields added yet, please add fields to the form before preview.');
     }
-
-    // add new option to the field
-    $scope.addOption = function (field){
-        if(!field.field_options)
-            field.field_options = new Array();
-
-        var lastOptionID = 0;
-
-        if(field.field_options[field.field_options.length-1])
-            lastOptionID = field.field_options[field.field_options.length-1].option_id;
-
-        // new option's id
-        var option_id = lastOptionID + 1;
-
-        var newOption = {
-            "option_id" : option_id,
-            "option_title" : "Option " + option_id,
-            "option_value" : "value_" + option_id
-        };
-
-        // put new option into field_options array
-        field.field_options.push(newOption);
+    else {
+      $scope.previewMode = !$scope.previewMode;
+      angular.copy($scope.form, $scope.previewForm);
     }
+  }
 
-    // delete particular option
-    $scope.deleteOption = function (field, option){
-        for(var i = 0; i < field.field_options.length; i++){
-            if(field.field_options[i].option_id == option.option_id){
-                field.field_options.splice(i, 1);
-                break;
-            }
-        }
-    }
+  // hide preview form, go back to create mode
+  $scope.previewOff = function(){
+    $scope.previewMode = !$scope.previewMode;
+  }
 
-    // preview form
-    $scope.previewOn = function(){
-        if($scope.form.form_questions == null || $scope.form.form_questions.length == 0) {
-            alert('No fields added yet, please add fields to the form before preview.');
-        }
-        else {
-            $scope.previewMode = !$scope.previewMode;
-            angular.copy($scope.form, $scope.previewForm);
-        }
-    }
-
-    // hide preview form, go back to create mode
-    $scope.previewOff = function(){
-        $scope.previewMode = !$scope.previewMode;
-    }
-
-    // deletes all the fields
-    $scope.reset = function (){
-        $scope.form.form_questions.splice(0, $scope.form.form_questions.length);
-        $scope.addField.lastAddedID = 0;
-    }
+  // deletes all the fields
+  $scope.reset = function (){
+    $scope.form.form_questions.splice(0, $scope.form.form_questions.length);
+    $scope.addField.lastAddedID = 0;
+  }
 }]);;'use strict';
 
 /**
@@ -231,23 +231,23 @@ function ($scope, $http, FormService) {
  */
 angular.module('directive.builder', [])
 .directive('formBuilder', function() {
-    return {
-        restrict: 'E',
-        scope: {
-        	form: '='
-        },
-        templateUrl: 'partials/create.html',
-        controller: 'CreateCtrl',
-        link: {
-            pre: function preLink(scope, element, attr) {
-                var unregister = scope.$watch('form', function (newval, oldval) {
-                    if (newval.length > 0) {
-                        unregister();
-                    };
-                }, true);
-            }
-        }
-    };
+  return {
+    restrict: 'E',
+    scope: {
+      form: '='
+    },
+    templateUrl: 'partials/create.html',
+    controller: 'CreateCtrl',
+    link: {
+      pre: function preLink(scope, element, attr) {
+        var unregister = scope.$watch('form', function (newval, oldval) {
+          if (newval.length > 0) {
+            unregister();
+          };
+        }, true);
+      }
+    }
+  };
 });;'use strict';
 
 /** 
@@ -259,73 +259,73 @@ angular.module('directive.builder', [])
 angular.module('directive.field', [])
 
 .controller('FieldCtrl', ['$scope', function ($scope) {
-    
-    $scope.clearExpr = function(field) {
-        field.field_min = '';
-        field.field_max = '';
-        field.field_validation.expression = '';
-    }
+  
+  $scope.clearExpr = function(field) {
+    field.field_min = '';
+    field.field_max = '';
+    field.field_validation.expression = '';
+  }
 
-    $scope.validateText = function(value, field) {
-        var expr = field.field_validation.expression;
-        var res = true;
-        if (value && value.length >= 0) {
-            switch (field.field_validation.rule) {
-                case 'none':         $scope.showValidateError = false; return true;
-                case 'contains':     res = value.indexOf(expr) > -1; break;
-                case 'not_contains': res = value.indexOf(expr) <= -1; break;
-                case 'min_length':   res = value.length >= expr; break;
-                case 'max_length':   res = value.length <= expr; break;
-                case 'between':      res = value.length >= expr.min && value.length <= expr.max; break;
-                default: break;
-            }                
-        }
-        $scope.showValidateError = !res;
-        return res;
+  $scope.validateText = function(value, field) {
+    var expr = field.field_validation.expression;
+    var res = true;
+    if (value && value.length >= 0) {
+      switch (field.field_validation.rule) {
+        case 'none':         $scope.showValidateError = false; return true;
+        case 'contains':     res = value.indexOf(expr) > -1; break;
+        case 'not_contains': res = value.indexOf(expr) <= -1; break;
+        case 'min_length':   res = value.length >= expr; break;
+        case 'max_length':   res = value.length <= expr; break;
+        case 'between':      res = value.length >= expr.min && value.length <= expr.max; break;
+        default: break;
+      }                
     }
+    $scope.showValidateError = !res;
+    return res;
+  }
 
-    $scope.validateNumber = function(value, field) {
-        var expr = field.field_validation.expression;
-        var res = true;
-        if (value) {
-            switch (field.field_validation.rule) {
-                case 'none':        $scope.showValidateError = false; return true;
-                case 'gt':          res = value > expr; break;
-                case 'geq':         res = value >= expr; break;
-                case 'lt':          res = value < expr; break;
-                case 'leq':         res = value <= expr; break;
-                case 'eq':          res = value == expr; break;
-                case 'neq':         res = value != expr; break;
-                case 'between':     res = value >= expr.min && value <= expr.max; break;
-                case 'not_between': res = value < expr.min || value > expr.max; break;
-                default: break;
-            }
-        }
-        $scope.showValidateError = !res;
-        return res;
+  $scope.validateNumber = function(value, field) {
+    var expr = field.field_validation.expression;
+    var res = true;
+    if (value) {
+      switch (field.field_validation.rule) {
+        case 'none':        $scope.showValidateError = false; return true;
+        case 'gt':          res = value > expr; break;
+        case 'geq':         res = value >= expr; break;
+        case 'lt':          res = value < expr; break;
+        case 'leq':         res = value <= expr; break;
+        case 'eq':          res = value == expr; break;
+        case 'neq':         res = value != expr; break;
+        case 'between':     res = value >= expr.min && value <= expr.max; break;
+        case 'not_between': res = value < expr.min || value > expr.max; break;
+        default: break;
+      }
     }
+    $scope.showValidateError = !res;
+    return res;
+  }
 }])
 
 .directive('fieldDirective', function ($http, $compile, $templateCache) {
 
-    var linker = function(scope, element) {
-        // GET template content from path
-        var templateUrl = 'partials/directive-templates/field/' + scope.field.field_type + '.html';
-        $http.get(templateUrl, {cache:$templateCache}).success(function(data) {
-            element.html(data);
-            $compile(element.contents())(scope);
-        });
-    }
+  var linker = function(scope, element) {
+    // GET template content from path
+    var templateUrl = 'partials/directive-templates/field/' + scope.field.field_type + '.html';
+    $http.get(templateUrl, {cache:$templateCache}).success(function(data) {
+      element.html(data);
+      $compile(element.contents())(scope);
+    });
+  }
 
-    return {
-        template: '<div>{{field}}</div>',
-        controller: 'FieldCtrl',
-        restrict: 'E',
-        scope: {
-            field:'='
-        },
-        link: linker
-    };
+  return {
+    template: '<div>{{field}}</div>',
+    controller: 'FieldCtrl',
+    restrict: 'E',
+    scope: {
+      field:'='
+    },
+    link: linker
+  };
 });;'use strict';
 
 /**
@@ -336,37 +336,61 @@ angular.module('directive.field', [])
  * usage: <form-directive form="scopeForm" onSubmit="submitFn()" onCancel="cancelFn()"></form-directive>
  */
 angular.module('directive.form', [])
+
+// allows for dynamic form and input names in forms
+.directive('dynamicName', function($compile, $parse) {
+  return {
+  restrict: 'A',
+  terminal: true,
+  priority: 100000,
+  link: function(scope, elem) {
+    var name = $parse(elem.attr('dynamic-name'))(scope);
+    elem.removeAttr('dynamic-name');
+    elem.attr('name', name);
+    $compile(elem)(scope);
+  }
+  };
+})
+
 .directive('formDirective', function ($http, $compile, $templateCache) {
 
-    var linker = function(scope, element, attrs) {
-        // GET template content from path
-        var templateUrl = 'partials/directive-templates/form/form.html';
-        $http.get(templateUrl, {cache:$templateCache}).success(function(data) {
-            element.html(data);
-            $compile(element.contents())(scope);
-        });
-    };
+  var linker = function(scope, element, attrs, ngModel) {
+    // GET template content from path
+    var templateUrl = 'partials/directive-templates/form/form.html';
+    $http.get(templateUrl, {cache:$templateCache}).success(function(data) {
+      element.html(data);
+      $compile(element.contents())(scope);
+    });
 
-    return {
-        controller: function($scope){
-            $scope.togglePreview = function() {
-                $scope.formPreview = !$scope.formPreview;
-            };
-        },
-        restrict: 'E',
-        link: linker,
-        scope: {
-            form:'=',
-            onSubmit:'&',
-            onCancel:'&'
-        }
-    };
+    // default to list view if form type is system
+    var unreg = scope.$watch('form', function(val, old) {
+      if (!_.isEmpty(val)) {
+        scope.formPreview = (scope.form.form_type == 'system');
+        unreg();
+      }
+    }, true);
+  };
+
+  return {
+    restrict: 'E',
+    link: linker,
+    scope: {
+      form:'=',
+      onSubmit:'&',
+      onCancel:'&'
+    },
+    controller: function($scope){
+      $scope.togglePreview = function() {
+        $scope.formPreview = !$scope.formPreview;
+      };
+    },
+  };
 });
 ;angular.module('ngform-builder.directives', [
 	'directive.builder',
-    'directive.field',
-    'directive.form',
-    'directive.validation'
+  'directive.field',
+  'directive.form',
+  'directive.validation'
 ]);;'use strict';
 
 /**
@@ -376,138 +400,138 @@ angular.module('directive.form', [])
 angular.module('directive.validation', [])
 .directive('validationDirective', function ($http, $compile, $templateCache) {
 
-    var getTemplateUrl = function(field) {
-        var type = field.field_type;
-        var templateUrl = '';
+  var getTemplateUrl = function(field) {
+    var type = field.field_type;
+    var templateUrl = '';
 
-        if ((type == 'textfield') ||
-            (type == 'email') ||
-            (type == 'password') ||
-            (type == 'textarea')) {
-            templateUrl = 'partials/directive-templates/validation/textfield.html';
-        } else if (type == 'number') {
-            templateUrl = 'partials/directive-templates/validation/number.html';
-        } else {
-            templateUrl = 'partials/directive-templates/validation/default.html';
-        }
-
-        return templateUrl;
+    if ((type == 'textfield') ||
+      (type == 'email') ||
+      (type == 'password') ||
+      (type == 'textarea')) {
+      templateUrl = 'partials/directive-templates/validation/textfield.html';
+    } else if (type == 'number') {
+      templateUrl = 'partials/directive-templates/validation/number.html';
+    } else {
+      templateUrl = 'partials/directive-templates/validation/default.html';
     }
 
-    var linker = function(scope, element) {
-        // GET template content from path
-        var templateUrl = getTemplateUrl(scope.field);
-        $http.get(templateUrl, {cache:$templateCache}).success(function(data) {
-            element.html(data);
-            $compile(element.contents())(scope);
-        });
-    }
+    return templateUrl;
+  }
 
-    return {
-        template: '{{field}}',
-        controller: 'ValidationCtrl',
-        restrict: 'E',
-        scope: {
-            field:'='
-        },
-        link: linker
-    };
+  var linker = function(scope, element) {
+    // GET template content from path
+    var templateUrl = getTemplateUrl(scope.field);
+    $http.get(templateUrl, {cache:$templateCache}).success(function(data) {
+      element.html(data);
+      $compile(element.contents())(scope);
+    });
+  }
+
+  return {
+    template: '{{field}}',
+    controller: 'ValidationCtrl',
+    restrict: 'E',
+    scope: {
+      field:'='
+    },
+    link: linker
+  };
 })
 
 .controller('ValidationCtrl', function($scope) {
-    $scope.textValidationRules = [
-        {name:'None', value:'none'},
-        {name:'Contains', value:'contains'},
-        {name:'Does not contain', value:'not_contains'},
-        {name:'Min Length', value:'min_length'},
-        {name:'Max Length', value:'max_length'},
-        {name:'Between', value:'between'}
-    ];
+  $scope.textValidationRules = [
+    {name:'None', value:'none'},
+    {name:'Contains', value:'contains'},
+    {name:'Does not contain', value:'not_contains'},
+    {name:'Min Length', value:'min_length'},
+    {name:'Max Length', value:'max_length'},
+    {name:'Between', value:'between'}
+  ];
 
-    $scope.numberValidationRules = [
-        {name:'None', value:'none'},
-        {name:'Greater than', value:'gt'},
-        {name:'Greater than or equal', value:'geq'},
-        {name:'Less than', value:'lt'},
-        {name:'Less than or equal', value:'leq'},
-        {name:'Equal', value:'eq'},
-        {name:'Not Equal', value:'neq'},
-        {name:'Between', value:'between'},
-        {name:'Not Between', value:'not_between'}
-    ];
+  $scope.numberValidationRules = [
+    {name:'None', value:'none'},
+    {name:'Greater than', value:'gt'},
+    {name:'Greater than or equal', value:'geq'},
+    {name:'Less than', value:'lt'},
+    {name:'Less than or equal', value:'leq'},
+    {name:'Equal', value:'eq'},
+    {name:'Not Equal', value:'neq'},
+    {name:'Between', value:'between'},
+    {name:'Not Between', value:'not_between'}
+  ];
 });
 ;angular.module('ngform-builder.services', [])
 .service('FormService', function FormService() {
-    return {
-        fields:[
-            {
-                name : 'textfield',
-                value : 'Textfield',
-                value_type: '',
-                hasOptions: false
-            },
-            {
-                name : 'email',
-                value : 'E-mail',
-                value_type: '',
-                hasOptions: false
-            },
-            {
-                name : 'password',
-                value : 'Password',
-                value_type: '',
-                hasOptions: false                
-            },
-            {
-                name : 'radio',
-                value : 'Radio Buttons',
-                value_type: '',
-                hasOptions: true
-            },
-            {
-                name : 'dropdown',
-                value : 'Dropdown List',
-                value_type: '',
-                hasOptions: true
-            },
-            {
-                name : 'date',
-                value : 'Date',
-                value_type: '',
-                hasOptions: false
-            },
-            {
-                name : 'textarea',
-                value : 'Text Area',
-                value_type: '',
-                hasOptions: false
-            },
-            {
-                name : 'checkbox',
-                value : 'Checkbox',
-                value_type: '',
-                hasOptions: false
-            },
-            {
-                name : 'checkbox-group',
-                value : 'Checkbox Group',
-                value_type: {},
-                hasOptions: true
-            },
-            {
-                name : 'number',
-                value : 'Number',
-                value_type: '',
-                hasOptions: false
-            },
-            {
-                name : 'hidden',
-                value : 'Hidden',
-                value_type: '',
-                hasOptions: false
-            }
-        ]
-    };
+  return {
+    fields:[
+      {
+        name : 'textfield',
+        value : 'Textfield',
+        value_type: '',
+        hasOptions: false
+      },
+      {
+        name : 'email',
+        value : 'E-mail',
+        value_type: '',
+        hasOptions: false
+      },
+      {
+        name : 'password',
+        value : 'Password',
+        value_type: '',
+        hasOptions: false                
+      },
+      {
+        name : 'radio',
+        value : 'Radio Buttons',
+        value_type: '',
+        hasOptions: true
+      },
+      {
+        name : 'dropdown',
+        value : 'Dropdown List',
+        value_type: '',
+        hasOptions: true
+      },
+      {
+        name : 'date',
+        value : 'Date',
+        value_type: '',
+        hasOptions: false
+      },
+      {
+        name : 'textarea',
+        value : 'Text Area',
+        value_type: '',
+        hasOptions: false
+      },
+      {
+        name : 'checkbox',
+        value : 'Checkbox',
+        value_type: '',
+        hasOptions: false
+      },
+      {
+        name : 'checkbox-group',
+        value : 'Checkbox Group',
+        value_type: {},
+        hasOptions: true
+      },
+      {
+        name : 'number',
+        value : 'Number',
+        value_type: '',
+        hasOptions: false
+      },
+      {
+        name : 'hidden',
+        value : 'Hidden',
+        value_type: '',
+        hasOptions: false
+      }
+    ]
+  };
 });
 ;'use strict'
 
