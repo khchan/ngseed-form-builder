@@ -62,7 +62,7 @@ angular.module("partials/directive-templates/field/textfield.html", []).run(["$t
 
 angular.module("partials/directive-templates/form/form.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/directive-templates/form/form.html",
-    "<div ng-if=formPreview><h1 class=text-center>{{ form.form_title }}</h1><section class=row><div class=\"col-sm-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3\"><ng-form dynamic-name=form.form_name class=form-horizontal novalidate autocomplete=off><fieldset><div ng-repeat=\"field in form.form_questions\"><field-directive field=field></field-directive></div><div data-ng-show=error class=\"text-center text-danger\"><strong>{{error}}</strong></div><div class=modal-footer><button class=\"btn btn-default right\" type=button ng-click=togglePreview()>User View</button> <button class=\"btn btn-primary right\" type=button ng-disabled={{form.form_name}}.$invalid ng-click=onSubmit()>{{form.form_submitText}}</button> <button class=\"btn btn-warning right\" type=button ng-click=onCancel()>{{form.form_cancelText}}</button></div></fieldset></ng-form></div></section></div><div ng-if=!formPreview><h1 class=text-center>{{ form.form_title }}</h1><section class=row><ng-form dynamic-name=form.form_name novalidate autocomplete=off><carousel><slide ng-repeat=\"field in form.form_questions\" active=field.active><div class=row><div class=col-md-2></div><div class=col-md-8><field-directive field=field style=\"font-size: 150%\"></field-directive></div><div class=col-md-2></div></div></slide></carousel></ng-form><div class=modal-footer><button class=\"btn btn-default right\" type=button ng-click=togglePreview()>Review Form</button> <button class=\"btn btn-primary right\" type=button ng-disabled={{form.form_name}}.$invalid ng-click=onSubmit()>{{form.form_submitText}}</button> <button class=\"btn btn-warning right\" type=button ng-click=onCancel()>{{form.form_cancelText}}</button></div></section></div>");
+    "<div ng-if=formPreview><h1 class=text-center>{{ form.form_title }}</h1><section class=row><div class=\"col-sm-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3\"><ng-form name=my_form class=form-horizontal novalidate autocomplete=off><fieldset><div ng-repeat=\"field in form.form_questions\"><field-directive field=field></field-directive></div><div data-ng-show=error class=\"text-center text-danger\"><strong>{{error}}</strong></div><div class=modal-footer><button class=\"btn btn-default right\" type=button ng-click=togglePreview()>User View</button> <button class=\"btn btn-primary right\" type=button ng-disabled=my_form.$invalid ng-click=onSubmit()>{{form.form_submitText}}</button> <button class=\"btn btn-warning right\" type=button ng-click=onCancel()>{{form.form_cancelText}}</button></div></fieldset></ng-form></div></section></div><div ng-if=!formPreview><h1 class=text-center>{{ form.form_title }}</h1><section class=row><ng-form name=my_form novalidate autocomplete=off><carousel><slide ng-repeat=\"field in form.form_questions\" active=field.active><div class=row><div class=col-md-2></div><div class=col-md-8><field-directive field=field style=\"font-size: 150%\"></field-directive></div><div class=col-md-2></div></div></slide></carousel></ng-form><div class=modal-footer><button class=\"btn btn-default right\" type=button ng-click=togglePreview()>Review Form</button> <button class=\"btn btn-primary right\" type=button ng-disabled=my_form.$invalid ng-click=onSubmit()>{{form.form_submitText}}</button> <button class=\"btn btn-warning right\" type=button ng-click=onCancel()>{{form.form_cancelText}}</button></div></section></div>");
 }]);
 
 angular.module("partials/directive-templates/validation/default.html", []).run(["$templateCache", function($templateCache) {
@@ -340,21 +340,21 @@ angular.module('directive.form', [])
 // allows for dynamic form and input names in forms
 .directive('dynamicName', function($compile, $parse) {
   return {
-  restrict: 'A',
-  terminal: true,
-  priority: 100000,
-  link: function(scope, elem) {
-    var name = $parse(elem.attr('dynamic-name'))(scope);
-    elem.removeAttr('dynamic-name');
-    elem.attr('name', name);
-    $compile(elem)(scope);
-  }
+    restrict: 'A',
+    terminal: true,
+    priority: 100000,
+    link: function(scope, elem) {
+      var name = $parse(elem.attr('dynamic-name'))(scope);
+      elem.removeAttr('dynamic-name');
+      elem.attr('name', name);
+      $compile(elem)(scope);
+    }
   };
 })
 
 .directive('formDirective', function ($http, $compile, $templateCache) {
 
-  var linker = function(scope, element, attrs, ngModel) {
+  var linker = function(scope, element, attrs, ngModel) {    
     // GET template content from path
     var templateUrl = 'partials/directive-templates/form/form.html';
     $http.get(templateUrl, {cache:$templateCache}).success(function(data) {
