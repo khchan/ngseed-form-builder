@@ -3,6 +3,8 @@ ngform-builder
 
 Angular Seed version of [selmanh's][selmanh] fantastic form-builder (more info about his directive can be found on his page)
 
+[http://khchan.github.io/ngseed-form-builder](http://khchan.github.io/ngseed-form-builder)
+
 Dependencies
 ------------
 (Make sure you've included these scripts before including ngform-builder)
