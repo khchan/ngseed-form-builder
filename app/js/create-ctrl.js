@@ -30,7 +30,7 @@ function ($scope, $http, FormService) {
   $scope.addField.new = $scope.addField.types[0];
   $scope.addField.value_type = $scope.addField.types[0].value_type;
   $scope.addField.hasOptions = $scope.addField.types[0].hasOptions;
-  $scope.addField.hasCollection = $scope.addField.types[0].hasCollection;
+  $scope.addField.hasUsers = $scope.addField.types[0].hasUsers;
   $scope.addField.lastAddedID = $scope.form.form_questions.length;
 
   // accordion settings
@@ -53,7 +53,7 @@ function ($scope, $http, FormService) {
       "field_validation"    : {rule:'none', expression: ''},
       "field_helpertext"    : "missing input or invalid",
       "field_hasOptions"    : $scope.addField.new.hasOptions,
-      "field_hasCollection" : $scope.addField.new.hasCollection,
+      "field_hasUsers"      : $scope.addField.new.hasUsers,
       "field_required"      : true
     };
 

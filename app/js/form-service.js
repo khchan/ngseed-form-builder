@@ -61,10 +61,10 @@ angular.module('ngform-builder.services', [])
         value_type: ''
       },
       {
-        name: 'autocomplete',
-        value: 'Autocomplete',
+        name: 'userselect',
+        value: 'User Select',
         value_type: '',
-        hasCollection: true
+        hasUsers: true
       }
     ]
   };
