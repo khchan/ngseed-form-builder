@@ -8,7 +8,13 @@
  */
 angular.module('directive.field', [])
 
-.controller('FieldCtrl', ['$scope', function ($scope) {
+.controller('FieldCtrl', ['$scope', '$http', function ($scope, $http) {
+
+  $scope.fetchCollection = function() {
+    return $http.get('http://localhost:1337/api/user').then(function(response){
+      return response.data.items;
+    });
+  }
   
   $scope.clearExpr = function(field) {
     field.field_min = '';

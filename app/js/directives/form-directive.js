@@ -52,9 +52,6 @@ angular.module('directive.form', [])
       onCancel:'&'
     },
     controller: function($scope){
-      $scope.togglePreview = function() {
-        $scope.formPreview = !$scope.formPreview;
-      };
     },
   };
 });

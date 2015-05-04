@@ -67,6 +67,12 @@ angular.module('ngform-builder.services', [])
         value : 'Hidden',
         value_type: '',
         hasOptions: false
+      },
+      {
+        name: 'autocomplete',
+        value: 'Autocomplete',
+        value_type: '',
+        hasOptions: false
       }
     ]
   };

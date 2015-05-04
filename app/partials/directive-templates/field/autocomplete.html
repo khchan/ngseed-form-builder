@@ -1,0 +1,34 @@
+<ng-form name="sub_form">
+	<script type="text/ng-template" id="customTemplate.html">
+		<a>
+			<span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+			<span>&nbsp; | &nbsp;</span>
+			<span>{{match.model.email}}</span>
+		</a>
+	</script>
+	<div class="form-group">
+		<label for="field.field_id">
+			{{field.field_id}}) {{field.field_title}}
+		</label>&nbsp;
+		<span class="glyphicon glyphicon-ok" ng-show="field.field_value && !showValidateError"></span>
+		<div class="row-fluid">
+			<pre>Model: {{field.field_value | json}}</pre>
+			<input type="text" 
+				id="{{field.field_id}}" 
+				dynamic-name="field.field_name" 
+				class="form-control" 
+				data-ng-model="field.field_value" 	
+				value="field.field_value" 
+				typeahead="item as item.username for item in fetchCollection() | filter:{username:$viewValue}" 
+				typeahead-loading="loadingItems"
+				typeahead-template-url="customTemplate.html" 
+				required="field.field_required"
+				placeholder="{{field.field_placeholder}}"
+			>
+			<i ng-show="loadingItems" class="glyphicon glyphicon-refresh"></i>
+		</div>
+		<div ng-show="!sub_form.$pristine">
+			<span class="pull-right required-error" ng-show="field.field_required && !field.field_value">* {{field.field_helpertext}}</span>
+		</div>
+	</div>
+</ng-form>
