@@ -10,13 +10,15 @@ angular.module('directive.field', [])
 
 .controller('FieldCtrl', ['$scope', '$http', function ($scope, $http) {
 
-  $scope.loadID = function(field) {
-    if (field.field_userURL && field.field_value) {
-      $http.get(field.field_userURL + '/' + field.field_value)
-        .then(function(user) {
-          field.field_view = user.username;
-        })
-    }
+  if ($scope.field.field_userURL && $scope.field.field_value) {
+    $http.get($scope.field.field_userURL + '/' + $scope.field.field_value)
+      .then(function(resp) {
+        $scope.field.field_view = resp.data.items.username;
+      })
+      .catch(function (err) {
+        $scope.field.field_userURL = '';
+        $scope.field.field_value = '';
+      });
   }
 
   $scope.fetchCollection = function(field) {
