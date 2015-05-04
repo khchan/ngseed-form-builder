@@ -66,7 +66,7 @@ angular.module("partials/directive-templates/field/userselect.html", []).run(["$
     "			<span bind-html-unsafe=\"match.label | typeaheadHighlight:query\"></span>\n" +
     "			<span>&nbsp; | &nbsp;</span>\n" +
     "			<span>{{match.model.email}}</span>\n" +
-    "		</a></script><div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span><div class=row-fluid><button type=button class=\"btn btn-default\" ng-if=field.field_value ng-click=\"field.field_value = ''\"><span class=\"glyphicon glyphicon-remove\"></span> {{field.field_view}}</button> <button ng-click=loadID(field)>test</button> <input ng-if=!field.field_value ng-disabled=!field.field_userURL id={{field.field_id}} dynamic-name=field.field_name class=form-control data-ng-model=field.field_value typeahead=\"item.id as item.username for item in fetchCollection(field)\" typeahead-loading=loadingItems typeahead-template-url=customTemplate.html typeahead-on-select=\"field.field_view = $item.username;\" typeahead-editable=false required placeholder={{field.field_placeholder}}><h1 ng-if=\"field.field_userURL && field.field_field_value\">SOMETHING</h1><pre>{{field.field_userURL}}</pre><pre>{{field.field_view}}</pre><pre>{{field.field_value}}</pre><i ng-show=loadingItems class=\"glyphicon glyphicon-refresh\"></i></div><div ng-show=!sub_form.$pristine><span class=\"pull-right required-error\" ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span></div></div></ng-form>");
+    "		</a></script><div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span><div class=row-fluid><button type=button class=\"btn btn-default\" ng-if=field.field_value ng-click=\"field.field_value = ''\"><span class=\"glyphicon glyphicon-remove\"></span> {{field.field_view}}</button> <input ng-init=loadID(field) ng-if=!field.field_value ng-disabled=!field.field_userURL id={{field.field_id}} dynamic-name=field.field_name class=form-control data-ng-model=field.field_value typeahead=\"item.id as item.username for item in fetchCollection(field)\" typeahead-loading=loadingItems typeahead-template-url=customTemplate.html typeahead-on-select=\"field.field_view = $item.username;\" typeahead-editable=false required placeholder={{field.field_placeholder}}> <i ng-show=loadingItems class=\"glyphicon glyphicon-refresh\"></i></div><div ng-show=!sub_form.$pristine><span class=\"pull-right required-error\" ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span></div></div></ng-form>");
 }]);
 
 angular.module("partials/directive-templates/form/form.html", []).run(["$templateCache", function($templateCache) {
@@ -271,115 +271,19 @@ angular.module('directive.field', [])
 
 .controller('FieldCtrl', ['$scope', '$http', function ($scope, $http) {
 
-  $scope.collection = {
-    "version": "1.0",
-    "href": "http://localhost:1337/api/user",
-    "referrer": "http://localhost:1337/api/user",
-    "items": [
-        {
-            "createdBy": "55476e4c10cbb0190a79a705",
-            "owner": "55476e4c10cbb0190a79a705",
-            "username": "admin",
-            "email": "admin@example.com",
-            "createdAt": "2015-05-04T13:04:12.054Z",
-            "updatedAt": "2015-05-04T15:24:19.963Z",
-            "id": "55476e4c10cbb0190a79a705",
-            "rel": "user",
-            "href": "http://localhost:1337/api/user/55476e4c10cbb0190a79a705"
-        },
-        {
-            "createdBy": "55476e4c10cbb0190a79a705",
-            "owner": "55476e8410cbb0190a79a761",
-            "username": "subject2",
-            "email": "subject@email.com",
-            "createdAt": "2015-05-04T13:05:08.084Z",
-            "updatedAt": "2015-05-04T14:30:09.076Z",
-            "id": "55476e8410cbb0190a79a761",
-            "rel": "user",
-            "href": "http://localhost:1337/api/user/55476e8410cbb0190a79a761"
-        },
-        {
-            "createdBy": "55476e4c10cbb0190a79a705",
-            "owner": "55476e9210cbb0190a79a765",
-            "username": "coordinator",
-            "email": "coordinator@email.com",
-            "createdAt": "2015-05-04T13:05:22.393Z",
-            "updatedAt": "2015-05-04T13:05:22.527Z",
-            "id": "55476e9210cbb0190a79a765",
-            "rel": "user",
-            "href": "http://localhost:1337/api/user/55476e9210cbb0190a79a765"
-        }
-    ],
-    "template": {
-        "rel": "user",
-        "href": "http://localhost:1337/api/form/55476e4d10cbb0190a79a759",
-        "data": [
-            {
-                "name": "username",
-                "type": "string",
-                "prompt": "Username",
-                "value": ""
-            },
-            {
-                "name": "email",
-                "type": "string",
-                "prompt": "Email",
-                "value": ""
-            },
-            {
-                "name": "person",
-                "type": "person",
-                "prompt": "Person",
-                "value": "",
-                "data": [
-                    {
-                        "name": "username",
-                        "type": "string",
-                        "prompt": "Username",
-                        "value": ""
-                    },
-                    {
-                        "name": "firstname",
-                        "type": "string",
-                        "prompt": "Firstname",
-                        "value": ""
-                    },
-                    {
-                        "name": "lastname",
-                        "type": "string",
-                        "prompt": "Lastname",
-                        "value": ""
-                    },
-                    {
-                        "name": "dob",
-                        "type": "date",
-                        "prompt": "Dob",
-                        "value": ""
-                    }
-                ]
-            }
-        ]
-    },
-    "path": "/api/user",
-    "links": [],
-    "queries": [],
-    "total": 3
-  };
-
   $scope.loadID = function(field) {
     if (field.field_userURL && field.field_value) {
-        field.field_view = "BLAH";
+      $http.get(field.field_userURL + '/' + field.field_value)
+        .then(function(user) {
+          field.field_view = user.username;
+        })
     }
-    console.log(field.field_value);
-    console.log(field.field_view);
-    // return $scope.collection.items;
   }
 
   $scope.fetchCollection = function(field) {
-    return $scope.collection.items;
-    // return $http.get(field.field_userURL).then(function(response){
-    //   return response.data.items;
-    // });
+    return $http.get(field.field_userURL).then(function(response){
+      return response.data.items;
+    });
   }
   
   $scope.clearExpr = function(field) {

@@ -16,8 +16,8 @@
 				<span class="glyphicon glyphicon-remove"></span>
 				{{field.field_view}}
 			</button>
-			<button ng-click="loadID(field)">test</button>
 			<input type="text" 
+				ng-init="loadID(field)"
 				ng-if="!field.field_value" 
 				ng-disabled="!field.field_userURL"
 				id="{{field.field_id}}" 
@@ -32,10 +32,6 @@
 				required="field.field_required"
 				placeholder="{{field.field_placeholder}}"
 			>
-			<h1 ng-if="field.field_userURL && field.field_field_value">SOMETHING</h1>
-			<pre>{{field.field_userURL}}</pre>
-			<pre>{{field.field_view}}</pre>
-			<pre>{{field.field_value}}</pre>
 			<i ng-show="loadingItems" class="glyphicon glyphicon-refresh"></i>
 		</div>
 		<div ng-show="!sub_form.$pristine">
