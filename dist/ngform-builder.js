@@ -2,7 +2,7 @@ angular.module('ngform-templates', ['partials/create.html', 'partials/directive-
 
 angular.module("partials/create.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/create.html",
-    "<div class=container-narrow><h2>Form Builder</h2><br><div class=well><div class=form-fields ng-hide=previewMode><div class=form-properties><h3>Form Properties</h3><form class=form-horizontal role=form><div class=form-group><label class=\"col-sm-2 control-label\">Form Type:</label><div class=col-sm-10><input name=form-type class=form-control ng-model=form.form_type></div></div><div class=form-group><label class=\"col-sm-2 control-label\">Form Name:</label><div class=col-sm-10><input name=form-name class=form-control ng-model=form.form_name></div></div><div class=form-group><label class=\"col-sm-2 control-label\">Form Title:</label><div class=col-sm-10><input name=form-title class=form-control ng-model=form.form_title></div></div><div class=form-group><label class=\"col-sm-2 control-label\">Text on Submit:</label><div class=col-sm-10><input name=form-submit-btn class=form-control ng-model=form.form_submitText></div></div><div class=form-group><label class=\"col-sm-2 control-label\">Text on Cancel:</label><div class=col-sm-10><input name=form-cancel-btn class=form-control ng-model=form.form_cancelText></div></div></form></div><hr><h3>Questions</h3><div class=\"add-field form-inline\"><select ng-model=addField.new class=form-control ng-options=\"type as type.value for type in addField.types\"></select><button type=submit class=btn ng-click=addNewField()><span class=\"glyphicon glyphicon-plus\"></span> Add Question</button></div><hr><p ng-show=\"form.form_questions.length == 0\">No questions added yet.</p><accordion ui-sortable ng-model=form.form_questions close-others=accordion.oneAtATime><div ui-sortable=sortableOptions ng-model=form.form_questions><accordion-group ng-repeat=\"field in form.form_questions\" is-open=status.open><accordion-heading><a class=accordion-toggle>{{field.field_id}}) &nbsp;{{field.field_title}}</a> <span class=\"pull-right glyphicon\" ng-class=\"{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}\"></span></accordion-heading><div class=accordion-edit><button class=\"btn btn-danger pull-right\" type=button ng-click=deleteField(field.field_id)><span class=\"glyphicon glyphicon-trash\"></span> Delete</button><div class=row><div class=col-md-4><b>Question Type:</b></div><div class=col-md-4>{{field.field_type}}</div></div><hr><div class=row><div class=col-md-4><b>Question Label:</b></div><div class=col-md-8><input ng-model=field.field_title class=form-control value={{field.field_title}}></div></div><div class=row><div class=col-md-4><b>Question Name:</b></div><div class=col-md-8><input ng-model=field.field_name class=form-control value={{field.field_name}}></div></div><div class=row><div class=col-md-4><b>Question Placeholder:</b></div><div class=col-md-8><input ng-model=field.field_placeholder class=form-control value=field.field_placeholder></div></div><div class=row><div class=col-md-4><b>Question Helper Text:</b></div><div class=col-md-8><input ng-model=field.field_helpertext class=form-control value=field.field_helpertext></div></div><div class=row ng-if=!field.field_hasOptions><div class=col-md-4><b>Default Value:</b></div><div class=col-md-8><input ng-model=field.field_value class=form-control value={{field.field_value}}></div></div><div class=row ng-if=field.field_hasOptions><div class=col-md-4><b>Question Options:</b></div><div class=col-md-8><div ng-repeat=\"option in field.field_options\"><form class=form-inline role=form><div class=form-group><input class=form-control placeholder=\"Enter name\" ng-model=option.option_title value={{option.option_title}}></div><div class=form-group><input class=form-control placeholder=\"Enter value\" ng-model=option.option_value value={{option.option_value}}></div><button type=button class=\"btn btn-danger right\" ng-click=\"deleteOption(field, option)\">-</button></form></div><button class=\"btn btn-primary btn-sm\" type=button ng-click=addOption(field)>Add Option</button></div></div><validation-directive field=field></validation-directive><div class=row><div class=col-md-4><b>Required:</b></div><div class=col-md-4><label class=radio-inline><input type=radio ng-value=true ng-selected ng-model=field.field_required> Yes</label><label class=radio-inline><input type=radio ng-value=false ng-model=field.field_required> No</label></div></div><div class=\"panel panel-info\"><div class=panel-heading><h3 class=panel-title>Preview</h3></div><div class=panel-body><field-directive field=field></field-directive></div></div></div></accordion-group></div></accordion><p class=text-center><button class=\"btn btn-primary right\" type=button ng-click=previewOn()><span class=\"glyphicon glyphicon-eye-open\"></span> Preview Form</button> <button class=\"btn btn-danger right\" type=button ng-click=reset()><span class=\"glyphicon glyphicon-refresh\"></span> Reset</button></p><br><hr><a ng-show=!showJson ng-click=\"showJson = true\">Show form json object</a> <a ng-show=showJson ng-click=\"showJson = false\">Hide form json object</a><br><br><div ng-show=showJson><h4>Form object content:</h4><pre>{{ form | json }}</pre></div></div><div class=form-fields-preview ng-show=previewMode><form-directive form=previewForm on-submit=submit() on-cancel=cancel()></form-directive><hr><p class=text-center><button class=\"btn btn-primary btn-large right\" type=button ng-click=previewOff()>Back to Create Mode</button></p></div></div></div>");
+    "<div class=container-narrow><h2>Form Builder</h2><br><div class=well><div class=form-fields ng-hide=previewMode><div class=form-properties><h3>Form Properties</h3><form class=form-horizontal role=form><div class=form-group><label class=\"col-sm-2 control-label\">Form Type:</label><div class=col-sm-10><input name=form-type class=form-control ng-model=form.form_type></div></div><div class=form-group><label class=\"col-sm-2 control-label\">Form Name:</label><div class=col-sm-10><input name=form-name class=form-control ng-model=form.form_name></div></div><div class=form-group><label class=\"col-sm-2 control-label\">Form Title:</label><div class=col-sm-10><input name=form-title class=form-control ng-model=form.form_title></div></div><div class=form-group><label class=\"col-sm-2 control-label\">Text on Submit:</label><div class=col-sm-10><input name=form-submit-btn class=form-control ng-model=form.form_submitText></div></div><div class=form-group><label class=\"col-sm-2 control-label\">Text on Cancel:</label><div class=col-sm-10><input name=form-cancel-btn class=form-control ng-model=form.form_cancelText></div></div></form></div><hr><h3>Questions</h3><div class=\"add-field form-inline\"><select ng-model=addField.new class=form-control ng-options=\"type as type.value for type in addField.types\"></select><button type=submit class=btn ng-click=addNewField()><span class=\"glyphicon glyphicon-plus\"></span> Add Question</button></div><hr><p ng-show=\"form.form_questions.length == 0\">No questions added yet.</p><accordion ui-sortable ng-model=form.form_questions close-others=accordion.oneAtATime><div ui-sortable=sortableOptions ng-model=form.form_questions><accordion-group ng-repeat=\"field in form.form_questions\" is-open=status.open><accordion-heading><a class=accordion-toggle>{{field.field_id}}) &nbsp;{{field.field_title}}</a> <span class=\"pull-right glyphicon\" ng-class=\"{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}\"></span></accordion-heading><div class=accordion-edit><button class=\"btn btn-danger pull-right\" type=button ng-click=deleteField(field.field_id)><span class=\"glyphicon glyphicon-trash\"></span> Delete</button><div class=row><div class=col-md-4><b>Question Type:</b></div><div class=col-md-4>{{field.field_type}}</div></div><hr><div class=row><div class=col-md-4><b>Question Label:</b></div><div class=col-md-8><input ng-model=field.field_title class=form-control value={{field.field_title}}></div></div><div class=row><div class=col-md-4><b>Question Name:</b></div><div class=col-md-8><input ng-model=field.field_name class=form-control value={{field.field_name}}></div></div><div class=row><div class=col-md-4><b>Question Placeholder:</b></div><div class=col-md-8><input ng-model=field.field_placeholder class=form-control value=field.field_placeholder></div></div><div class=row><div class=col-md-4><b>Question Helper Text:</b></div><div class=col-md-8><input ng-model=field.field_helpertext class=form-control value=field.field_helpertext></div></div><div class=row ng-if=!field.field_hasOptions><div class=col-md-4><b>Default Value:</b></div><div class=col-md-8><input ng-model=field.field_value class=form-control value={{field.field_value}}></div></div><div class=row ng-if=field.field_hasCollection><div class=col-md-4><b>REST URL of Collection to Load:</b></div><div class=col-md-8><input ng-model=field.field_collection class=\"form-control\"></div></div><div class=row ng-if=field.field_hasOptions><div class=col-md-4><b>Question Options:</b></div><div class=col-md-8><div ng-repeat=\"option in field.field_options\"><form class=form-inline role=form><div class=form-group><input class=form-control placeholder=\"Enter name\" ng-model=option.option_title value={{option.option_title}}></div><div class=form-group><input class=form-control placeholder=\"Enter value\" ng-model=option.option_value value={{option.option_value}}></div><button type=button class=\"btn btn-danger right\" ng-click=\"deleteOption(field, option)\">-</button></form></div><button class=\"btn btn-primary btn-sm\" type=button ng-click=addOption(field)>Add Option</button></div></div><validation-directive field=field></validation-directive><div class=row><div class=col-md-4><b>Required:</b></div><div class=col-md-4><label class=radio-inline><input type=radio ng-value=true ng-selected ng-model=field.field_required> Yes</label><label class=radio-inline><input type=radio ng-value=false ng-model=field.field_required> No</label></div></div><div class=\"panel panel-info\"><div class=panel-heading><h3 class=panel-title>Preview</h3></div><div class=panel-body><field-directive field=field></field-directive></div></div></div></accordion-group></div></accordion><p class=text-center><button class=\"btn btn-primary right\" type=button ng-click=previewOn()><span class=\"glyphicon glyphicon-eye-open\"></span> Preview Form</button> <button class=\"btn btn-danger right\" type=button ng-click=reset()><span class=\"glyphicon glyphicon-refresh\"></span> Reset</button></p><br><hr><a ng-show=!showJson ng-click=\"showJson = true\">Show form json object</a> <a ng-show=showJson ng-click=\"showJson = false\">Hide form json object</a><br><br><div ng-show=showJson><h4>Form object content:</h4><pre>{{ form | json }}</pre></div></div><div class=form-fields-preview ng-show=previewMode><form-directive form=previewForm on-submit=submit() on-cancel=cancel()></form-directive><hr><p class=text-center><button class=\"btn btn-primary btn-large right\" type=button ng-click=previewOff()>Back to Create Mode</button></p></div></div></div>");
 }]);
 
 angular.module("partials/directive-templates/field/autocomplete.html", []).run(["$templateCache", function($templateCache) {
@@ -11,7 +11,7 @@ angular.module("partials/directive-templates/field/autocomplete.html", []).run([
     "			<span bind-html-unsafe=\"match.label | typeaheadHighlight:query\"></span>\n" +
     "			<span>&nbsp; | &nbsp;</span>\n" +
     "			<span>{{match.model.email}}</span>\n" +
-    "		</a></script><div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span><div class=row-fluid><pre>Model: {{field.field_value | json}}</pre><input id={{field.field_id}} dynamic-name=field.field_name class=form-control data-ng-model=field.field_value value=field.field_value typeahead=\"item as item.username for item in fetchCollection() | filter:{username:$viewValue}\" typeahead-loading=loadingItems typeahead-template-url=customTemplate.html required placeholder={{field.field_placeholder}}> <i ng-show=loadingItems class=\"glyphicon glyphicon-refresh\"></i></div><div ng-show=!sub_form.$pristine><span class=\"pull-right required-error\" ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span></div></div></ng-form>");
+    "		</a></script><div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span><div class=row-fluid><pre>Model: {{field | json}}</pre><input id={{field.field_id}} dynamic-name=field.field_name class=form-control data-ng-model=field.field_value value=field.field_value typeahead=\"item as item.username for item in fetchCollection(field) | filter:{username:$viewValue}\" typeahead-loading=loadingItems typeahead-template-url=customTemplate.html required placeholder={{field.field_placeholder}}> <i ng-show=loadingItems class=\"glyphicon glyphicon-refresh\"></i></div><div ng-show=!sub_form.$pristine><span class=\"pull-right required-error\" ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span></div></div></ng-form>");
 }]);
 
 angular.module("partials/directive-templates/field/checkbox-group.html", []).run(["$templateCache", function($templateCache) {
@@ -120,6 +120,7 @@ function ($scope, $http, FormService) {
   $scope.addField.new = $scope.addField.types[0];
   $scope.addField.value_type = $scope.addField.types[0].value_type;
   $scope.addField.hasOptions = $scope.addField.types[0].hasOptions;
+  $scope.addField.hasCollection = $scope.addField.types[0].hasCollection;
   $scope.addField.lastAddedID = $scope.form.form_questions.length;
 
   // accordion settings
@@ -133,16 +134,17 @@ function ($scope, $http, FormService) {
     $scope.addField.lastAddedID++;
 
     var newField = {
-      "field_id"          : $scope.addField.lastAddedID,
-      "field_name"        : $scope.form.form_name+"_"+$scope.addField.new.name+"_"+$scope.addField.lastAddedID,
-      "field_title"       : "New " + $scope.addField.new.name + " field " + $scope.addField.lastAddedID,
-      "field_type"        : $scope.addField.new.name,
-      "field_value"       : $scope.addField.new.value_type,
-      "field_placeholder" : "Enter a "+$scope.addField.new.name+" value",
-      "field_validation"  : {rule:'none', expression: ''},
-      "field_helpertext"  : "missing input or invalid",
-      "field_hasOptions"  : $scope.addField.new.hasOptions,
-      "field_required"    : true
+      "field_id"            : $scope.addField.lastAddedID,
+      "field_name"          : $scope.form.form_name+"_"+$scope.addField.new.name+"_"+$scope.addField.lastAddedID,
+      "field_title"         : "New " + $scope.addField.new.name + " field " + $scope.addField.lastAddedID,
+      "field_type"          : $scope.addField.new.name,
+      "field_value"         : $scope.addField.new.value_type,
+      "field_placeholder"   : "Enter a "+$scope.addField.new.name+" value",
+      "field_validation"    : {rule:'none', expression: ''},
+      "field_helpertext"    : "missing input or invalid",
+      "field_hasOptions"    : $scope.addField.new.hasOptions,
+      "field_hasCollection" : $scope.addField.new.hasCollection,
+      "field_required"      : true
     };
 
     // put newField into fields array
@@ -269,8 +271,8 @@ angular.module('directive.field', [])
 
 .controller('FieldCtrl', ['$scope', '$http', function ($scope, $http) {
 
-  $scope.fetchCollection = function() {
-    return $http.get('http://localhost:1337/api/user').then(function(response){
+  $scope.fetchCollection = function(field) {
+    return $http.get(field.field_collection).then(function(response){
       return response.data.items;
     });
   }
@@ -479,74 +481,66 @@ angular.module('directive.validation', [])
       {
         name : 'textfield',
         value : 'Textfield',
-        value_type: '',
-        hasOptions: false
+        value_type: ''
       },
       {
         name : 'email',
         value : 'E-mail',
-        value_type: '',
-        hasOptions: false
+        value_type: ''
       },
       {
         name : 'password',
         value : 'Password',
-        value_type: '',
-        hasOptions: false                
+        value_type: ''
       },
       {
         name : 'radio',
         value : 'Radio Buttons',
         value_type: '',
-        hasOptions: true
+        hasOptions: true,
       },
       {
         name : 'dropdown',
         value : 'Dropdown List',
         value_type: '',
-        hasOptions: true
+        hasOptions: true,
       },
       {
         name : 'date',
         value : 'Date',
-        value_type: '',
-        hasOptions: false
+        value_type: ''
       },
       {
         name : 'textarea',
         value : 'Text Area',
-        value_type: '',
-        hasOptions: false
+        value_type: ''
       },
       {
         name : 'checkbox',
         value : 'Checkbox',
-        value_type: '',
-        hasOptions: false
+        value_type: ''
       },
       {
         name : 'checkbox-group',
         value : 'Checkbox Group',
         value_type: {},
-        hasOptions: true
+        hasOptions: true,
       },
       {
         name : 'number',
         value : 'Number',
-        value_type: '',
-        hasOptions: false
+        value_type: ''
       },
       {
         name : 'hidden',
         value : 'Hidden',
-        value_type: '',
-        hasOptions: false
+        value_type: ''
       },
       {
         name: 'autocomplete',
         value: 'Autocomplete',
         value_type: '',
-        hasOptions: false
+        hasCollection: true
       }
     ]
   };
