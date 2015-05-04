@@ -5,74 +5,66 @@ angular.module('ngform-builder.services', [])
       {
         name : 'textfield',
         value : 'Textfield',
-        value_type: '',
-        hasOptions: false
+        value_type: ''
       },
       {
         name : 'email',
         value : 'E-mail',
-        value_type: '',
-        hasOptions: false
+        value_type: ''
       },
       {
         name : 'password',
         value : 'Password',
-        value_type: '',
-        hasOptions: false                
+        value_type: ''
       },
       {
         name : 'radio',
         value : 'Radio Buttons',
         value_type: '',
-        hasOptions: true
+        hasOptions: true,
       },
       {
         name : 'dropdown',
         value : 'Dropdown List',
         value_type: '',
-        hasOptions: true
+        hasOptions: true,
       },
       {
         name : 'date',
         value : 'Date',
-        value_type: '',
-        hasOptions: false
+        value_type: ''
       },
       {
         name : 'textarea',
         value : 'Text Area',
-        value_type: '',
-        hasOptions: false
+        value_type: ''
       },
       {
         name : 'checkbox',
         value : 'Checkbox',
-        value_type: '',
-        hasOptions: false
+        value_type: ''
       },
       {
         name : 'checkbox-group',
         value : 'Checkbox Group',
         value_type: {},
-        hasOptions: true
+        hasOptions: true,
       },
       {
         name : 'number',
         value : 'Number',
-        value_type: '',
-        hasOptions: false
+        value_type: ''
       },
       {
         name : 'hidden',
         value : 'Hidden',
-        value_type: '',
-        hasOptions: false
+        value_type: ''
       },
       {
         name: 'autocomplete',
         value: 'Autocomplete',
         value_type: '',
-        hasOptions: false
+        hasCollection: true
       }
     ]
   };

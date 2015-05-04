@@ -12,14 +12,14 @@
 		</label>&nbsp;
 		<span class="glyphicon glyphicon-ok" ng-show="field.field_value && !showValidateError"></span>
 		<div class="row-fluid">
-			<pre>Model: {{field.field_value | json}}</pre>
+			<pre>Model: {{field | json}}</pre>
 			<input type="text" 
 				id="{{field.field_id}}" 
 				dynamic-name="field.field_name" 
 				class="form-control" 
-				data-ng-model="field.field_value" 	
+				data-ng-model="field.field_value"
 				value="field.field_value" 
-				typeahead="item as item.username for item in fetchCollection() | filter:{username:$viewValue}" 
+				typeahead="item as item.username for item in fetchCollection(field) | filter:{username:$viewValue}" 
 				typeahead-loading="loadingItems"
 				typeahead-template-url="customTemplate.html" 
 				required="field.field_required"

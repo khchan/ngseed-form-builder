@@ -10,8 +10,8 @@ angular.module('directive.field', [])
 
 .controller('FieldCtrl', ['$scope', '$http', function ($scope, $http) {
 
-  $scope.fetchCollection = function() {
-    return $http.get('http://localhost:1337/api/user').then(function(response){
+  $scope.fetchCollection = function(field) {
+    return $http.get(field.field_collection).then(function(response){
       return response.data.items;
     });
   }
