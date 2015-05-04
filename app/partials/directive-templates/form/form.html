@@ -4,9 +4,7 @@
     <div class="col-sm-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
       <ng-form name="my_form" class="form-horizontal" novalidate autocomplete="off">
         <fieldset>
-          <div ng-repeat="field in form.form_questions">
-            <field-directive field="field"></field-directive>
-          </div>
+          <field-directive ng-repeat="field in form.form_questions" field="field"></field-directive>
           <div data-ng-show="error" class="text-center text-danger">
             <strong>{{error}}</strong>
           </div>

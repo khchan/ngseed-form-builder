@@ -104,7 +104,16 @@ angular.module('directive.field', [])
     "queries": [],
     "total": 3
   };
-  
+
+  $scope.loadID = function(field) {
+    if (field.field_userURL && field.field_value) {
+        field.field_view = "BLAH";
+    }
+    console.log(field.field_value);
+    console.log(field.field_view);
+    // return $scope.collection.items;
+  }
+
   $scope.fetchCollection = function(field) {
     return $scope.collection.items;
     // return $http.get(field.field_userURL).then(function(response){

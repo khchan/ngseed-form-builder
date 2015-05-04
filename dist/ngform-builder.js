@@ -66,12 +66,12 @@ angular.module("partials/directive-templates/field/userselect.html", []).run(["$
     "			<span bind-html-unsafe=\"match.label | typeaheadHighlight:query\"></span>\n" +
     "			<span>&nbsp; | &nbsp;</span>\n" +
     "			<span>{{match.model.email}}</span>\n" +
-    "		</a></script><div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span><div class=row-fluid><button type=button class=\"btn btn-default\" ng-if=field.field_value ng-click=\"field.field_value = ''\"><span class=\"glyphicon glyphicon-remove\"></span> {{field.field_view}}</button> <input ng-if=!field.field_value ng-disabled=!field.field_userURL id={{field.field_id}} dynamic-name=field.field_name class=form-control data-ng-model=field.field_value typeahead=\"item.id as item.username for item in fetchCollection(field) | filter:{username:$viewValue}\" typeahead-loading=loadingItems typeahead-template-url=customTemplate.html typeahead-on-select=\"field.field_view = $item.username;\" typeahead-editable=false required placeholder={{field.field_placeholder}}> <i ng-show=loadingItems class=\"glyphicon glyphicon-refresh\"></i></div><div ng-show=!sub_form.$pristine><span class=\"pull-right required-error\" ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span></div></div></ng-form>");
+    "		</a></script><div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span><div class=row-fluid><button type=button class=\"btn btn-default\" ng-if=field.field_value ng-click=\"field.field_value = ''\"><span class=\"glyphicon glyphicon-remove\"></span> {{field.field_view}}</button> <button ng-click=loadID(field)>test</button> <input ng-if=!field.field_value ng-disabled=!field.field_userURL id={{field.field_id}} dynamic-name=field.field_name class=form-control data-ng-model=field.field_value typeahead=\"item.id as item.username for item in fetchCollection(field)\" typeahead-loading=loadingItems typeahead-template-url=customTemplate.html typeahead-on-select=\"field.field_view = $item.username;\" typeahead-editable=false required placeholder={{field.field_placeholder}}><h1 ng-if=\"field.field_userURL && field.field_field_value\">SOMETHING</h1><pre>{{field.field_userURL}}</pre><pre>{{field.field_view}}</pre><pre>{{field.field_value}}</pre><i ng-show=loadingItems class=\"glyphicon glyphicon-refresh\"></i></div><div ng-show=!sub_form.$pristine><span class=\"pull-right required-error\" ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span></div></div></ng-form>");
 }]);
 
 angular.module("partials/directive-templates/form/form.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/directive-templates/form/form.html",
-    "<div ng-if=formPreview><h1 class=text-center>{{ form.form_title }}</h1><section class=row><div class=\"col-sm-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3\"><ng-form name=my_form class=form-horizontal novalidate autocomplete=off><fieldset><div ng-repeat=\"field in form.form_questions\"><field-directive field=field></field-directive></div><div data-ng-show=error class=\"text-center text-danger\"><strong>{{error}}</strong></div><div class=modal-footer><button class=\"btn btn-primary right\" type=button ng-disabled=my_form.$invalid ng-click=onSubmit()>{{form.form_submitText}}</button> <button class=\"btn btn-warning right\" type=button ng-click=onCancel()>{{form.form_cancelText}}</button></div></fieldset></ng-form></div></section></div>");
+    "<div ng-if=formPreview><h1 class=text-center>{{ form.form_title }}</h1><section class=row><div class=\"col-sm-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3\"><ng-form name=my_form class=form-horizontal novalidate autocomplete=off><fieldset><field-directive ng-repeat=\"field in form.form_questions\" field=field></field-directive><div data-ng-show=error class=\"text-center text-danger\"><strong>{{error}}</strong></div><div class=modal-footer><button class=\"btn btn-primary right\" type=button ng-disabled=my_form.$invalid ng-click=onSubmit()>{{form.form_submitText}}</button> <button class=\"btn btn-warning right\" type=button ng-click=onCancel()>{{form.form_cancelText}}</button></div></fieldset></ng-form></div></section></div>");
 }]);
 
 angular.module("partials/directive-templates/validation/default.html", []).run(["$templateCache", function($templateCache) {
@@ -365,7 +365,16 @@ angular.module('directive.field', [])
     "queries": [],
     "total": 3
   };
-  
+
+  $scope.loadID = function(field) {
+    if (field.field_userURL && field.field_value) {
+        field.field_view = "BLAH";
+    }
+    console.log(field.field_value);
+    console.log(field.field_view);
+    // return $scope.collection.items;
+  }
+
   $scope.fetchCollection = function(field) {
     return $scope.collection.items;
     // return $http.get(field.field_userURL).then(function(response){
