@@ -10,25 +10,88 @@ angular.module('directive.field', [])
 
 .controller('FieldCtrl', ['$scope', '$http', function ($scope, $http) {
 
+  $scope.doneStatus = 'Confirm Selection';
+  if ($scope.field.field_userURL && $scope.field.field_value) {
+    // $scope.field.field_value = [{"key":"admin","val":"55476e4c10cbb0190a79a705"},{"key":"subject","val":"55476e8410cbb0190a79a761"}];
+
+    _.map($scope.field.field_value, function(userId) {
+      $http.get($scope.field.field_userURL + '/' + userId)
+        .then(function (resp) {
+          $scope.field.field_value = resp.data.items.username;
+          $scope.field.field_buffer.push({
+            key: resp.data.items.username,
+            val: userId
+          });
+        })
+        .catch(function (err) {
+          $scope.field.field_value = [];
+          $scope.field.field_buffer = [];          
+        })
+    });
+  }
+
   $scope.selectItem = function(item) {
-    if (!$scope.field.field_value) {
-      $scope.field.field_value = [];
+    if (!$scope.field.field_buffer) {
+      $scope.field.field_buffer = [];
     }
 
-    if (!_.some($scope.field.field_value, {'val': item.id})) {
-      $scope.field.field_value.push({
+    if (!_.some($scope.field.field_buffer, {'val': item.id})) {
+      $scope.field.field_buffer.push({
         key: item.username,
         val: item.id
       });
     }
+  }
 
-    $scope.field.field_buffer = ' ';
+  $scope.done = function() {
+    $scope.doneStatus = ($scope.valuesSelected) ? 'Confirm Selection' : 'Cancel';
+    if (!$scope.valuesSelected) {
+      $scope.field.field_value = _.pluck($scope.field.field_buffer, 'val');  
+    } else {
+      $scope.field.field_value = [];
+    }    
+    $scope.valuesSelected = !$scope.valuesSelected;
   }
 
   $scope.fetchCollection = function(field) {
     return $http.get(field.field_userURL).then(function(response){
       return response.data.items;
     });
+    // return [
+    //     {
+    //         "createdBy": "55476e4c10cbb0190a79a705",
+    //         "owner": "55476e4c10cbb0190a79a705",
+    //         "username": "admin",
+    //         "email": "admin@example.com",
+    //         "createdAt": "2015-05-04T13:04:12.054Z",
+    //         "updatedAt": "2015-05-05T00:47:22.033Z",
+    //         "id": "55476e4c10cbb0190a79a705",
+    //         "rel": "user",
+    //         "href": "http://localhost:1337/api/user/55476e4c10cbb0190a79a705"
+    //     },
+    //     {
+    //         "createdBy": "55476e4c10cbb0190a79a705",
+    //         "owner": "55476e8410cbb0190a79a761",
+    //         "username": "subject",
+    //         "email": "subject@email.com",
+    //         "createdAt": "2015-05-04T13:05:08.084Z",
+    //         "updatedAt": "2015-05-04T17:20:54.174Z",
+    //         "id": "55476e8410cbb0190a79a761",
+    //         "rel": "user",
+    //         "href": "http://localhost:1337/api/user/55476e8410cbb0190a79a761"
+    //     },
+    //     {
+    //         "createdBy": "55476e4c10cbb0190a79a705",
+    //         "owner": "55476e9210cbb0190a79a765",
+    //         "username": "coordinator",
+    //         "email": "coordinator@email.com",
+    //         "createdAt": "2015-05-04T13:05:22.393Z",
+    //         "updatedAt": "2015-05-04T13:05:22.527Z",
+    //         "id": "55476e9210cbb0190a79a765",
+    //         "rel": "user",
+    //         "href": "http://localhost:1337/api/user/55476e9210cbb0190a79a765"
+    //     }
+    // ];
   }
   
   $scope.clearExpr = function(field) {
