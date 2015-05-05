@@ -63,7 +63,7 @@ angular.module('ngform-builder.services', [])
       {
         name: 'userselect',
         value: 'User Select',
-        value_type: '',
+        value_type: [],
         hasUsers: true
       }
     ]

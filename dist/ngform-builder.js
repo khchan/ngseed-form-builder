@@ -273,21 +273,13 @@ angular.module('directive.field', [])
 
   $scope.doneStatus = 'Confirm Selection';
   if ($scope.field.field_userURL && $scope.field.field_value) {
-    // $scope.field.field_value = [{"key":"admin","val":"55476e4c10cbb0190a79a705"},{"key":"subject","val":"55476e8410cbb0190a79a761"}];
-
-    _.map($scope.field.field_value, function(userId) {
-      $http.get($scope.field.field_userURL + '/' + userId)
-        .then(function (resp) {
-          $scope.field.field_value = resp.data.items.username;
-          $scope.field.field_buffer.push({
-            key: resp.data.items.username,
-            val: userId
-          });
-        })
-        .catch(function (err) {
-          $scope.field.field_value = [];
-          $scope.field.field_buffer = [];          
-        })
+    var copy = $scope.field.field_value;
+    $scope.field.field_value = [];
+    _.each(copy, function (user) {
+      $scope.field.field_buffer.push({
+        key: user.username,
+        val: user.id
+      });
     });
   }
 
@@ -302,6 +294,8 @@ angular.module('directive.field', [])
         val: item.id
       });
     }
+
+    $scope.field.field_value = [];
   }
 
   $scope.done = function() {
@@ -318,41 +312,6 @@ angular.module('directive.field', [])
     return $http.get(field.field_userURL).then(function(response){
       return response.data.items;
     });
-    // return [
-    //     {
-    //         "createdBy": "55476e4c10cbb0190a79a705",
-    //         "owner": "55476e4c10cbb0190a79a705",
-    //         "username": "admin",
-    //         "email": "admin@example.com",
-    //         "createdAt": "2015-05-04T13:04:12.054Z",
-    //         "updatedAt": "2015-05-05T00:47:22.033Z",
-    //         "id": "55476e4c10cbb0190a79a705",
-    //         "rel": "user",
-    //         "href": "http://localhost:1337/api/user/55476e4c10cbb0190a79a705"
-    //     },
-    //     {
-    //         "createdBy": "55476e4c10cbb0190a79a705",
-    //         "owner": "55476e8410cbb0190a79a761",
-    //         "username": "subject",
-    //         "email": "subject@email.com",
-    //         "createdAt": "2015-05-04T13:05:08.084Z",
-    //         "updatedAt": "2015-05-04T17:20:54.174Z",
-    //         "id": "55476e8410cbb0190a79a761",
-    //         "rel": "user",
-    //         "href": "http://localhost:1337/api/user/55476e8410cbb0190a79a761"
-    //     },
-    //     {
-    //         "createdBy": "55476e4c10cbb0190a79a705",
-    //         "owner": "55476e9210cbb0190a79a765",
-    //         "username": "coordinator",
-    //         "email": "coordinator@email.com",
-    //         "createdAt": "2015-05-04T13:05:22.393Z",
-    //         "updatedAt": "2015-05-04T13:05:22.527Z",
-    //         "id": "55476e9210cbb0190a79a765",
-    //         "rel": "user",
-    //         "href": "http://localhost:1337/api/user/55476e9210cbb0190a79a765"
-    //     }
-    // ];
   }
   
   $scope.clearExpr = function(field) {
@@ -617,7 +576,7 @@ angular.module('directive.validation', [])
       {
         name: 'userselect',
         value: 'User Select',
-        value_type: '',
+        value_type: [],
         hasUsers: true
       }
     ]
