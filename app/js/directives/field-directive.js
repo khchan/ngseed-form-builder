@@ -14,10 +14,10 @@ angular.module('directive.field', [])
   if ($scope.field.field_userURL && $scope.field.field_value) {
     var copy = $scope.field.field_value;
     $scope.field.field_value = [];
-    _.each(copy, function (user) {
+    _.each(copy, function (item) {
       $scope.field.field_buffer.push({
-        key: user.username,
-        val: user.id
+        key: item.username || item.name,
+        val: item.id
       });
     });
   }
@@ -29,7 +29,7 @@ angular.module('directive.field', [])
 
     if (!_.some($scope.field.field_buffer, {'val': item.id})) {
       $scope.field.field_buffer.push({
-        key: item.username,
+        key: item.username || item.name,
         val: item.id
       });
     }

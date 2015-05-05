@@ -14,13 +14,15 @@
 		<div class="row-fluid">
 			<button type="button" 
 				ng-disabled="valuesSelected"
-				ng-repeat="user in field.field_buffer"
+				ng-repeat="item in field.field_buffer"
 				class="btn btn-default" 
 				ng-if="field.field_buffer" 
 				ng-click="field.field_buffer.splice($index, 1)">
 				<span class="glyphicon glyphicon-remove"></span>
-				{{user.key}}
+				{{item.key}}
 			</button>
+
+			<pre>{{field.field_buffer}}</pre>
 
 			<div class="input-group">
 				<input type="text"
@@ -31,7 +33,7 @@
 					ng-model="field.field_value"
 					dynamic-name="field.field_name" 
 					class="form-control" 
-					typeahead="item as item.username for item in fetchCollection(field) | filter: searchText" 
+					typeahead="item.id as item.username for item in fetchCollection(field) | filter:search" 
 					typeahead-loading="loadingItems"
 					typeahead-template-url="customTemplate.html" 
 					typeahead-on-select="selectItem($item)"
