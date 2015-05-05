@@ -12,22 +12,24 @@
 		</label>&nbsp;
 		<span class="glyphicon glyphicon-ok" ng-show="field.field_value && !showValidateError"></span>
 		<div class="row-fluid">
-			<button type="button" class="btn btn-default" ng-if="field.field_value" ng-click="field.field_value = ''">
+			<button type="button" 
+				ng-repeat="user in field.field_value"
+				class="btn btn-default" 
+				ng-if="field.field_value" 
+				ng-click="field.field_value.splice($index, 1)">
 				<span class="glyphicon glyphicon-remove"></span>
-				{{field.field_view}}
+				{{user.key}}
 			</button>
-			<input type="text" 
-				ng-init="loadID(field)"
-				ng-if="!field.field_value" 
+			<input type="text"
 				ng-disabled="!field.field_userURL"
 				id="{{field.field_id}}" 
+				ng-model="field.field_buffer"
 				dynamic-name="field.field_name" 
 				class="form-control" 
-				data-ng-model="field.field_value"
-				typeahead="item.id as item.username for item in fetchCollection(field)" 
+				typeahead="item.id as item.username for item in fetchCollection(field) | filter:{username:$viewValue}" 
 				typeahead-loading="loadingItems"
 				typeahead-template-url="customTemplate.html" 
-				typeahead-on-select="field.field_view = $item.username;"
+				typeahead-on-select="selectItem($item)"
 				typeahead-editable="false"
 				required="field.field_required"
 				placeholder="{{field.field_placeholder}}"

@@ -66,7 +66,7 @@ angular.module("partials/directive-templates/field/userselect.html", []).run(["$
     "			<span bind-html-unsafe=\"match.label | typeaheadHighlight:query\"></span>\n" +
     "			<span>&nbsp; | &nbsp;</span>\n" +
     "			<span>{{match.model.email}}</span>\n" +
-    "		</a></script><div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span><div class=row-fluid><button type=button class=\"btn btn-default\" ng-if=field.field_value ng-click=\"field.field_value = ''\"><span class=\"glyphicon glyphicon-remove\"></span> {{field.field_view}}</button> <input ng-init=loadID(field) ng-if=!field.field_value ng-disabled=!field.field_userURL id={{field.field_id}} dynamic-name=field.field_name class=form-control data-ng-model=field.field_value typeahead=\"item.id as item.username for item in fetchCollection(field)\" typeahead-loading=loadingItems typeahead-template-url=customTemplate.html typeahead-on-select=\"field.field_view = $item.username;\" typeahead-editable=false required placeholder={{field.field_placeholder}}> <i ng-show=loadingItems class=\"glyphicon glyphicon-refresh\"></i></div><div ng-show=!sub_form.$pristine><span class=\"pull-right required-error\" ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span></div></div></ng-form>");
+    "		</a></script><div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span><div class=row-fluid><button type=button ng-repeat=\"user in field.field_value\" class=\"btn btn-default\" ng-if=field.field_value ng-click=\"field.field_value.splice($index, 1)\"><span class=\"glyphicon glyphicon-remove\"></span> {{user.key}}</button> <input ng-disabled=!field.field_userURL id={{field.field_id}} ng-model=field.field_buffer dynamic-name=field.field_name class=form-control typeahead=\"item.id as item.username for item in fetchCollection(field) | filter:{username:$viewValue}\" typeahead-loading=loadingItems typeahead-template-url=customTemplate.html typeahead-on-select=selectItem($item) typeahead-editable=false required placeholder={{field.field_placeholder}}> <i ng-show=loadingItems class=\"glyphicon glyphicon-refresh\"></i></div><div ng-show=!sub_form.$pristine><span class=\"pull-right required-error\" ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span></div></div></ng-form>");
 }]);
 
 angular.module("partials/directive-templates/form/form.html", []).run(["$templateCache", function($templateCache) {
@@ -274,18 +274,68 @@ angular.module('directive.field', [])
   if ($scope.field.field_userURL && $scope.field.field_value) {
     $http.get($scope.field.field_userURL + '/' + $scope.field.field_value)
       .then(function(resp) {
-        $scope.field.field_view = resp.data.items.username;
+        $scope.field.field_value = resp.data.items.username;
       })
       .catch(function (err) {
         $scope.field.field_userURL = '';
-        $scope.field.field_value = '';
+        $scope.field.field_value = [];
       });
   }
 
+  $scope.selectItem = function(item) {
+    if (!$scope.field.field_value) {
+      $scope.field.field_value = [];
+    }
+
+    if (!_.some($scope.field.field_value, {'val': item.id})) {
+      $scope.field.field_value.push({
+        key: item.username,
+        val: item.id
+      });
+    }
+
+    $scope.field.field_buffer = '';
+  }
+
   $scope.fetchCollection = function(field) {
-    return $http.get(field.field_userURL).then(function(response){
-      return response.data.items;
-    });
+    // return $http.get(field.field_userURL).then(function(response){
+    //   return response.data.items;
+    // });
+    return [
+        {
+            "createdBy": "55476e4c10cbb0190a79a705",
+            "owner": "55476e4c10cbb0190a79a705",
+            "username": "admin",
+            "email": "admin@example.com",
+            "createdAt": "2015-05-04T13:04:12.054Z",
+            "updatedAt": "2015-05-05T00:47:22.033Z",
+            "id": "55476e4c10cbb0190a79a705",
+            "rel": "user",
+            "href": "http://localhost:1337/api/user/55476e4c10cbb0190a79a705"
+        },
+        {
+            "createdBy": "55476e4c10cbb0190a79a705",
+            "owner": "55476e8410cbb0190a79a761",
+            "username": "subject",
+            "email": "subject@email.com",
+            "createdAt": "2015-05-04T13:05:08.084Z",
+            "updatedAt": "2015-05-04T17:20:54.174Z",
+            "id": "55476e8410cbb0190a79a761",
+            "rel": "user",
+            "href": "http://localhost:1337/api/user/55476e8410cbb0190a79a761"
+        },
+        {
+            "createdBy": "55476e4c10cbb0190a79a705",
+            "owner": "55476e9210cbb0190a79a765",
+            "username": "coordinator",
+            "email": "coordinator@email.com",
+            "createdAt": "2015-05-04T13:05:22.393Z",
+            "updatedAt": "2015-05-04T13:05:22.527Z",
+            "id": "55476e9210cbb0190a79a765",
+            "rel": "user",
+            "href": "http://localhost:1337/api/user/55476e9210cbb0190a79a765"
+        }
+    ];
   }
   
   $scope.clearExpr = function(field) {
