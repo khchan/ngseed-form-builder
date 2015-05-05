@@ -21,7 +21,7 @@ angular.module('directive.field', [])
       });
     });
   }
-
+  
   $scope.selectItem = function(item) {
     if (!$scope.field.field_buffer) {
       $scope.field.field_buffer = [];

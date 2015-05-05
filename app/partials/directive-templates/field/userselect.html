@@ -1,8 +1,8 @@
 <ng-form name="sub_form">
 	<script type="text/ng-template" id="customTemplate.html">
 		<a>
-			<span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
-			<span>&nbsp; | &nbsp;</span>
+			<span bind-html-unsafe="match.model.name || match.model.username | typeaheadHighlight:query"></span>
+			<span ng-if="match.model.email">&nbsp; | &nbsp;</span>
 			<span>{{match.model.email}}</span>
 		</a>
 	</script>
@@ -31,7 +31,7 @@
 					ng-model="field.field_value"
 					dynamic-name="field.field_name" 
 					class="form-control" 
-					typeahead="item.id as item.username for item in fetchCollection(field) | filter:{username:$viewValue}" 
+					typeahead="item as item.username for item in fetchCollection(field) | filter: searchText" 
 					typeahead-loading="loadingItems"
 					typeahead-template-url="customTemplate.html" 
 					typeahead-on-select="selectItem($item)"
