@@ -66,7 +66,7 @@ angular.module("partials/directive-templates/field/userselect.html", []).run(["$
     "			<span bind-html-unsafe=\"match.model.name || match.model.username | typeaheadHighlight:query\"></span>\n" +
     "			<span ng-if=\"match.model.email\">&nbsp; | &nbsp;</span>\n" +
     "			<span>{{match.model.email}}</span>\n" +
-    "		</a></script><div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span><div class=row-fluid><button type=button ng-disabled=valuesSelected ng-repeat=\"user in field.field_buffer\" class=\"btn btn-default\" ng-if=field.field_buffer ng-click=\"field.field_buffer.splice($index, 1)\"><span class=\"glyphicon glyphicon-remove\"></span> {{user.key}}</button><div class=input-group><input ng-list ng-if=!valuesSelected ng-disabled=!field.field_userURL id={{field.field_id}} ng-model=field.field_value dynamic-name=field.field_name class=form-control typeahead=\"item as item.username for item in fetchCollection(field) | filter: searchText\" typeahead-loading=loadingItems typeahead-template-url=customTemplate.html typeahead-on-select=selectItem($item) typeahead-editable=false required placeholder={{field.field_placeholder}}> <span class=input-group-btn><button class=\"btn btn-primary\" ng-click=done()>{{doneStatus}}</button></span></div><i ng-show=loadingItems class=\"glyphicon glyphicon-refresh\"></i></div><div ng-show=!sub_form.$pristine><span class=\"pull-right required-error\" ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span></div></div></ng-form>");
+    "		</a></script><div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span><div class=row-fluid><button type=button ng-disabled=valuesSelected ng-repeat=\"item in field.field_buffer\" class=\"btn btn-default\" ng-if=field.field_buffer ng-click=\"field.field_buffer.splice($index, 1)\"><span class=\"glyphicon glyphicon-remove\"></span> {{item.key}}</button><pre>{{field.field_buffer}}</pre><div class=input-group><input ng-list ng-if=!valuesSelected ng-disabled=!field.field_userURL id={{field.field_id}} ng-model=field.field_value dynamic-name=field.field_name class=form-control typeahead=\"item.id as item.username for item in fetchCollection(field) | filter:search\" typeahead-loading=loadingItems typeahead-template-url=customTemplate.html typeahead-on-select=selectItem($item) typeahead-editable=false required placeholder={{field.field_placeholder}}> <span class=input-group-btn><button class=\"btn btn-primary\" ng-click=done()>{{doneStatus}}</button></span></div><i ng-show=loadingItems class=\"glyphicon glyphicon-refresh\"></i></div><div ng-show=!sub_form.$pristine><span class=\"pull-right required-error\" ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span></div></div></ng-form>");
 }]);
 
 angular.module("partials/directive-templates/form/form.html", []).run(["$templateCache", function($templateCache) {
@@ -275,10 +275,10 @@ angular.module('directive.field', [])
   if ($scope.field.field_userURL && $scope.field.field_value) {
     var copy = $scope.field.field_value;
     $scope.field.field_value = [];
-    _.each(copy, function (user) {
+    _.each(copy, function (item) {
       $scope.field.field_buffer.push({
-        key: user.username,
-        val: user.id
+        key: item.username || item.name,
+        val: item.id
       });
     });
   }
@@ -290,7 +290,7 @@ angular.module('directive.field', [])
 
     if (!_.some($scope.field.field_buffer, {'val': item.id})) {
       $scope.field.field_buffer.push({
-        key: item.username,
+        key: item.username || item.name,
         val: item.id
       });
     }
