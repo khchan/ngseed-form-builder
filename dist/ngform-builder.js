@@ -66,7 +66,7 @@ angular.module("partials/directive-templates/field/userselect.html", []).run(["$
     "			<span bind-html-unsafe=\"match.model.name || match.model.username | typeaheadHighlight:query\"></span>\n" +
     "			<span ng-if=\"match.model.email\">&nbsp; | &nbsp;</span>\n" +
     "			<span>{{match.model.email}}</span>\n" +
-    "		</a></script><div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span><div class=row-fluid><button type=button ng-disabled=valuesSelected ng-repeat=\"item in field.field_buffer\" class=\"btn btn-default\" ng-if=field.field_buffer ng-click=\"field.field_buffer.splice($index, 1)\"><span class=\"glyphicon glyphicon-remove\"></span> {{item.key}}</button><div class=input-group><input ng-list ng-if=!valuesSelected ng-disabled=!field.field_userURL id={{field.field_id}} ng-model=field.field_value dynamic-name=field.field_name class=form-control typeahead=\"item.id as item.username for item in fetchCollection(field) | filter:search\" typeahead-loading=loadingItems typeahead-template-url=customTemplate.html typeahead-on-select=selectItem($item) typeahead-editable=false required placeholder={{field.field_placeholder}}> <span class=input-group-btn><button class=\"btn btn-primary\" ng-click=done()>{{doneStatus}}</button></span></div><i ng-show=loadingItems class=\"glyphicon glyphicon-refresh\"></i></div><div ng-show=!sub_form.$pristine><span class=\"pull-right required-error\" ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span></div></div></ng-form>");
+    "		</a></script><div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span><div class=row-fluid><button type=button ng-disabled=valuesSelected ng-repeat=\"item in field.field_buffer\" class=\"btn btn-default\" ng-if=field.field_buffer ng-click=\"field.field_buffer.splice($index, 1)\"><span class=\"glyphicon glyphicon-remove\"></span> {{item.key}}</button><pre>Values: {{field.field_value}}</pre><pre>Buffer: {{field.field_buffer}}</pre><div class=input-group><input ng-list ng-if=!valuesSelected ng-disabled=!field.field_userURL id={{field.field_id}} ng-model=field.field_value dynamic-name=field.field_name class=form-control typeahead=\"item.id as item.username for item in fetchCollection(field) | filter:search\" typeahead-loading=loadingItems typeahead-template-url=customTemplate.html typeahead-on-select=selectItem($item) typeahead-editable=false required placeholder={{field.field_placeholder}}> <span class=input-group-btn><button class=\"btn btn-primary\" ng-click=done()>{{doneStatus}}</button></span></div><i ng-show=loadingItems class=\"glyphicon glyphicon-refresh\"></i></div><div ng-show=!sub_form.$pristine><span class=\"pull-right required-error\" ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span></div></div></ng-form>");
 }]);
 
 angular.module("partials/directive-templates/form/form.html", []).run(["$templateCache", function($templateCache) {
@@ -271,23 +271,25 @@ angular.module('directive.field', [])
 
 .controller('FieldCtrl', ['$scope', '$http', function ($scope, $http) {
 
+  /** START OF USERSELECT FUNCTIONS */
   $scope.doneStatus = 'Confirm Selection';
+  $scope.field.field_buffer = $scope.field.field_buffer || [];
+
   if ($scope.field.field_userURL && $scope.field.field_value) {
     var copy = $scope.field.field_value;
     $scope.field.field_value = [];
     _.each(copy, function (item) {
-      $scope.field.field_buffer.push({
-        key: item.username || item.name,
-        val: item.id
-      });
+      console.log(item);
+      if (item.id && item.username || item.name) {
+        $scope.field.field_buffer.push({
+          key: item.username || item.name,
+          val: item.id
+        });
+      }
     });
   }
   
   $scope.selectItem = function(item) {
-    if (!$scope.field.field_buffer) {
-      $scope.field.field_buffer = [];
-    }
-
     if (!_.some($scope.field.field_buffer, {'val': item.id})) {
       $scope.field.field_buffer.push({
         key: item.username || item.name,
@@ -309,10 +311,68 @@ angular.module('directive.field', [])
   }
 
   $scope.fetchCollection = function(field) {
-    return $http.get(field.field_userURL).then(function(response){
-      return response.data.items;
-    });
+    return [
+        {
+            "createdBy": "554a3d65086649373a4a4b91",
+            "owner": "554a3d65086649373a4a4b91",
+            "username": "admin",
+            "email": "admin@example.com",
+            "createdAt": "2015-05-06T16:12:21.297Z",
+            "updatedAt": "2015-05-07T15:07:25.101Z",
+            "id": "554a3d65086649373a4a4b91",
+            "rel": "user",
+            "href": "http://localhost:1337/api/user/554a3d65086649373a4a4b91"
+        },
+        {
+            "createdBy": "554a3d65086649373a4a4b91",
+            "owner": "554a3de3086649373a4a4bee",
+            "username": "coord1",
+            "email": "coord1@email.com",
+            "createdAt": "2015-05-06T16:14:27.654Z",
+            "updatedAt": "2015-05-06T16:14:27.797Z",
+            "id": "554a3de3086649373a4a4bee",
+            "rel": "user",
+            "href": "http://localhost:1337/api/user/554a3de3086649373a4a4bee"
+        },
+        {
+            "createdBy": "554a3d65086649373a4a4b91",
+            "owner": "554a3df1086649373a4a4bf2",
+            "username": "coord2",
+            "email": "coord2@email.com",
+            "createdAt": "2015-05-06T16:14:41.644Z",
+            "updatedAt": "2015-05-06T16:14:41.839Z",
+            "id": "554a3df1086649373a4a4bf2",
+            "rel": "user",
+            "href": "http://localhost:1337/api/user/554a3df1086649373a4a4bf2"
+        },
+        {
+            "createdBy": "554a3d65086649373a4a4b91",
+            "owner": "554a3dfd086649373a4a4bf6",
+            "username": "subject1",
+            "email": "subject1@email.com",
+            "createdAt": "2015-05-06T16:14:53.913Z",
+            "updatedAt": "2015-05-06T16:14:54.054Z",
+            "id": "554a3dfd086649373a4a4bf6",
+            "rel": "user",
+            "href": "http://localhost:1337/api/user/554a3dfd086649373a4a4bf6"
+        },
+        {
+            "createdBy": "554a3d65086649373a4a4b91",
+            "owner": "554a3e08086649373a4a4bfa",
+            "username": "subject2",
+            "email": "subject2@email.com",
+            "createdAt": "2015-05-06T16:15:04.194Z",
+            "updatedAt": "2015-05-06T16:15:04.334Z",
+            "id": "554a3e08086649373a4a4bfa",
+            "rel": "user",
+            "href": "http://localhost:1337/api/user/554a3e08086649373a4a4bfa"
+        }
+    ];
+    // return $http.get(field.field_userURL).then(function(response){
+    //   return response.data.items;
+    // });
   }
+  /** END OF USERSELECT FUNCTIONS */
   
   $scope.clearExpr = function(field) {
     field.field_min = '';
