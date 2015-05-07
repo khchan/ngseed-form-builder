@@ -279,7 +279,6 @@ angular.module('directive.field', [])
     var copy = $scope.field.field_value;
     $scope.field.field_value = [];
     _.each(copy, function (item) {
-      console.log(item);
       if (item.id && item.username || item.name) {
         $scope.field.field_buffer.push({
           key: item.username || item.name,
@@ -311,66 +310,9 @@ angular.module('directive.field', [])
   }
 
   $scope.fetchCollection = function(field) {
-    return [
-        {
-            "createdBy": "554a3d65086649373a4a4b91",
-            "owner": "554a3d65086649373a4a4b91",
-            "username": "admin",
-            "email": "admin@example.com",
-            "createdAt": "2015-05-06T16:12:21.297Z",
-            "updatedAt": "2015-05-07T15:07:25.101Z",
-            "id": "554a3d65086649373a4a4b91",
-            "rel": "user",
-            "href": "http://localhost:1337/api/user/554a3d65086649373a4a4b91"
-        },
-        {
-            "createdBy": "554a3d65086649373a4a4b91",
-            "owner": "554a3de3086649373a4a4bee",
-            "username": "coord1",
-            "email": "coord1@email.com",
-            "createdAt": "2015-05-06T16:14:27.654Z",
-            "updatedAt": "2015-05-06T16:14:27.797Z",
-            "id": "554a3de3086649373a4a4bee",
-            "rel": "user",
-            "href": "http://localhost:1337/api/user/554a3de3086649373a4a4bee"
-        },
-        {
-            "createdBy": "554a3d65086649373a4a4b91",
-            "owner": "554a3df1086649373a4a4bf2",
-            "username": "coord2",
-            "email": "coord2@email.com",
-            "createdAt": "2015-05-06T16:14:41.644Z",
-            "updatedAt": "2015-05-06T16:14:41.839Z",
-            "id": "554a3df1086649373a4a4bf2",
-            "rel": "user",
-            "href": "http://localhost:1337/api/user/554a3df1086649373a4a4bf2"
-        },
-        {
-            "createdBy": "554a3d65086649373a4a4b91",
-            "owner": "554a3dfd086649373a4a4bf6",
-            "username": "subject1",
-            "email": "subject1@email.com",
-            "createdAt": "2015-05-06T16:14:53.913Z",
-            "updatedAt": "2015-05-06T16:14:54.054Z",
-            "id": "554a3dfd086649373a4a4bf6",
-            "rel": "user",
-            "href": "http://localhost:1337/api/user/554a3dfd086649373a4a4bf6"
-        },
-        {
-            "createdBy": "554a3d65086649373a4a4b91",
-            "owner": "554a3e08086649373a4a4bfa",
-            "username": "subject2",
-            "email": "subject2@email.com",
-            "createdAt": "2015-05-06T16:15:04.194Z",
-            "updatedAt": "2015-05-06T16:15:04.334Z",
-            "id": "554a3e08086649373a4a4bfa",
-            "rel": "user",
-            "href": "http://localhost:1337/api/user/554a3e08086649373a4a4bfa"
-        }
-    ];
-    // return $http.get(field.field_userURL).then(function(response){
-    //   return response.data.items;
-    // });
+    return $http.get(field.field_userURL).then(function(response){
+      return response.data.items;
+    });
   }
   /** END OF USERSELECT FUNCTIONS */
   
