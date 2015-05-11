@@ -11,8 +11,8 @@
       class="form-control" 
       ng-model="field.field_value"
       value="field.field_value"
-        required="field.field_required"
-        ui-validate=" 'validateNumber($value, field)' "
+      ng-required="field.field_required"
+      ui-validate=" 'validateNumber($value, field)' "
     >
     <div ng-show="!sub_form.$pristine">
       <span class="pull-right required-error" 

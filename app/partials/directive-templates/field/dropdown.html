@@ -8,7 +8,7 @@
 			<select class="form-control"
 				ng-model="field.field_value"
 				ng-options="option.option_value as option.option_title for option in field.field_options"
-				required="field.field_required">
+				ng-required="field.field_required">
 				<option value="" disabled>{{field.field_placeholder}}</option>
 			</select>	
 		</div>

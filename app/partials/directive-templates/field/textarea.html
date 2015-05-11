@@ -10,9 +10,9 @@
   		data-ng-model="field.field_value"
   		ui-validate=" 'validateText($value, field)' "
   		value="field.field_value"
-  	    required="field.field_required"
-  	    class="form-control"
-     		placeholder="{{field.field_placeholder}}"
+  	  ng-required="field.field_required"
+  	  class="form-control"
+     	placeholder="{{field.field_placeholder}}"
   	></textarea>
     <div ng-show="!sub_form.$pristine">
     	<span class="pull-right required-error"

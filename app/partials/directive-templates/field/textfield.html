@@ -11,7 +11,7 @@
 			data-ng-model="field.field_value" 
 			ui-validate=" 'validateText($value, field)' "
 			value="field.field_value" 
-			required="field.field_required"
+			ng-required="field.field_required"
 			placeholder="{{field.field_placeholder}}"
 		>
 		<div ng-show="!sub_form.$pristine">
