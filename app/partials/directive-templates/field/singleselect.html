@@ -1,0 +1,38 @@
+<ng-form name="sub_form">
+	<script type="text/ng-template" id="itemTemplate.html">
+		<a>
+			<span bind-html-unsafe="match.model.name || match.model.username | typeaheadHighlight:query"></span>
+		</a>
+	</script>
+	<div class="form-group">
+		<label for="field.field_id">
+			{{field.field_id}}) {{field.field_title}}
+		</label>&nbsp;
+		<span class="glyphicon glyphicon-ok" ng-show="field.field_value && !showValidateError"></span>
+		<div class="row-fluid">
+			<button type="button" class="btn btn-default" ng-if="field.field_value" ng-click="cancelItem()">
+				<span class="glyphicon glyphicon-remove"></span>
+				{{field.field_view.key}}
+			</button>
+			<input type="text"
+				ng-if="!valuesSelected"
+				ng-disabled="!field.field_userURL"
+				id="{{field.field_id}}" 
+				data-ng-model="field.field_value"
+				dynamic-name="field.field_name" 
+				class="form-control" 
+				typeahead="item.id as item.name for item in fetchCollection(field) | filter:{name:$viewValue}" 
+				typeahead-loading="loadingItems"
+				typeahead-template-url="itemTemplate.html" 
+				typeahead-on-select="selectItem($item)"
+				typeahead-editable="false"
+				ng-required="field.field_required"
+				placeholder="{{field.field_placeholder}}"
+			>
+			<i ng-show="loadingItems" class="glyphicon glyphicon-refresh"></i>
+		</div>
+		<div ng-show="!sub_form.$pristine">
+			<span class="pull-right required-error" ng-show="field.field_required && !field.field_value">* {{field.field_helpertext}}</span>
+		</div>
+	</div>
+</ng-form>

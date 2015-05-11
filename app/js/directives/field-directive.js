@@ -10,32 +10,49 @@ angular.module('directive.field', [])
 
 .controller('FieldCtrl', ['$scope', '$http', function ($scope, $http) {
 
-  /** START OF USERSELECT FUNCTIONS */
+  /** START OF MULTI/SINGLESELECT FUNCTIONS */
   $scope.doneStatus = 'Confirm Selection';
   $scope.field.field_buffer = $scope.field.field_buffer || [];
 
   if ($scope.field.field_userURL && $scope.field.field_value) {
-    var copy = $scope.field.field_value;
-    $scope.field.field_value = [];
-    _.each(copy, function (item) {
-      if (item.id && item.username || item.name) {
+    if ($scope.field.field_hasItems) {
+      var copy = $scope.field.field_value;
+      $scope.field.field_value = [];
+      _.each(copy, function (item) {
+        if (item.id && item.username || item.name) {
+          $scope.field.field_buffer.push({
+            key: item.username || item.name,
+            val: item.id
+          });
+        }
+      });  
+    }
+    if ($scope.field.field_hasItem) {
+      $scope.valuesSelected = true;
+    }    
+  }
+  
+  $scope.selectItem = function(item) {
+    if ($scope.field.field_hasItems) {
+      if (!_.some($scope.field.field_buffer, {'val': item.id})) {
         $scope.field.field_buffer.push({
           key: item.username || item.name,
           val: item.id
         });
       }
-    });
-  }
-  
-  $scope.selectItem = function(item) {
-    if (!_.some($scope.field.field_buffer, {'val': item.id})) {
-      $scope.field.field_buffer.push({
-        key: item.username || item.name,
-        val: item.id
-      });
+      $scope.field.field_value = [];  
     }
 
-    $scope.field.field_value = [];
+    if ($scope.field.field_hasItem) {
+      $scope.field.field_view = { key: item.name, val: item.id };
+      $scope.valuesSelected = !$scope.valuesSelected;
+    }    
+  }
+
+  $scope.cancelItem = function() {
+    $scope.field.field_view = {};
+    $scope.field.field_value = '';
+    $scope.valuesSelected = false;
   }
 
   $scope.done = function() {
@@ -53,7 +70,7 @@ angular.module('directive.field', [])
       return response.data.items;
     });
   }
-  /** END OF USERSELECT FUNCTIONS */
+  /** END OF MULTI/SINGLESELECT FUNCTIONS */
   
   $scope.clearExpr = function(field) {
     field.field_min = '';

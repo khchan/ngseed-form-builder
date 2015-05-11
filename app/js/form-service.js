@@ -61,10 +61,16 @@ angular.module('ngform-builder.services', [])
         value_type: ''
       },
       {
-        name: 'userselect',
-        value: 'User Select',
+        name: 'multiselect',
+        value: 'Multi Select',
         value_type: [],
-        hasUsers: true
+        hasItems: true
+      },
+      {
+        name: 'singleselect',
+        value: 'Single Select',
+        value_type: '',
+        hasItem: true
       }
     ]
   };

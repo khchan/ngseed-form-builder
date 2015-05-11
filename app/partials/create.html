@@ -103,8 +103,8 @@
 									<input type="text" ng-model="field.field_value" class="form-control" value="{{field.field_value}}">
 								</div>
 							</div>
-							<div class="row" ng-if="field.field_hasUsers">
-								<div class="col-md-4"><b>REST URL of Users to Load: </b></div>
+							<div class="row" ng-if="field.field_hasItems || field.field_hasItem">
+								<div class="col-md-4"><b>REST URL of Item(s) to Load: </b></div>
 								<div class="col-md-8">
 									<input type="text" ng-model="field.field_userURL" class="form-control"
 										placeholder="http://localhost:1337/api/user"/>
