@@ -29,6 +29,17 @@ angular.module('directive.field', [])
     }
     if ($scope.field.field_hasItem) {
       $scope.valuesSelected = true;
+      $http.get($scope.field.field_userURL + '/' + $scope.field.field_value)
+        .then(function(resp) {
+          $scope.field.field_view = {
+            key: resp.data.items.name,
+            val: resp.data.items.id
+          };
+        })
+        .catch(function (err) {
+          $scope.field.field_userURL = '';
+          $scope.field.field_value = '';
+        });
     }    
   }
   
