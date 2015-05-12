@@ -21,7 +21,7 @@
 				data-ng-model="field.field_value"
 				dynamic-name="field.field_name" 
 				class="form-control" 
-				typeahead="item.id as item.name for item in fetchCollection(field) | filter:{name:$viewValue}" 
+				typeahead="item.id as item.name for item in fetchCollection(field) | filter:$viewValue" 
 				typeahead-loading="loadingItems"
 				typeahead-template-url="itemTemplate.html" 
 				typeahead-on-select="selectItem($item)"
