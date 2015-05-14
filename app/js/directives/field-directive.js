@@ -55,7 +55,7 @@ angular.module('directive.field', [])
     }
 
     if ($scope.field.field_hasItem) {
-      $scope.field.field_view = { key: item.name, val: item.id };
+      $scope.field.field_view = { key: item.name || item.username, val: item.id };
       $scope.valuesSelected = !$scope.valuesSelected;
     }    
   }

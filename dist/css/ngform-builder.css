@@ -53,3 +53,7 @@
   color: red;
   font-size: smaller;
 }
+.select-item {
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
