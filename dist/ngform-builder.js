@@ -633,8 +633,6 @@ angular.module('ngform-builder', [
 	'ui.sortable',
 	'ui.validate',
 	'ui.bootstrap',
-	'ui.select',
-	'ngSanitize',
 	"ngform-templates",
 	'ngform-builder.controllers',
 	'ngform-builder.services',
