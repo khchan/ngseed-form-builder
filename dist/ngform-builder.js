@@ -63,7 +63,7 @@ angular.module("partials/directive-templates/field/singleselect.html", []).run([
   $templateCache.put("partials/directive-templates/field/singleselect.html",
     "<ng-form name=sub_form><script type=text/ng-template id=itemTemplate.html><a>\n" +
     "			<span bind-html-unsafe=\"match.model.name || match.model.username | typeaheadHighlight:query\"></span>\n" +
-    "		</a></script><div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span><div class=row-fluid><ui-select ng-model=field.field_value ng-if=field.field_userURL theme=bootstrap dynamic-name=field.field_name ng-required=field.field_required><ui-select-match placeholder={{field.field_placeholder}}>{{$select.selected.name || $select.selected.username}}</ui-select-match><ui-select-choices repeat=\"item.id as item in fetchedItems | filter: $select.search\" refresh=fetchCollection(field) refresh-delay=0><span ng-bind-html=\"item.name || item.username | highlight: $select.search\"></span></ui-select-choices></ui-select><i ng-show=loadingItems class=\"glyphicon glyphicon-refresh\"></i></div><div ng-show=!sub_form.$pristine><span class=\"pull-right required-error\" ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span></div></div></ng-form>");
+    "		</a></script><div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span><div class=row-fluid><ui-select ng-model=field.field_value ng-if=field.field_userURL theme=bootstrap dynamic-name=field.field_name ng-required=field.field_required><ui-select-match placeholder={{field.field_placeholder}}>{{$select.selected.name || $select.selected.username}}</ui-select-match><ui-select-choices repeat=\"item.id as item in fetchedItems track by $index | filter: $select.search\" refresh=fetchCollection(field) refresh-delay=0><span ng-bind-html=\"item.name || item.username | highlight: $select.search\"></span></ui-select-choices></ui-select><i ng-show=loadingItems class=\"glyphicon glyphicon-refresh\"></i></div><div ng-show=!sub_form.$pristine><span class=\"pull-right required-error\" ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span></div></div></ng-form>");
 }]);
 
 angular.module("partials/directive-templates/field/textarea.html", []).run(["$templateCache", function($templateCache) {
@@ -282,7 +282,7 @@ angular.module('directive.field', [])
 
   /** START OF MULTI/SINGLESELECT FUNCTIONS */
   $scope.fetchCollection = function(field) {
-    // $scope.fetchedItems = [
+    // var items = [
     //     {
     //         "roles": [
     //             {
@@ -373,9 +373,14 @@ angular.module('directive.field', [])
     //         "rel": "user",
     //         "href": "http://localhost:1337/api/user/55521bda57ecb67548f1203c"
     //     }
-    // ];    
+    // ];
+    
     return $http.get(field.field_userURL).then(function(response){
-      $scope.fetchedItems = response.data.items;
+      var items = response.data.items;
+      _.remove(items, function(item) {
+        return _.include($scope.field.field_value, item.id);
+      });
+      $scope.fetchedItems = items;      
     }).catch(function(err) {
       $scope.fetchedItems = [];
     });

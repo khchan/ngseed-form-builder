@@ -12,7 +12,7 @@ angular.module('directive.field', [])
 
   /** START OF MULTI/SINGLESELECT FUNCTIONS */
   $scope.fetchCollection = function(field) {
-    // $scope.fetchedItems = [
+    // var items = [
     //     {
     //         "roles": [
     //             {
@@ -103,9 +103,14 @@ angular.module('directive.field', [])
     //         "rel": "user",
     //         "href": "http://localhost:1337/api/user/55521bda57ecb67548f1203c"
     //     }
-    // ];    
+    // ];
+    
     return $http.get(field.field_userURL).then(function(response){
-      $scope.fetchedItems = response.data.items;
+      var items = response.data.items;
+      _.remove(items, function(item) {
+        return _.include($scope.field.field_value, item.id);
+      });
+      $scope.fetchedItems = items;      
     }).catch(function(err) {
       $scope.fetchedItems = [];
     });

@@ -18,7 +18,7 @@
 		    <ui-select-match placeholder="{{field.field_placeholder}}">
 		    	{{$select.selected.name || $select.selected.username}}
 		    </ui-select-match>
-		    <ui-select-choices repeat="item.id as item in fetchedItems | filter: $select.search"
+		    <ui-select-choices repeat="item.id as item in fetchedItems track by $index | filter: $select.search"
 		    	refresh="fetchCollection(field)"
 		    	refresh-delay="0">
 					<span ng-bind-html="item.name || item.username | highlight: $select.search"></span>
