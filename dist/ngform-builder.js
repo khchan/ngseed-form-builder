@@ -41,7 +41,7 @@ angular.module("partials/directive-templates/field/multiselect.html", []).run(["
     "			<span bind-html-unsafe=\"match.model.name || match.model.username | typeaheadHighlight:query\"></span>\n" +
     "			<span ng-if=\"match.model.email\">&nbsp; | &nbsp;</span>\n" +
     "			<span>{{match.model.email}}</span>\n" +
-    "		</a></script><div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span><div class=row-fluid><div class=input-group><ui-select multiple ng-if=field.field_userURL ng-model=field.field_value theme=bootstrap dynamic-name=field.field_name ng-required=field.field_required><ui-select-match placeholder={{field.field_placeholder}}>{{$item.name || $item.username}}</ui-select-match><ui-select-choices repeat=\"item.id as item in fetchedItems | filter: $select.search\" refresh=fetchCollection(field) refresh-delay=0><div ng-bind-html=\"item.name || item.username | highlight: $select.search\"></div></ui-select-choices></ui-select></div><i ng-show=loadingItems class=\"glyphicon glyphicon-refresh\"></i></div><div ng-show=!sub_form.$pristine><span class=\"pull-right required-error\" ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span></div></div></ng-form>");
+    "		</a></script><div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span><div class=row-fluid><button type=button ng-disabled=valuesSelected ng-repeat=\"item in field.field_buffer\" class=\"btn btn-info btn-sm select-item\" ng-if=field.field_buffer ng-click=\"field.field_buffer.splice($index, 1)\"><span class=\"glyphicon glyphicon-remove\"></span> {{item.key}}&nbsp;</button><div class=input-group><input ng-list ng-if=!valuesSelected ng-disabled=!field.field_userURL id={{field.field_id}} ng-model=field.field_value dynamic-name=field.field_name class=form-control typeahead=\"item.id as item.username for item in fetchCollection(field) | filter:$viewValue\" typeahead-loading=loadingItems typeahead-template-url=customTemplate.html typeahead-on-select=selectItem($item) typeahead-editable=false ng-required=field.field_required placeholder={{field.field_placeholder}}> <span class=input-group-btn><button class=\"btn btn-primary pull-right\" ng-click=done()>{{doneStatus}}</button></span></div><i ng-show=loadingItems class=\"glyphicon glyphicon-refresh\"></i></div><div ng-show=!sub_form.$pristine><span class=\"pull-right required-error\" ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span></div></div></ng-form>");
 }]);
 
 angular.module("partials/directive-templates/field/number.html", []).run(["$templateCache", function($templateCache) {
@@ -63,7 +63,7 @@ angular.module("partials/directive-templates/field/singleselect.html", []).run([
   $templateCache.put("partials/directive-templates/field/singleselect.html",
     "<ng-form name=sub_form><script type=text/ng-template id=itemTemplate.html><a>\n" +
     "			<span bind-html-unsafe=\"match.model.name || match.model.username | typeaheadHighlight:query\"></span>\n" +
-    "		</a></script><div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span><div class=row-fluid><ui-select ng-model=field.field_value ng-if=field.field_userURL theme=bootstrap dynamic-name=field.field_name ng-required=field.field_required><ui-select-match placeholder={{field.field_placeholder}}>{{$select.selected.name || $select.selected.username}}</ui-select-match><ui-select-choices repeat=\"item.id as item in fetchedItems track by $index | filter: $select.search\" refresh=fetchCollection(field) refresh-delay=0><span ng-bind-html=\"item.name || item.username | highlight: $select.search\"></span></ui-select-choices></ui-select><i ng-show=loadingItems class=\"glyphicon glyphicon-refresh\"></i></div><div ng-show=!sub_form.$pristine><span class=\"pull-right required-error\" ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span></div></div></ng-form>");
+    "		</a></script><div class=form-group><label for=field.field_id>{{field.field_id}}) {{field.field_title}}</label>&nbsp; <span class=\"glyphicon glyphicon-ok\" ng-show=\"field.field_value && !showValidateError\"></span><div class=row-fluid><button type=button class=\"btn btn-info btn-sm select-item\" ng-if=field.field_value ng-click=cancelItem()><span class=\"glyphicon glyphicon-remove\"></span> {{field.field_view.key}}</button> <input ng-if=!valuesSelected ng-disabled=!field.field_userURL id={{field.field_id}} data-ng-model=field.field_value dynamic-name=field.field_name class=form-control typeahead=\"item.id as item.name for item in fetchCollection(field) | filter:$viewValue\" typeahead-loading=loadingItems typeahead-template-url=itemTemplate.html typeahead-on-select=selectItem($item) typeahead-editable=false ng-required=field.field_required placeholder={{field.field_placeholder}}> <i ng-show=loadingItems class=\"glyphicon glyphicon-refresh\"></i></div><div ng-show=!sub_form.$pristine><span class=\"pull-right required-error\" ng-show=\"field.field_required && !field.field_value\">* {{field.field_helpertext}}</span></div></div></ng-form>");
 }]);
 
 angular.module("partials/directive-templates/field/textarea.html", []).run(["$templateCache", function($templateCache) {
@@ -281,108 +281,74 @@ angular.module('directive.field', [])
 .controller('FieldCtrl', ['$scope', '$http', function ($scope, $http) {
 
   /** START OF MULTI/SINGLESELECT FUNCTIONS */
-  $scope.fetchCollection = function(field) {
-    // var items = [
-    //     {
-    //         "roles": [
-    //             {
-    //                 "name": "admin",
-    //                 "active": true,
-    //                 "createdAt": "2015-05-12T14:30:44.810Z",
-    //                 "updatedAt": "2015-05-12T14:30:44.810Z",
-    //                 "id": "55520e947891f30037a5cf27"
-    //             }
-    //         ],
-    //         "createdBy": "55520e947891f30037a5cf2a",
-    //         "owner": "55520e947891f30037a5cf2a",
-    //         "username": "admin",
-    //         "email": "admin@example.com",
-    //         "createdAt": "2015-05-12T14:30:44.858Z",
-    //         "updatedAt": "2015-05-14T14:32:41.683Z",
-    //         "id": "55520e947891f30037a5cf2a",
-    //         "role": "55520e947891f30037a5cf27",
-    //         "rel": "user",
-    //         "href": "http://localhost:1337/api/user/55520e947891f30037a5cf2a"
-    //     },
-    //     {
-    //         "roles": [
-    //             {
-    //                 "name": "coordinator",
-    //                 "active": true,
-    //                 "createdAt": "2015-05-12T14:30:45.252Z",
-    //                 "updatedAt": "2015-05-12T14:30:45.252Z",
-    //                 "id": "55520e957891f30037a5cf5c"
-    //             }
-    //         ],
-    //         "owner": "55520ed37891f30037a5cf87",
-    //         "username": "coordinator",
-    //         "email": "coord@example.com",
-    //         "createdAt": "2015-05-12T14:31:47.538Z",
-    //         "updatedAt": "2015-05-12T14:31:47.566Z",
-    //         "id": "55520ed37891f30037a5cf87",
-    //         "prefix": "Mr.",
-    //         "firstname": "Coord",
-    //         "lastname": "Inator",
-    //         "role": "55520e957891f30037a5cf5c",
-    //         "rel": "user",
-    //         "href": "http://localhost:1337/api/user/55520ed37891f30037a5cf87"
-    //     },
-    //     {
-    //         "roles": [
-    //             {
-    //                 "name": "subject",
-    //                 "active": true,
-    //                 "createdAt": "2015-05-12T14:30:45.253Z",
-    //                 "updatedAt": "2015-05-12T14:30:45.253Z",
-    //                 "id": "55520e957891f30037a5cf5d"
-    //             }
-    //         ],
-    //         "owner": "555213d9bfea46d437082d56",
-    //         "username": "subject",
-    //         "email": "subject@email.com",
-    //         "createdAt": "2015-05-12T14:53:13.288Z",
-    //         "updatedAt": "2015-05-12T14:53:13.332Z",
-    //         "id": "555213d9bfea46d437082d56",
-    //         "prefix": "Ms.",
-    //         "firstname": "Subj",
-    //         "lastname": "Ect",
-    //         "role": "55520e957891f30037a5cf5d",
-    //         "rel": "user",
-    //         "href": "http://localhost:1337/api/user/555213d9bfea46d437082d56"
-    //     },
-    //     {
-    //         "roles": [
-    //             {
-    //                 "name": "admin",
-    //                 "active": true,
-    //                 "createdAt": "2015-05-12T14:30:44.810Z",
-    //                 "updatedAt": "2015-05-12T14:30:44.810Z",
-    //                 "id": "55520e947891f30037a5cf27"
-    //             }
-    //         ],
-    //         "owner": "55521bda57ecb67548f1203c",
-    //         "username": "johndoe",
-    //         "email": "johndoe@email.com",
-    //         "createdAt": "2015-05-12T15:27:22.005Z",
-    //         "updatedAt": "2015-05-12T15:28:02.101Z",
-    //         "id": "55521bda57ecb67548f1203c",
-    //         "prefix": "Mr.",
-    //         "firstname": "John",
-    //         "lastname": "Doe",
-    //         "role": "55520e947891f30037a5cf27",
-    //         "rel": "user",
-    //         "href": "http://localhost:1337/api/user/55521bda57ecb67548f1203c"
-    //     }
-    // ];
-    
+  $scope.doneStatus = 'Confirm Selection';
+  $scope.field.field_buffer = $scope.field.field_buffer || [];
+
+  if ($scope.field.field_userURL && $scope.field.field_value) {
+    if ($scope.field.field_hasItems) {
+      var copy = $scope.field.field_value;
+      $scope.field.field_value = [];
+      _.each(copy, function (item) {
+        if (item.id && item.username || item.name) {
+          $scope.field.field_buffer.push({
+            key: item.username || item.name,
+            val: item.id
+          });
+        }
+      });  
+    }
+    if ($scope.field.field_hasItem) {
+      $scope.valuesSelected = true;
+      $http.get($scope.field.field_userURL + '/' + $scope.field.field_value)
+        .then(function(resp) {
+          $scope.field.field_view = {
+            key: resp.data.items.name,
+            val: resp.data.items.id
+          };
+        })
+        .catch(function (err) {
+          $scope.field.field_userURL = '';
+          $scope.field.field_value = '';
+        });
+    }    
+  }
+  
+  $scope.selectItem = function(item) {
+    if ($scope.field.field_hasItems) {
+      if (!_.some($scope.field.field_buffer, {'val': item.id})) {
+        $scope.field.field_buffer.push({
+          key: item.username || item.name,
+          val: item.id
+        });
+      }
+      $scope.field.field_value = [];  
+    }
+
+    if ($scope.field.field_hasItem) {
+      $scope.field.field_view = { key: item.name || item.username, val: item.id };
+      $scope.valuesSelected = !$scope.valuesSelected;
+    }    
+  }
+
+  $scope.cancelItem = function() {
+    $scope.field.field_view = {};
+    $scope.field.field_value = '';
+    $scope.valuesSelected = false;
+  }
+
+  $scope.done = function() {
+    $scope.doneStatus = ($scope.valuesSelected) ? 'Confirm Selection' : 'Cancel';
+    if (!$scope.valuesSelected) {
+      $scope.field.field_value = _.pluck($scope.field.field_buffer, 'val');  
+    } else {
+      $scope.field.field_value = [];
+    }    
+    $scope.valuesSelected = !$scope.valuesSelected;
+  }
+
+  $scope.fetchCollection = function(field) {    
     return $http.get(field.field_userURL).then(function(response){
-      var items = response.data.items;
-      _.remove(items, function(item) {
-        return _.include($scope.field.field_value, item.id);
-      });
-      $scope.fetchedItems = items;      
-    }).catch(function(err) {
-      $scope.fetchedItems = [];
+      return response.data.items;  
     });
   }
   /** END OF MULTI/SINGLESELECT FUNCTIONS */

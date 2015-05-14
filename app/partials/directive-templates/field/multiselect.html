@@ -12,22 +12,35 @@
 		</label>&nbsp;
 		<span class="glyphicon glyphicon-ok" ng-show="field.field_value && !showValidateError"></span>
 		<div class="row-fluid">
+			<button type="button" 
+				ng-disabled="valuesSelected"
+				ng-repeat="item in field.field_buffer"
+				class="btn btn-info btn-sm select-item" 
+				ng-if="field.field_buffer" 
+				ng-click="field.field_buffer.splice($index, 1)">
+				<span class="glyphicon glyphicon-remove"></span>
+				{{item.key}}&nbsp;
+			</button>
 			<div class="input-group">
-				<ui-select multiple
-					ng-if="field.field_userURL"
-					ng-model="field.field_value" 
-					theme="bootstrap"
-					dynamic-name="field.field_name"
-					ng-required="field.field_required">
-					<ui-select-match placeholder="{{field.field_placeholder}}">
-						{{$item.name || $item.username}}
-					</ui-select-match>
-					<ui-select-choices repeat="item.id as item in fetchedItems | filter: $select.search"
-						refresh="fetchCollection(field)"
-						refresh-delay="0">
-						<div ng-bind-html="item.name || item.username | highlight: $select.search"></div>
-					</ui-select-choices>
-				</ui-select>
+				<input type="text"
+					ng-list
+					ng-if="!valuesSelected"
+					ng-disabled="!field.field_userURL"
+					id="{{field.field_id}}" 
+					ng-model="field.field_value"
+					dynamic-name="field.field_name" 
+					class="form-control" 
+					typeahead="item.id as item.username for item in fetchCollection(field) | filter:$viewValue" 
+					typeahead-loading="loadingItems"
+					typeahead-template-url="customTemplate.html" 
+					typeahead-on-select="selectItem($item)"
+					typeahead-editable="false"
+					ng-required="field.field_required"
+					placeholder="{{field.field_placeholder}}"
+				>
+				<span class="input-group-btn">
+					<button class="btn btn-primary pull-right" ng-click="done()">{{doneStatus}}</button>
+				</span>
 			</div><!-- /input-group -->			
 
 			<i ng-show="loadingItems" class="glyphicon glyphicon-refresh"></i>
