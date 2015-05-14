@@ -10,7 +10,11 @@
 		</label>&nbsp;
 		<span class="glyphicon glyphicon-ok" ng-show="field.field_value && !showValidateError"></span>
 		<div class="row-fluid">
-		  <ui-select ng-model="field.field_value"	theme="bootstrap">
+		  <ui-select ng-model="field.field_value"	
+		  	ng-if="field.field_userURL"
+		  	theme="bootstrap"
+				dynamic-name="field.field_name"
+				ng-required="field.field_required">
 		    <ui-select-match placeholder="{{field.field_placeholder}}">
 		    	{{$select.selected.name || $select.selected.username}}
 		    </ui-select-match>
