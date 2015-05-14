@@ -11,74 +11,103 @@ angular.module('directive.field', [])
 .controller('FieldCtrl', ['$scope', '$http', function ($scope, $http) {
 
   /** START OF MULTI/SINGLESELECT FUNCTIONS */
-  $scope.doneStatus = 'Confirm Selection';
-  $scope.field.field_buffer = $scope.field.field_buffer || [];
-
-  if ($scope.field.field_userURL && $scope.field.field_value) {
-    if ($scope.field.field_hasItems) {
-      var copy = $scope.field.field_value;
-      $scope.field.field_value = [];
-      _.each(copy, function (item) {
-        if (item.id && item.username || item.name) {
-          $scope.field.field_buffer.push({
-            key: item.username || item.name,
-            val: item.id
-          });
-        }
-      });  
-    }
-    if ($scope.field.field_hasItem) {
-      $scope.valuesSelected = true;
-      $http.get($scope.field.field_userURL + '/' + $scope.field.field_value)
-        .then(function(resp) {
-          $scope.field.field_view = {
-            key: resp.data.items.name,
-            val: resp.data.items.id
-          };
-        })
-        .catch(function (err) {
-          $scope.field.field_userURL = '';
-          $scope.field.field_value = '';
-        });
-    }    
-  }
-  
-  $scope.selectItem = function(item) {
-    if ($scope.field.field_hasItems) {
-      if (!_.some($scope.field.field_buffer, {'val': item.id})) {
-        $scope.field.field_buffer.push({
-          key: item.username || item.name,
-          val: item.id
-        });
-      }
-      $scope.field.field_value = [];  
-    }
-
-    if ($scope.field.field_hasItem) {
-      $scope.field.field_view = { key: item.name, val: item.id };
-      $scope.valuesSelected = !$scope.valuesSelected;
-    }    
-  }
-
-  $scope.cancelItem = function() {
-    $scope.field.field_view = {};
-    $scope.field.field_value = '';
-    $scope.valuesSelected = false;
-  }
-
-  $scope.done = function() {
-    $scope.doneStatus = ($scope.valuesSelected) ? 'Confirm Selection' : 'Cancel';
-    if (!$scope.valuesSelected) {
-      $scope.field.field_value = _.pluck($scope.field.field_buffer, 'val');  
-    } else {
-      $scope.field.field_value = [];
-    }    
-    $scope.valuesSelected = !$scope.valuesSelected;
-  }
-
   $scope.fetchCollection = function(field) {
+    // $scope.fetchedItems = [
+    //     {
+    //         "roles": [
+    //             {
+    //                 "name": "admin",
+    //                 "active": true,
+    //                 "createdAt": "2015-05-12T14:30:44.810Z",
+    //                 "updatedAt": "2015-05-12T14:30:44.810Z",
+    //                 "id": "55520e947891f30037a5cf27"
+    //             }
+    //         ],
+    //         "createdBy": "55520e947891f30037a5cf2a",
+    //         "owner": "55520e947891f30037a5cf2a",
+    //         "username": "admin",
+    //         "email": "admin@example.com",
+    //         "createdAt": "2015-05-12T14:30:44.858Z",
+    //         "updatedAt": "2015-05-14T14:32:41.683Z",
+    //         "id": "55520e947891f30037a5cf2a",
+    //         "role": "55520e947891f30037a5cf27",
+    //         "rel": "user",
+    //         "href": "http://localhost:1337/api/user/55520e947891f30037a5cf2a"
+    //     },
+    //     {
+    //         "roles": [
+    //             {
+    //                 "name": "coordinator",
+    //                 "active": true,
+    //                 "createdAt": "2015-05-12T14:30:45.252Z",
+    //                 "updatedAt": "2015-05-12T14:30:45.252Z",
+    //                 "id": "55520e957891f30037a5cf5c"
+    //             }
+    //         ],
+    //         "owner": "55520ed37891f30037a5cf87",
+    //         "username": "coordinator",
+    //         "email": "coord@example.com",
+    //         "createdAt": "2015-05-12T14:31:47.538Z",
+    //         "updatedAt": "2015-05-12T14:31:47.566Z",
+    //         "id": "55520ed37891f30037a5cf87",
+    //         "prefix": "Mr.",
+    //         "firstname": "Coord",
+    //         "lastname": "Inator",
+    //         "role": "55520e957891f30037a5cf5c",
+    //         "rel": "user",
+    //         "href": "http://localhost:1337/api/user/55520ed37891f30037a5cf87"
+    //     },
+    //     {
+    //         "roles": [
+    //             {
+    //                 "name": "subject",
+    //                 "active": true,
+    //                 "createdAt": "2015-05-12T14:30:45.253Z",
+    //                 "updatedAt": "2015-05-12T14:30:45.253Z",
+    //                 "id": "55520e957891f30037a5cf5d"
+    //             }
+    //         ],
+    //         "owner": "555213d9bfea46d437082d56",
+    //         "username": "subject",
+    //         "email": "subject@email.com",
+    //         "createdAt": "2015-05-12T14:53:13.288Z",
+    //         "updatedAt": "2015-05-12T14:53:13.332Z",
+    //         "id": "555213d9bfea46d437082d56",
+    //         "prefix": "Ms.",
+    //         "firstname": "Subj",
+    //         "lastname": "Ect",
+    //         "role": "55520e957891f30037a5cf5d",
+    //         "rel": "user",
+    //         "href": "http://localhost:1337/api/user/555213d9bfea46d437082d56"
+    //     },
+    //     {
+    //         "roles": [
+    //             {
+    //                 "name": "admin",
+    //                 "active": true,
+    //                 "createdAt": "2015-05-12T14:30:44.810Z",
+    //                 "updatedAt": "2015-05-12T14:30:44.810Z",
+    //                 "id": "55520e947891f30037a5cf27"
+    //             }
+    //         ],
+    //         "owner": "55521bda57ecb67548f1203c",
+    //         "username": "johndoe",
+    //         "email": "johndoe@email.com",
+    //         "createdAt": "2015-05-12T15:27:22.005Z",
+    //         "updatedAt": "2015-05-12T15:28:02.101Z",
+    //         "id": "55521bda57ecb67548f1203c",
+    //         "prefix": "Mr.",
+    //         "firstname": "John",
+    //         "lastname": "Doe",
+    //         "role": "55520e947891f30037a5cf27",
+    //         "rel": "user",
+    //         "href": "http://localhost:1337/api/user/55521bda57ecb67548f1203c"
+    //     }
+    // ];    
     return $http.get(field.field_userURL).then(function(response){
-      return response.data.items;
+      $scope.fetchedItems = response.data.items;
+    }).catch(function(err) {
+      $scope.fetchedItems = [];
     });
   }
   /** END OF MULTI/SINGLESELECT FUNCTIONS */
